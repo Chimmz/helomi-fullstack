@@ -1,0 +1,16 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "Chat application with the MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Chima25@bitbucket.org/eul_comp/chat-application-with-audio-video-call.git"
+  },
+  "author": "Chimarokem Divine Orji",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/eul_comp/chat-application-with-audio-video-call#readme"
+}
