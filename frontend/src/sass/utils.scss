@@ -1,0 +1,18 @@
+.pic {
+   border-radius: 50% !important;
+
+   &--sm {
+      width: 5rem !important;
+      height: 5rem !important;
+   }
+   &--xsm {
+      width: 3rem !important;
+      height: 3rem !important;
+   }
+}
+.remove-bullets {
+   list-style: none !important;
+}
+.u-mg-bottom-md {
+   margin-bottom: 1.5rem;
+}

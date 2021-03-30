@@ -1,0 +1,40 @@
+@import '../sass/variables';
+@import '../sass//mixins.scss';
+
+.chatting-section__header {
+   height: 9.5vh;
+   padding: 0 0rem 0 2rem;
+   display: flex;
+   align-items: center;
+   background-color: $color-primary-darkest;
+
+   &__userdetails {
+      display: flex;
+      align-items: center;
+      margin-right: 4rem;
+   }
+   &__nav {
+      flex: 1;
+      display: flex;
+
+      & .icon {
+         color: $color-primary-light;
+         margin-right: 2.5rem;
+         cursor: pointer;
+         @include icon-inset-shadow($color-black);
+
+         &:last-child {
+            margin-left: auto;
+         }
+      }
+   }
+   &__userphoto {
+      margin-right: 1.4rem;
+   }
+   &__username {
+      color: $color-white;
+      font-size: 2rem;
+      letter-spacing: 0.2px;
+      font-family: 'Poppins', 'sans-serif';
+   }
+}

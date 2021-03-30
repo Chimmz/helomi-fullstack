@@ -1,7 +1,15 @@
 import React from 'react';
+import Navbar from './components/layout/Navbar';
+import AppBody from './components/layout/AppBody';
+import './App.scss';
 
 function App() {
-   return <div>Ready to start development!</div>;
+   return (
+      <>
+         <Navbar />
+         <AppBody />
+      </>
+   );
 }
 
 export default App;

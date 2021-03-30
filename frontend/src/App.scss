@@ -1,0 +1,43 @@
+@import './sass/variables';
+@import './sass/utils';
+*,
+*::before,
+*::after {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+html {
+   font-size: 62.5%;
+}
+body {
+   min-height: 100vh;
+   font-size: 1rem;
+   font-family: 'Roboto', sans-serif;
+}
+
+#root {
+   display: flex;
+   flex-direction: column;
+   // overflow: hidden;
+}
+
+// Still 'main'
+main.app-body {
+   flex: 1;
+   display: flex;
+}
+
+// Typography
+.heading {
+   font-family: 'Poppins', sans-serif;
+   color: $color-gray-darkest;
+   &-primary {
+      font-size: 3rem;
+      font-weight: 400;
+   }
+   &-secondary {
+      font-size: 2rem;
+      font-weight: 400;
+   }
+}
