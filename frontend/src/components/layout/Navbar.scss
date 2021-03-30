@@ -1,0 +1,60 @@
+@import '../../sass/variables.scss';
+@import '../../sass/mixins.scss';
+
+.navbar {
+   height: 10vh;
+   display: flex;
+   justify-content: space-between;
+   background-color: $color-white;
+   padding: 0 7rem;
+
+   &__logo {
+      align-self: center;
+   }
+   &__links {
+      display: flex;
+      align-items: center;
+   }
+   &__link {
+      height: 95%;
+      @include flex-center;
+      flex-direction: column;
+      padding: 0 2rem;
+      border-radius: 1rem;
+
+      &__icon {
+         color: #afa1a1;
+         font-size: 1.7rem;
+         margin-bottom: 0.5rem;
+      }
+      &__label {
+         font-size: 1.5rem;
+         color: $color-gray-dark;
+         letter-spacing: 0.2px;
+         font-weight: 300;
+      }
+
+      &:not(:last-child) {
+         margin-right: 7rem;
+      }
+      &:hover {
+         cursor: pointer;
+         background: $color-gray-lighter;
+
+         & > * {
+            color: $color-primary;
+         }
+      }
+
+      &--active {
+         background: $soft-blue;
+
+         &:hover {
+            background: $soft-blue !important;
+         }
+         & > * {
+            color: $color-primary;
+         }
+      }
+   }
+}

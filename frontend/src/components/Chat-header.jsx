@@ -1,5 +1,6 @@
 import React from 'react';
 import './Chat-header.scss';
+import './Icon.scss';
 
 function ChatHeader() {
    return (

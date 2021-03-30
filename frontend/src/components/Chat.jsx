@@ -25,6 +25,97 @@ function Chat() {
             </div>
             <span class="chat__time">2:35 PM</span>
          </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
+         <li class="chat chat--has-unread-messages">
+            <img
+               src="img/realtor-3.jpeg"
+               alt=""
+               class="chat__photo pic pic--sm"
+            />
+            <div class="chat__info">
+               <span class="chat__name">Joe Wilson</span>
+               <span class="chat__lastmessage">Hey, where did you go?</span>
+            </div>
+            <span class="chat__time">2:35 PM</span>
+            <span class="unread-messages-count">3</span>
+         </li>
       </>
    );
 }

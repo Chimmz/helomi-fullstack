@@ -1,0 +1,57 @@
+@import '../sass/variables';
+
+.textmsg {
+   font-size: 1em;
+   max-width: 55ch;
+   background-color: $color-white;
+   padding: 0.5rem 1.2rem 0 1.2rem;
+   border-radius: 1rem;
+   margin-bottom: 0.5rem;
+   display: flex;
+   flex-direction: column;
+   position: relative;
+
+   &__content {
+      font-size: 1.11em;
+      font-weight: 400;
+   }
+   &__time {
+      width: max-content;
+      align-self: flex-end;
+      padding-bottom: 0.2rem;
+      color: $color-gray-dark;
+   }
+   &__sender-name {
+      position: absolute;
+      top: -1.5rem;
+      left: 0rem;
+      font-weight: bold;
+      color: $color-gray-darkest;
+   }
+
+   &--incoming {
+      color: $color-gray-darkest;
+      border-top-left-radius: 0;
+   }
+   &--outgoing {
+      margin-left: auto;
+      background: $color-primary;
+      color: $color-white;
+      border-bottom-right-radius: 0;
+
+      & .textmsg__time {
+         color: rgba($color-white, 0.8);
+      }
+   }
+   &--not-sent {
+      background: $color-primary-lighter;
+
+      & .textmsg__err-msg {
+         position: absolute;
+         right: 0;
+         bottom: -1.5rem;
+         color: $color-black;
+         color: $color-red;
+      }
+   }
+}
