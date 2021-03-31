@@ -3,9 +3,12 @@
 
 .navbar {
    height: 10vh;
+   grid-column: 1 / -1;
+   grid-row: 1;
+
    display: flex;
    justify-content: space-between;
-   background-color: $color-white;
+   // background-color: $color-white;
    padding: 0 7rem;
 
    &__logo {

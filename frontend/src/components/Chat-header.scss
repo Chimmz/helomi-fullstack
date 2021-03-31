@@ -18,7 +18,7 @@
       display: flex;
 
       & .icon {
-         color: $color-primary-light;
+         color: $color-primary-lighter;
          margin-right: 2.5rem;
          cursor: pointer;
          @include icon-inset-shadow($color-black);

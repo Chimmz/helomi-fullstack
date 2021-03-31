@@ -4,26 +4,26 @@ import './Icon.scss';
 
 function ChatHeader() {
    return (
-      <div class="chatting-section__header">
-         <div class="chatting-section__header__userdetails">
+      <div className="chatting-section__header">
+         <div className="chatting-section__header__userdetails">
             <img
-               src="img/face3.jpg"
+               src="https://media.images.yourquote.in/post/large/0/0/13/395/4Vo98140.jpg"
                alt=""
-               class="chatting-section__header__userphoto pic pic--sm"
+               className="chatting-section__header__userphoto pic pic--sm"
             />
-            <span class="chatting-section__header__username">
+            <span className="chatting-section__header__username">
                Rachel Richard
             </span>
          </div>
-         <div class="chatting-section__header__nav">
-            <div class="icon icon--md">
-               <i class="fas fa-phone-alt"></i>
+         <div className="chatting-section__header__nav">
+            <div className="icon icon--md">
+               <i className="fas fa-phone-alt"></i>
             </div>
-            <div class="icon icon--md">
-               <i class="fas fa-video"></i>
+            <div className="icon icon--md">
+               <i className="fas fa-video"></i>
             </div>
-            <div class="icon icon--md">
-               <i class="fas fa-caret-down"></i>
+            <div className="icon icon--md">
+               <i className="fas fa-caret-down"></i>
             </div>
          </div>
       </div>

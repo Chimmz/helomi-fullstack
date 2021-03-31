@@ -2,7 +2,9 @@
 @import '../../sass/mixins';
 
 .allchats {
-   flex: 0 0 25%;
+   grid-row: 2 / span 1;
+   grid-column: 1 / span 2;
+
    height: 90vh;
    background-color: $color-primary;
 

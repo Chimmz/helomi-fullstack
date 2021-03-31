@@ -4,9 +4,9 @@ import './ChatList.scss';
 
 function ChatList() {
    return (
-      <ul class="allchats__chatlist remove-bullets">
+      <div className="allchats__chatlist remove-bullets">
          <Chat />
-      </ul>
+      </div>
    );
 }
 export default ChatList;

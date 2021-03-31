@@ -5,12 +5,12 @@ import './Icon.scss';
 
 function ChatFooter() {
    return (
-      <div class="chatting-section__footer">
-         <div class="icon">
-            <i class="fas fa-file-invoice"></i>
+      <div className="chatting-section__footer">
+         <div className="icon">
+            <i className="fas fa-file-invoice"></i>
          </div>
-         <div class="icon">
-            <i class="far fa-laugh"></i>
+         <div className="icon">
+            <i className="far fa-laugh"></i>
          </div>
          <NewMsgForm />
       </div>

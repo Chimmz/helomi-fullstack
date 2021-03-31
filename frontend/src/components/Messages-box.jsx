@@ -4,7 +4,7 @@ import Textmsg from './Textmsg';
 
 function MessagesBox() {
    return (
-      <div class="chatting-section__messages-box">
+      <div className="chatting-section__messages-box">
          <Textmsg />
       </div>
    );

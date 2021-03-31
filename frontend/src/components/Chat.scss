@@ -33,12 +33,11 @@
       right: 1rem;
       align-self: flex-start;
       font-size: 1.2rem;
-      color: $color-black;
    }
    &:hover {
       // background-color: rgba($color-primary-darkest, 0.8);
       background-color: $color-primary-darkest;
-      color: rgba($color-white, 0.6);
+      color: rgba($color-white, 0.8);
    }
 
    &--has-unread-messages {
@@ -68,7 +67,9 @@
    &--active,
    &--active:hover {
       background-color: $color-primary-lighter;
-      // color: rgba($color-white, 0.8);
       color: $color-black;
+      // color: rgba($color-white, 0.8);
+      background-color: $color-primary-darkest;
+      color: rgba($color-white, 0.8);
    }
 }

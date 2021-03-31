@@ -5,7 +5,7 @@ import './Sidenav.scss';
 
 function Sidenav() {
    return (
-      <div class="allchats">
+      <div className="allchats">
          <SidenavSearch />
          <ChatList />
       </div>

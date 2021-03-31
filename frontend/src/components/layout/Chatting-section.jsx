@@ -6,7 +6,7 @@ import './Chatting-section.scss';
 
 function ChattingSection() {
    return (
-      <div class="chatting-section">
+      <div className="chatting-section">
          <ChatHeader />
          <MessagesBox />
          <ChatFooter />

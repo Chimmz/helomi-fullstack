@@ -5,17 +5,17 @@ import '../Icon.scss';
 
 function NewMsgForm() {
    return (
-      <form action="" class="new-msg">
-         <div class="new-msg__group">
+      <form action="" className="new-msg">
+         <div className="new-msg__group">
             <input
                type="text"
-               class="textfield textfield--message new-msg__input"
+               className="textfield textfield--message new-msg__input"
                placeholder="Type a message"
             />
-            <div class="icon">&times;</div>
+            <div className="icon">&times;</div>
          </div>
-         <div class="icon">
-            <i class="fas fa-paper-plane"></i>
+         <div className="icon">
+            <i className="fas fa-paper-plane"></i>
          </div>
       </form>
    );

@@ -1,121 +1,41 @@
 import React from 'react';
+import { NavLink, Link } from 'react-router-dom';
+
 import './Chat.scss';
 
 function Chat() {
    return (
       <>
-         <li class="chat chat--has-unread-messages">
+         <NavLink to="/chat/1" className="chat " activeClassName="chat--active">
             <img
                src="img/realtor-3.jpeg"
                alt=""
-               class="chat__photo pic pic--sm"
+               className="chat__photo pic pic--sm"
             />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
+            <div className="chat__info">
+               <span className="chat__name">Joe Wilson</span>
+               <span className="chat__lastmessage">Hey, where did you go?</span>
             </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--active">
-            <img src="img/face3.jpg" alt="" class="chat__photo pic pic--sm" />
-            <div class="chat__info">
-               <span class="chat__name">Rachel Richard</span>
-               <span class="chat__lastmessage">Hi, how have you been??</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
+            <span className="chat__time">2:35 PM</span>
+         </NavLink>
+
+         <NavLink
+            to="/chat/2"
+            className="chat chat--has-unread-messages"
+            activeClassName="chat--active"
+         >
             <img
                src="img/realtor-3.jpeg"
                alt=""
-               class="chat__photo pic pic--sm"
+               className="chat__photo pic pic--sm"
             />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
+            <div className="chat__info">
+               <span className="chat__name">Rachel Richard</span>
+               <span className="chat__lastmessage">Hey, where did you go?</span>
             </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
-            <img
-               src="img/realtor-3.jpeg"
-               alt=""
-               class="chat__photo pic pic--sm"
-            />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
-            <img
-               src="img/realtor-3.jpeg"
-               alt=""
-               class="chat__photo pic pic--sm"
-            />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
-            <img
-               src="img/realtor-3.jpeg"
-               alt=""
-               class="chat__photo pic pic--sm"
-            />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
-            <img
-               src="img/realtor-3.jpeg"
-               alt=""
-               class="chat__photo pic pic--sm"
-            />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
-            <img
-               src="img/realtor-3.jpeg"
-               alt=""
-               class="chat__photo pic pic--sm"
-            />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
-         <li class="chat chat--has-unread-messages">
-            <img
-               src="img/realtor-3.jpeg"
-               alt=""
-               class="chat__photo pic pic--sm"
-            />
-            <div class="chat__info">
-               <span class="chat__name">Joe Wilson</span>
-               <span class="chat__lastmessage">Hey, where did you go?</span>
-            </div>
-            <span class="chat__time">2:35 PM</span>
-            <span class="unread-messages-count">3</span>
-         </li>
+            <span className="unread-messages-count">3</span>
+            <span className="chat__time">2:35 PM</span>
+         </NavLink>
       </>
    );
 }

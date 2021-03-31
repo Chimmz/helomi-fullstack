@@ -14,6 +14,7 @@
       background: rgba($color-white, 0.2);
       border-radius: 1000rem;
       position: relative;
+      z-index: 3;
 
       &-icon {
          position: absolute;
@@ -21,6 +22,7 @@
          color: $color-white;
          opacity: 0.5;
          font-size: 1.5rem;
+         z-index: 3;
          transition: all 0.5s;
       }
       &-field {
@@ -33,6 +35,7 @@
          font-weight: 300;
          font-size: 1.35rem;
          color: $color-white;
+         z-index: 3;
          transition: all 0.2s 0.3s;
 
          &::-webkit-input-placeholder {
@@ -44,6 +47,31 @@
 
             & + .allchats__search-icon {
                left: 2rem;
+            }
+         }
+      }
+
+      &__results {
+         background: $color-white;
+         position: absolute;
+         top: 105%;
+         left: 0;
+         width: 100%;
+         border-radius: 0.7rem;
+         z-index: 1;
+         font-size: 1.4rem;
+         padding: 0.3rem;
+
+         &__result {
+            padding: 1rem 1.5rem;
+            @include flex-center;
+            justify-content: flex-start;
+            border-radius: 5px;
+            color: $color-gray-darkest;
+            cursor: pointer;
+
+            &:hover {
+               background: $color-gray-light;
             }
          }
       }

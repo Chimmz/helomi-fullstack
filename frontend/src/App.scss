@@ -1,5 +1,6 @@
 @import './sass/variables';
 @import './sass/utils';
+
 *,
 *::before,
 *::after {
@@ -12,20 +13,22 @@ html {
 }
 body {
    min-height: 100vh;
+   // max-height: 100vh;
    font-size: 1rem;
    font-family: 'Roboto', sans-serif;
 }
 
 #root {
-   display: flex;
-   flex-direction: column;
-   // overflow: hidden;
-}
+   width: 100%;
+   min-height: 100vh;
+   max-height: 100vh;
 
-// Still 'main'
-main.app-body {
-   flex: 1;
-   display: flex;
+   display: grid;
+   grid-template-columns: repeat(8, 1fr);
+   grid-template-rows: 10vh 90vh;
+
+   font-size: 1rem;
+   font-family: 'Roboto', sans-serif;
 }
 
 // Typography
@@ -40,4 +43,9 @@ main.app-body {
       font-size: 2rem;
       font-weight: 400;
    }
+}
+
+a {
+   text-decoration: none;
+   color: inherit;
 }

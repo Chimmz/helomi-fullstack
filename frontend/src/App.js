@@ -1,15 +1,18 @@
 import React from 'react';
-import {} from 
+import { Route } from 'react-router-dom';
 
 import Navbar from './components/layout/Navbar';
-import AppBody from './components/layout/AppBody';
+import ChattingSection from './components/layout/Chatting-section';
+import Sidenav from './components/layout/Sidenav';
+
 import './App.scss';
 
 function App() {
    return (
       <>
          <Navbar />
-         <AppBody />
+         <Sidenav />
+         <Route exact path="/chat/:id" component={ChattingSection} />
       </>
    );
 }
