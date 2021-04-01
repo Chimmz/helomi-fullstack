@@ -1,12 +1,22 @@
 import React from 'react';
-import './Messages-box.scss';
-import Textmsg from './Textmsg';
+import { connect } from 'react-redux';
 
-function MessagesBox() {
+import Textmsg from './Textmsg';
+import './Messages-box.scss';
+
+function MessagesBox({ messages }) {
+   console.log('ALL MSGS', messages);
+
    return (
       <div className="chatting-section__messages-box">
-         <Textmsg />
+         {messages.map(msg => (
+            <Textmsg key={msg} msg={msg} />
+         ))}
       </div>
    );
 }
-export default MessagesBox;
+const mapStateToProps = state => ({
+   messages: state.msg.messages
+});
+
+export default connect(mapStateToProps)(MessagesBox);

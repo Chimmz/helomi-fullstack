@@ -1,20 +1,39 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import RateReviewIcon from '@material-ui/icons/RateReview';
+import PersonIcon from '@material-ui/icons/Person';
+import SettingsIcon from '@material-ui/icons/Settings';
+
 import './Navbar.scss';
 
 function Navbar() {
    const navlinks = [
       {
          label: 'Posts',
-         icon: <i className="fas fa-mail-bulk navbar__link__icon"></i>
+         icon: (
+            <RateReviewIcon
+               className="navbar__link__icon"
+               style={{ fontSize: '2rem' }}
+            />
+         )
       },
       {
          label: 'My profile',
-         icon: <i className="fas fa-user-alt navbar__link__icon"></i>
+         icon: (
+            <PersonIcon
+               className="navbar__link__icon"
+               style={{ fontSize: '2.2rem' }}
+            />
+         )
       },
       {
          label: 'Settings',
-         icon: <i className="fas fa-cog navbar__link__icon"></i>
+         icon: (
+            <SettingsIcon
+               className="navbar__link__icon"
+               style={{ fontSize: '2rem' }}
+            />
+         )
       }
    ];
    return (

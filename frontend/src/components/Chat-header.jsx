@@ -1,4 +1,8 @@
 import React from 'react';
+import CallIcon from '@material-ui/icons/Call';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
 import './Chat-header.scss';
 import './Icon.scss';
 
@@ -16,15 +20,18 @@ function ChatHeader() {
             </span>
          </div>
          <div className="chatting-section__header__nav">
-            <div className="icon icon--md">
-               <i className="fas fa-phone-alt"></i>
-            </div>
-            <div className="icon icon--md">
-               <i className="fas fa-video"></i>
-            </div>
-            <div className="icon icon--md">
-               <i className="fas fa-caret-down"></i>
-            </div>
+            <CallIcon
+               className="chatting-section__header__icon"
+               style={{ fontSize: '2.2rem' }}
+            />
+            <VideocamIcon
+               className="chatting-section__header__icon"
+               style={{ fontSize: '2.2rem' }}
+            />
+            <MoreVertIcon
+               className="chatting-section__header__icon"
+               style={{ fontSize: '2.2rem' }}
+            />
          </div>
       </div>
    );

@@ -16,16 +16,19 @@
    &__nav {
       flex: 1;
       display: flex;
+   }
+   &__icon {
+      color: $color-primary-lighter;
+      margin-right: 2.5rem;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: all 1s;
 
-      & .icon {
-         color: $color-primary-lighter;
-         margin-right: 2.5rem;
-         cursor: pointer;
-         @include icon-inset-shadow($color-black);
-
-         &:last-child {
-            margin-left: auto;
-         }
+      &:last-child {
+         margin-left: auto;
+      }
+      &:hover {
+         color: $color-white;
       }
    }
    &__userphoto {

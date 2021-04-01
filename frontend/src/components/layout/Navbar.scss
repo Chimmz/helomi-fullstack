@@ -24,15 +24,14 @@
       flex-direction: column;
       padding: 0 2rem;
       border-radius: 1rem;
+      color: $color-gray-dark;
 
       &__icon {
-         color: #afa1a1;
-         font-size: 1.7rem;
-         margin-bottom: 0.5rem;
+         font-size: 4rem;
+         margin-bottom: 0.2rem;
       }
       &__label {
          font-size: 1.5rem;
-         color: $color-gray-dark;
          letter-spacing: 0.2px;
          font-weight: 300;
       }

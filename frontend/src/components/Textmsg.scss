@@ -2,9 +2,9 @@
 
 .textmsg {
    font-size: 1em;
-   max-width: 55ch;
+   width: max-content;
+   max-width: 60ch;
    background-color: $color-white;
-   padding: 0.5rem 1.2rem 0 1.2rem;
    border-radius: 1rem;
    margin-bottom: 0.5rem;
    display: flex;
@@ -12,14 +12,18 @@
    position: relative;
 
    &__content {
+      padding: 0.5rem 1.5rem;
+      padding-bottom: 0;
       font-size: 1.11em;
       font-weight: 400;
    }
    &__time {
       width: max-content;
       align-self: flex-end;
-      padding-bottom: 0.2rem;
       color: $color-gray-dark;
+      font-size: 0.9em;
+      letter-spacing: 0.5px;
+      margin: 3px 1.5rem 3px 0;
    }
    &__sender-name {
       position: absolute;
@@ -31,13 +35,13 @@
 
    &--incoming {
       color: $color-gray-darkest;
-      border-top-left-radius: 0;
+      border-top-left-radius: 0.2rem;
    }
    &--outgoing {
       margin-left: auto;
       background: $color-primary;
       color: $color-white;
-      border-bottom-right-radius: 0;
+      border-bottom-right-radius: 0.2rem;
 
       & .textmsg__time {
          color: rgba($color-white, 0.8);
