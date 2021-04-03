@@ -1,20 +1,21 @@
 {
-  "name": "chatapp-backend",
-  "version": "1.0.0",
-  "description": "The backend of my chat application",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "Chimarokem Divine Orji",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.12.2",
-    "socket.io": "^4.0.0"
-  }
+   "name": "chatapp-backend",
+   "version": "1.0.0",
+   "description": "The backend of my chat application",
+   "main": "server.js",
+   "scripts": {
+      "server": "nodemon server.js"
+   },
+   "author": "Chimarokem Divine Orji",
+   "license": "ISC",
+   "devDependencies": {
+      "nodemon": "^2.0.7"
+   },
+   "dependencies": {
+      "dotenv": "^8.2.0",
+      "express": "^4.17.1",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.12.2",
+      "socket.io": "^4.0.0"
+   }
 }
