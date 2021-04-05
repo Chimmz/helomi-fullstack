@@ -21,6 +21,10 @@ mongoose
    .then(() => console.log('Database connection successful'))
    .catch(err => console.log('Error in connecting to database', err));
 
+io.on('connect', socket => {
+   socket.emit('user-joined');
+});
+
 server.listen(port, function () {
    console.log(`Server listens on port ${port}`);
 });
