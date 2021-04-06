@@ -1,0 +1,11 @@
+.btn {
+   border: none;
+   font-family: inherit;
+
+   &:hover,
+   &:active,
+   &:focus {
+      outline: none;
+      cursor: pointer;
+   }
+}

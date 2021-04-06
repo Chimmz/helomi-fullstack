@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -38,7 +38,9 @@ function Navbar() {
    ];
    return (
       <nav className="navbar">
-         <img src="img/helomi-logox2.png" alt="" className="navbar__logo" />
+         <Link to="/">
+            <img src="img/helomi-logox2.png" alt="" className="navbar__logo" />{' '}
+         </Link>
 
          <div className="navbar__links remove-bullets">
             {navlinks.map(({ label, icon }) => (

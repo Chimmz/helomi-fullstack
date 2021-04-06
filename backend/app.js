@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const userRouter = require('./routes/userRouter');
 const AppError = require('./utils/AppError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -6,6 +7,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use('/users', userRouter);
 
 app.all('*', (req, res, next) => {
@@ -14,10 +16,5 @@ app.all('*', (req, res, next) => {
    );
 });
 app.use(globalErrorHandler);
-// app.set('view engine', 'ejs');
-
-// app.get('/home', (req, res) => {
-//    res.render('chat', { name: 'Chima' });
-// });
 
 module.exports = app;

@@ -1,22 +1,34 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 import store from './redux/store';
-import { getAllMsgs } from './redux/msg/msg.actions.creators';
 
 import Navbar from './components/layout/Navbar';
 import ChattingSection from './components/layout/Chatting-section';
 import Sidenav from './components/layout/Sidenav';
+import Signup from './components/pages/Signup';
+import Login from './components/pages/Login';
 import './App.scss';
 
-function App() {
+function ReplaceLater() {
+   return (
+      <div style={{ width: '100%', height: '100%', background: 'gray' }}></div>
+   );
+}
+
+function App(props) {
+   // console.log(props);
    return (
       <>
          <Navbar />
-         <Sidenav />
+         <Route exact path="/login" component={Login} />
+         <Route exact path="/signup" component={Signup} />
+
+         <Route exact path="/chat" component={Sidenav} />
+         {/* <Route exact path="/chat" component={ReplaceLater} /> */}
          <Route exact path="/chat/:id" component={ChattingSection} />
       </>
    );
 }
 
-export default App;
+export default withRouter(App);
