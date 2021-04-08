@@ -5,12 +5,10 @@ import Textmsg from './Textmsg';
 import './Messages-box.scss';
 
 function MessagesBox({ messages }) {
-   console.log('ALL MSGS', messages);
-
    return (
       <div className="chatting-section__messages-box">
          {messages.map(msg => (
-            <Textmsg key={msg} msg={msg} />
+            <Textmsg key={msg + Math.random()} msg={msg} />
          ))}
       </div>
    );

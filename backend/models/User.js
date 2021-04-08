@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
       select: false
    },
    photo: { type: String },
-   Friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 userSchema.pre('save', async function (next) {

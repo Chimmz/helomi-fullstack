@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectUser } from '../../redux/user/user.selectors';
+
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import './Navbar.scss';
 
-function Navbar() {
-   const navlinks = [
+function Navbar({ user }) {
+   const authlinks = [
       {
          label: 'Posts',
          icon: (
@@ -43,19 +48,23 @@ function Navbar() {
          </Link>
 
          <div className="navbar__links remove-bullets">
-            {navlinks.map(({ label, icon }) => (
-               <NavLink
-                  key={label}
-                  to={`/${label.toLowerCase().split(' ').join('-')}`}
-                  className="navbar__link"
-                  activeClassName="navbar__link--active"
-               >
-                  {icon}
-                  <span className="navbar__link__label">{label}</span>
-               </NavLink>
-            ))}
+            {user.isLoggedIn &&
+               authlinks.map(({ label, icon }) => (
+                  <NavLink
+                     key={label}
+                     to={`/${label.toLowerCase().split(' ').join('-')}`}
+                     className="navbar__link"
+                     activeClassName="navbar__link--active"
+                  >
+                     {icon}
+                     <span className="navbar__link__label">{label}</span>
+                  </NavLink>
+               ))}
          </div>
       </nav>
    );
 }
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+   user: selectUser
+});
+export default connect(mapStateToProps)(Navbar);

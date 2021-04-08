@@ -6,6 +6,7 @@
    height: 90vh;
    background-color: $color-primary;
    padding: 4rem 0;
+   z-index: 5;
 
    &__heading {
       font-family: 'Poppins', sans-serif;

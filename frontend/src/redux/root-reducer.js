@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import msgReducer from './msg/msg.reducer';
 import userReducer from './user/user.reducer';
+import msgReducer from './msg/msg.reducer';
+import alertReducer from './alert/alert.reducer';
 
 export default combineReducers({
    msg: msgReducer,
-   user: userReducer
+   user: userReducer,
+   alert: alertReducer
 });
