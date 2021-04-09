@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -23,11 +23,14 @@ function ReplaceLater() {
    return <div className="default-img"></div>;
 }
 
-store.dispatch({ type: LOAD_USER });
-
 function App({ alerts, user }) {
+   // if (!user.isLoggedIn) store.dispatch({ type: LOAD_USER });
+   // const socket = useRef();
+
    useEffect(() => {
-      const socket = io('http://localhost:5000');
+      const socket = io.connect('/');
+      console.log(socket);
+      socket.on('test-event', () => alert('Hey bro'));
    }, []);
    return (
       <>

@@ -12,6 +12,7 @@ const DB_STR = process.env.DATABASE_URI.replace(
    '<password>',
    process.env.DATABASE_PASSWORD
 );
+// mongodb://localhost:27017/Helomi
 mongoose
    .connect(DB_STR, {
       useNewUrlParser: true,
@@ -22,7 +23,8 @@ mongoose
    .catch(err => console.log('Error in connecting to database', err));
 
 io.on('connect', socket => {
-   socket.emit('user-joined');
+   console.log('New user connection');
+   socket.emit('test-event');
 });
 
 server.listen(port, function () {

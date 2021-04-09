@@ -16,7 +16,8 @@ exports.signup = catchAsyncError(async function (req, res, next) {
    const newUser = await User.create({ username, email, password });
    return res.status(201).json({
       status: 'success',
-      data: { user: newUser, token: createToken(newUser._id) }
+      data: { user: newUser },
+      token: createToken(newUser._id)
    });
 });
 
@@ -31,39 +32,31 @@ exports.login = catchAsyncError(async function (req, res, next) {
 
    return res.status(200).json({
       status: 'success',
-      data: {
-         user,
-         token: createToken(user._id)
-      }
+      data: { user },
+      token: createToken(user._id)
    });
 });
 
 exports.protect = catchAsyncError(async function (req, res, next) {
    let token =
-      req.headers.auth &&
-      req.headers.auth.startsWith('Bearer') &&
-      req.headers.auth.split(' ')[1];
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer') &&
+      req.headers.authorization.split(' ')[1];
 
-   console.log(token);
    if (!token) {
       return next(
          new AppError('Authentication failed. Login to get access', 401)
       );
    }
-   const decoded = await new Promise((resolve, reject) =>
+   const decoded = await new Promise((resolve, _) =>
       resolve(jwt.decode(token, process.env.JWT_PRIVATE_KEY))
    );
    if (!decoded || !decoded.id)
       next(new AppError('Authentication failed. Login to get access', 401));
+
    const user = await User.findById(decoded.id);
-   console.log('REQ.USER', user);
+   // console.log('REQ.USER', user);
    if (!user) return next(new AppError('User no longer exists', 401));
    req.user = user;
    next();
 });
-
-// exports.test = catchAsyncError(async function (req, res, next) {
-//    return res.status(200).json({
-//       status: 'You got access'
-//    });
-// });

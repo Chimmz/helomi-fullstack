@@ -4,6 +4,7 @@ const AppError = require('./utils/AppError');
 const globalErrorHandler = require('./controllers/errorController');
 const userRouter = require('./routes/userRouter');
 const friendRouter = require('./routes/friendRouter');
+const privateMsgRouter = require('./routes/privateMsgRouter');
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use('/users', userRouter);
 app.use('/friends', friendRouter);
+app.use('/privatemsg', privateMsgRouter);
 
 app.all('*', (req, res, next) => {
    next(

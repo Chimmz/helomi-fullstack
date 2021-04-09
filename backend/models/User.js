@@ -31,6 +31,14 @@ userSchema.pre('save', async function (next) {
    return next();
 });
 
+userSchema.pre(/^find/, function (next) {
+   this.populate({
+      path: 'friends',
+      select: '-__v -friends'
+   });
+   next();
+});
+
 userSchema.methods.checkPasswordMatch = async function (userPwd, pwdText) {
    return await bcrypt.compare(pwdText, userPwd); // Args must be in this order
 };
