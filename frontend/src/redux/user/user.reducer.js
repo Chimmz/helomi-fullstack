@@ -1,5 +1,5 @@
 // prettier-ignore
-import { SET_USER, LOAD_USER, AUTH_ERROR, RESET_USER } from './user.actions.type';
+import { SET_USER, LOAD_USER, AUTH_ERROR, RESET_USER, LOGOUT_USER } from './user.actions.type';
 
 const INITIAL_STATE = {
    currentUser: null,
@@ -17,7 +17,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             ...state,
             currentUser: JSON.parse(localStorage.getItem('HELOMI_USER')) || null,
             token: tokenInStorage,
-            isLoggedIn: tokenInStorage && true
+            isLoggedIn: tokenInStorage ? true : false
          };
 
       case SET_USER:
@@ -29,6 +29,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
 
       case AUTH_ERROR:
       case RESET_USER:
+      case LOGOUT_USER:
          localStorage.removeItem('HELOMI_USER');
          localStorage.removeItem('HELOMI_USER_TOKEN');
          return {

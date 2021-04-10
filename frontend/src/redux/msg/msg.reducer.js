@@ -1,44 +1,19 @@
 import { GET_MSGS } from './msg.action.types';
 
 const initialState = {
-   messages: [
-      {
-         text: 'Hello bro. I greet you oo',
-         time: '2:32PM',
-         direction: 'outgoing'
-      },
-      {
-         text:
-            'Hello bro. I greet you oo. Hello bro. I greet you oo. Hello bro. I greet you oo. Hello bro. I greet you oo  you oo. Hello',
-         time: '2:32PM',
-         direction: 'incoming'
-      },
-      {
-         text: 'Hello bro. I greet you oo',
-         time: '2:32PM',
-         direction: 'outgoing'
-      },
-      {
-         text: 'Hello bro. I greet you oo',
-         time: '2:32PM',
-         direction: 'outgoing'
-      },
-      {
-         text: 'Hello bro. I greet you oo',
-         time: '2:32PM',
-         direction: 'incoming'
-      }
-   ]
+   recentMsgs: []
 };
 
-export default (state = initialState, action) => {
+const msgReducer = (state = initialState, action) => {
    switch (action.type) {
+      case 'SET_RECENT_MSGS':
+         return { ...state, recentMsgs: action.payload.msgs };
       default:
          return state;
    }
 };
-{
-   /* <div className="textmsg textmsg--outgoing textmsg--not-sent">
+export default msgReducer;
+/* <div className="textmsg textmsg--outgoing textmsg--not-sent">
             <p className="textmsg__content">
                Hey bro!! How’ve you been?! I’ve been searching for your number.
                Have you been around?
@@ -53,4 +28,3 @@ export default (state = initialState, action) => {
             </p>
             <p className="textmsg__time">Today, 2:36 PM</p>
          </div> */
-}

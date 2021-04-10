@@ -22,11 +22,10 @@ exports.sendMsg = catchAsyncError(async (req, res, next) => {
 });
 
 exports.editMsg = catchAsyncError(async (req, res, next) => {
-   const { text } = req.body;
    const msg = await PrivateMsg.findById(req.params.id);
    if (!msg) return next(new AppError('Message does not exist', 404));
    if (handleWrongRole(`${req.user._id}`, `${msg.sender}`, next) === 'true') {
-      await PrivateMsg.updateOne({ _id: msg._id }, { text });
+      await PrivateMsg.updateOne({ _id: msg._id }, req.body);
       return res.json('Edited');
    }
 });

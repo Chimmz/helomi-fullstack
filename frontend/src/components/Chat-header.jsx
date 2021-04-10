@@ -1,4 +1,9 @@
 import React from 'react';
+import { withRouter, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectUser, selectCurrentUser } from '../redux/user/user.selectors';
+
 import CallIcon from '@material-ui/icons/Call';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -6,7 +11,11 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import './Chat-header.scss';
 import './Icon.scss';
 
-function ChatHeader() {
+// 'user' is not in use for now
+function ChatHeader({ user, currentUser: { friends } }) {
+   const currentChat = useParams().id;
+   const currentChatName = friends.find(f => f._id === currentChat).username;
+
    return (
       <div className="chatting-section__header">
          <div className="chatting-section__header__userdetails">
@@ -16,7 +25,7 @@ function ChatHeader() {
                className="chatting-section__header__userphoto pic pic--sm"
             />
             <span className="chatting-section__header__username">
-               Rachel Richard
+               {currentChatName}
             </span>
          </div>
          <div className="chatting-section__header__nav">
@@ -36,4 +45,8 @@ function ChatHeader() {
       </div>
    );
 }
-export default ChatHeader;
+const mapStateToProps = createStructuredSelector({
+   user: selectUser,
+   currentUser: selectCurrentUser
+});
+export default withRouter(connect(mapStateToProps)(ChatHeader));

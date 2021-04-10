@@ -1,18 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { withRouter, useParams } from 'react-router-dom';
 
-import './Chat-footer.scss';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectUser } from '../redux/user/user.selectors';
+
 import TextInput from './formUI/TextInput';
+// import { socket } from '../App';
+import io from 'socket.io-client';
 import './Icon.scss';
+import './Chat-footer.scss';
 
-function ChatFooter() {
+const socket = io.connect('/');
+
+function ChatFooter({ user: { currentUser } }) {
    const [newMsg, setNewMsg] = useState('');
+   const currentChat = useParams().id;
+
+   useEffect(() => {
+      return () => socket.disconnect();
+   }, []);
+
+   const sendMessage = ev => {
+      ev && ev.preventDefault();
+      socket.emit('private-msg-out', {
+         text: newMsg,
+         sender: currentUser._id,
+         receiver: currentChat,
+         createdAt: new Date()
+      });
+      console.log(currentChat);
+   };
 
    const onChange = ev => setNewMsg(ev.target.value);
-
-   const sendMsg = ev => {
-      ev && ev.preventDefault();
-      alert(newMsg);
-   };
 
    return (
       <div className="chatting-section__footer">
@@ -23,7 +43,7 @@ function ChatFooter() {
             <i className="far fa-laugh"></i>
          </div>
 
-         <form className="new-msg" onSubmit={sendMsg}>
+         <form className="new-msg" onSubmit={sendMessage}>
             <div className="new-msg__group">
                <TextInput
                   type="text"
@@ -36,12 +56,14 @@ function ChatFooter() {
                   &times;
                </div>
             </div>
-            <div className="icon" onClick={() => sendMsg()} type="submit">
+            <div className="icon" onClick={() => sendMessage()} type="submit">
                <i className="fas fa-paper-plane"></i>
             </div>
          </form>
       </div>
    );
 }
-
-export default ChatFooter;
+const mapStateToProps = createStructuredSelector({
+   user: selectUser
+});
+export default withRouter(connect(mapStateToProps)(ChatFooter));

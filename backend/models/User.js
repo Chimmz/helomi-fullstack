@@ -2,28 +2,39 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema({
-   username: {
-      type: String,
-      required: [true, 'Please enter a username'],
-      unique: true
+const userSchema = new mongoose.Schema(
+   {
+      username: {
+         type: String,
+         required: [true, 'Please enter a username'],
+         unique: true
+      },
+      email: {
+         type: String,
+         lowercase: true,
+         required: [true, 'Please enter a username'],
+         unique: true,
+         validate: [validator.isEmail, 'Please enter a valid email']
+      },
+      password: {
+         type: String,
+         required: [true, 'Please provide a password'],
+         minlength: 6,
+         select: false
+      },
+      photo: { type: String },
+      friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
    },
-   email: {
-      type: String,
-      lowercase: true,
-      required: [true, 'Please enter a username'],
-      unique: true,
-      validate: [validator.isEmail, 'Please enter a valid email']
-   },
-   password: {
-      type: String,
-      required: [true, 'Please provide a password'],
-      minlength: 6,
-      select: false
-   },
-   photo: { type: String },
-   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-});
+   {
+      toJSON: {
+         virtuals: true
+      }
+   }
+);
+
+// userSchema.virtual('unreadMsgs').get(function() {
+
+// })
 
 userSchema.pre('save', async function (next) {
    if (this.isModified('password'))

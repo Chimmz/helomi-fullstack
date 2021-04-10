@@ -48,7 +48,7 @@ function Signup(props) {
             );
             history.push('/');
             resetUser();
-            setUser(res.data.user, res.data.token);
+            setUser(res.data.user, res.token);
             break;
          case 'error':
             // prettier-ignore
@@ -77,8 +77,11 @@ function Signup(props) {
             id: uuidv4()
          }))
          .forEach((alert, i) => {
-            setTimeout(() => removeAlert(alert.id), 2000 * (i + 1));
-            addAlert(alert);
+            addAndRemoveAlert(
+               addAlert(alert),
+               removeAlert(alert.id),
+               2000 * (i + 1)
+            );
          });
    };
 

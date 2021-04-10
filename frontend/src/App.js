@@ -1,6 +1,7 @@
+/* eslint-disable no-useless-constructor */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Redirect, Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,31 +20,46 @@ import Alerts from './components/Alerts';
 import './App.scss';
 import io from 'socket.io-client';
 
+export var socket;
+
 function ReplaceLater() {
    return <div className="default-img"></div>;
 }
 
-function App({ alerts, user }) {
-   // if (!user.isLoggedIn) store.dispatch({ type: LOAD_USER });
-   // const socket = useRef();
+// store.dispatch({ type: LOAD_USER });
 
-   useEffect(() => {
-      const socket = io.connect('/');
-      console.log(socket);
+class App extends Component {
+   constructor(props) {
+      super(props);
+   }
+   componentDidMount() {
+      const { user, history } = this.props;
+      console.log(user);
+      if (!user.isLoggedIn) history.push('/login');
+
+      socket = io.connect('/');
       socket.on('test-event', () => alert('Hey bro'));
-   }, []);
-   return (
-      <>
-         <Alerts alerts={alerts} />
-         <Navbar />
-         <Route exact path="/login" component={Login} />
-         <Route exact path="/signup" component={Signup} />
+   }
+   componentWillMount() {
+      // socket.emit('disconnect');
+   }
+   render() {
+      const { alerts, user } = this.props;
+      console.log('From App.jx', user);
+      return (
+         <>
+            <Alerts alerts={alerts} />
+            <Navbar />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
 
-         <Route path="/" component={Sidenav} />
-         <Route exact path="/" component={ReplaceLater} />
-         <Route exact path="/chat/:id" component={ChattingSection} />
-      </>
-   );
+            <Route path="/" component={user.isLoggedIn ? Sidenav : Login} />
+            <Route exact path="/" component={ReplaceLater} />
+            {/* prettier-ignore */}
+            <Route exact path="/chats/:id" component={user.isLoggedIn ? ChattingSection : Login} />
+         </>
+      );
+   }
 }
 const mapStateToProps = createStructuredSelector({
    alerts: selectAllAlerts,

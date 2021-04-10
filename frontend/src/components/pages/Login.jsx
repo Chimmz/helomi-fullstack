@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import Alerts from '../Alerts';
 
 import { connect } from 'react-redux';
-import { addAlert, removeAlert } from '../../redux/alert/alert.action.creators';
 import { createStructuredSelector } from 'reselect';
+import { addAlert, removeAlert } from '../../redux/alert/alert.action.creators';
 import { selectUser } from '../../redux/user/user.selectors';
+import { selectAllAlerts } from '../../redux/alert/alert.selectors';
 
 // prettier-ignore
 import { authError, resetUser, setUser, } from '../../redux/user/user.actions.creators';
@@ -17,7 +19,7 @@ import './Login-Signup.scss';
 
 function Login(props) {
    // prettier-ignore
-   const { user, addAlert, removeAlert, setUser, authError, resetUser, history } = props;
+   const { user, alerts, addAlert, removeAlert, setUser, authError, resetUser, history } = props;
    const [loginData, setLoginData] = useState({ username: '', password: '' });
 
    const onChangeData = ev => {
@@ -36,7 +38,7 @@ function Login(props) {
             );
             history.push('/');
             resetUser(); // Also works without resetting
-            setUser(res.data.user, res.data.token);
+            setUser(res.data.user, res.token);
             break;
 
          case 'fail':
@@ -77,44 +79,48 @@ function Login(props) {
    return user.isLoggedIn ? (
       <Redirect to="/" />
    ) : (
-      <form action="" className="auth text-center" onSubmit={handleSubmit}>
-         <h1 className="heading-primary auth__heading">Log in</h1>
-         <div className="auth__formgroup">
-            <TextInput
-               type="text"
-               className="auth__forminput textfield"
-               placeholder="Enter your username"
-               name="username"
-               value={loginData.username}
-               onChange={onChangeData}
-            />
-            <i className="fas fa-user auth__formgroup__icon"></i>
-         </div>
-         <div className="auth__formgroup">
-            <TextInput
-               type="password"
-               className="auth__forminput textfield"
-               placeholder="Enter your password"
-               name="password"
-               value={loginData.password}
-               onChange={onChangeData}
-            />
-            <i className="fas fa-lock auth__formgroup__icon"></i>
-         </div>
-         <div className="auth__formgroup">
-            <button type="submit" className="btn auth__submit">
-               Log into my account
-            </button>
-         </div>
-         <p className="go-to-sign-up">
-            Don't have an account?{' '}
-            <Link to="/signup">Create a new account</Link>
-         </p>
-      </form>
+      <>
+         <Alerts alerts={alerts} />
+         <form action="" className="auth text-center" onSubmit={handleSubmit}>
+            <h1 className="heading-primary auth__heading">Log in</h1>
+            <div className="auth__formgroup">
+               <TextInput
+                  type="text"
+                  className="auth__forminput textfield"
+                  placeholder="Enter your username"
+                  name="username"
+                  value={loginData.username}
+                  onChange={onChangeData}
+               />
+               <i className="fas fa-user auth__formgroup__icon"></i>
+            </div>
+            <div className="auth__formgroup">
+               <TextInput
+                  type="password"
+                  className="auth__forminput textfield"
+                  placeholder="Enter your password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={onChangeData}
+               />
+               <i className="fas fa-lock auth__formgroup__icon"></i>
+            </div>
+            <div className="auth__formgroup">
+               <button type="submit" className="btn auth__submit">
+                  Log into my account
+               </button>
+            </div>
+            <p className="go-to-sign-up">
+               Don't have an account?{' '}
+               <Link to="/signup">Create a new account</Link>
+            </p>
+         </form>
+      </>
    );
 }
 const mapStateToProps = createStructuredSelector({
-   user: selectUser
+   user: selectUser,
+   alerts: selectAllAlerts
 });
 const mapDispatchToProps = dispatch => ({
    addAlert: alert => dispatch(addAlert(alert)),

@@ -6,7 +6,7 @@
    max-width: 60ch;
    background-color: $color-white;
    border-radius: 1rem;
-   margin-bottom: 0.5rem;
+   margin-bottom: 0.4rem;
    display: flex;
    flex-direction: column;
    position: relative;
@@ -21,8 +21,8 @@
       width: max-content;
       align-self: flex-end;
       color: $color-gray-dark;
-      font-size: 0.9em;
-      letter-spacing: 0.5px;
+      font-size: 0.95em;
+      letter-spacing: 0.2px;
       margin: 3px 1.5rem 3px 0;
    }
    &__sender-name {
@@ -34,8 +34,13 @@
    }
 
    &--incoming {
-      color: $color-gray-darkest;
+      color: $color-black;
       border-top-left-radius: 0.2rem;
+
+      & .textmsg__time {
+         // align-self: flex-start;
+         margin: 3px 1.5rem 3px 1.5rem;
+      }
    }
    &--outgoing {
       margin-left: auto;
@@ -44,7 +49,7 @@
       border-bottom-right-radius: 0.2rem;
 
       & .textmsg__time {
-         color: rgba($color-white, 0.8);
+         color: rgba($color-white, 0.9);
       }
    }
    &--not-sent {
