@@ -1,22 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectUser } from '../redux/user/user.selectors';
+import { selectUser, selectCurrentUser } from '../redux/user/user.selectors';
 
+import io from 'socket.io-client';
 import Chat from './Chat';
 import './ChatList.scss';
 
-function ChatList({ user }) {
-   // console.log('from chatlist', user);
-   //prettier-ignore
-   const { currentUser: {friends}, isLoggedIn } = user;
-   console.log('isLoggedIn', isLoggedIn);
+// const socket = io.connect('/');
 
-   return !isLoggedIn ? (
-      <Redirect to="/login" />
-   ) : (
+function ChatList({ user, currentUser }) {
+   const { friends } = currentUser;
+   return (
       <div className="allchats__chatlist remove-bullets">
          {friends.map(f => (
             <Chat key={f.id} chat={f} />
@@ -24,7 +20,9 @@ function ChatList({ user }) {
       </div>
    );
 }
+
 const mapStateToProps = createStructuredSelector({
-   user: selectUser
+   user: selectUser,
+   currentUser: selectCurrentUser
 });
 export default connect(mapStateToProps)(ChatList);

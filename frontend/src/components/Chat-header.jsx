@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, useParams } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser, selectCurrentUser } from '../redux/user/user.selectors';

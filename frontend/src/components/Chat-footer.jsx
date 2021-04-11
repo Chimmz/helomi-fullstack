@@ -5,31 +5,38 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../redux/user/user.selectors';
 
-import TextInput from './formUI/TextInput';
-// import { socket } from '../App';
 import io from 'socket.io-client';
+import TextInput from './formUI/TextInput';
 import './Icon.scss';
 import './Chat-footer.scss';
 
 const socket = io.connect('/');
+
+socket.onAny((evt, ...args) => {
+   console.log(`EVENT: ${evt}, ARGS: ${args}`);
+});
 
 function ChatFooter({ user: { currentUser } }) {
    const [newMsg, setNewMsg] = useState('');
    const currentChat = useParams().id;
 
    useEffect(() => {
+      socket.emit('join-self', currentUser._id);
+      socket.on('new-msg-in', ({ from, text, sentAt }) => {
+         // Send msg here
+      });
       return () => socket.disconnect();
    }, []);
 
    const sendMessage = ev => {
       ev && ev.preventDefault();
+
       socket.emit('private-msg-out', {
+         from: currentUser._id,
+         sendTo: currentChat,
          text: newMsg,
-         sender: currentUser._id,
-         receiver: currentChat,
-         createdAt: new Date()
+         sentAt: new Date()
       });
-      console.log(currentChat);
    };
 
    const onChange = ev => setNewMsg(ev.target.value);

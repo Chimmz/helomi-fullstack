@@ -1,4 +1,5 @@
-import { GET_MSGS, SET_RECENT_MSGS } from './msg.action.types';
+//  prettier-ignore
+import { ADD_NEW_UNREAD_MSG, GET_MSGS, SET_RECENT_MSGS } from './msg.action.types';
 
 export const loadChatMsgs = (authToken, chatId) => {
    return async function (dispatch) {
@@ -16,5 +17,12 @@ export const loadChatMsgs = (authToken, chatId) => {
       } catch (err) {
          console.log(err);
       }
+   };
+};
+
+export const addNewUnreadMsg = msg => {
+   return {
+      type: ADD_NEW_UNREAD_MSG,
+      payload: { msg }
    };
 };

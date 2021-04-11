@@ -23,15 +23,18 @@ mongoose
    .catch(err => console.log('Error in connecting to database', err));
 
 io.on('connect', socket => {
-   console.log(`New user connected: ${socket.id}`);
-   socket.on('join-room');
-   // socket.on('private-msg-out', msg => {
-   //    const { text, sender, receiver } = msg;
-   //    const privateRoom1 = socket.join([sender, receiver].join('.'))
-   //    const privateRoom2 = socket.join([receiver, sender].join('.'))
-   //    socket.to(privateRoom1).to(privateRoom2).broadcast()
-   //    console.log();
-   // });
+   console.log(`New connection: ${socket.id}`);
+
+   socket.on('join-self', userId => {
+      socket.join(userId);
+      console.log(`${socket.id} is joining himself @ ${userId}`);
+   });
+
+   socket.on('private-msg-out', msgDetails => {
+      const { from, sendTo, text, sentAt } = msgDetails;
+      io.to(sendTo).emit('new-msg-in', { from, text, sentAt });
+      console.log(`Sending ${text} to ${sendTo}`);
+   });
 
    socket.on('disconnect', () =>
       console.log(`User disconnected: ${socket.id}`)

@@ -18,52 +18,37 @@ import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Alerts from './components/Alerts';
 import './App.scss';
-import io from 'socket.io-client';
 
-export var socket;
-
+// store.dispatch({ type: LOAD_USER });
 function ReplaceLater() {
    return <div className="default-img"></div>;
 }
 
-// store.dispatch({ type: LOAD_USER });
-
-class App extends Component {
-   constructor(props) {
-      super(props);
-   }
-   componentDidMount() {
-      const { user, history } = this.props;
-      console.log(user);
-      if (!user.isLoggedIn) history.push('/login');
-
-      socket = io.connect('/');
-      socket.on('test-event', () => alert('Hey bro'));
-   }
-   componentWillMount() {
-      // socket.emit('disconnect');
-   }
-   render() {
-      const { alerts, user } = this.props;
-      console.log('From App.jx', user);
-      return (
-         <>
-            <Alerts alerts={alerts} />
-            <Navbar />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
-
-            <Route path="/" component={user.isLoggedIn ? Sidenav : Login} />
-            <Route exact path="/" component={ReplaceLater} />
-            {/* prettier-ignore */}
-            <Route exact path="/chats/:id" component={user.isLoggedIn ? ChattingSection : Login} />
-         </>
-      );
-   }
+function App(props) {
+   const { alerts, user } = props;
+   // prettier-ignore
+   return (
+      <>
+         <Alerts alerts={alerts} />
+         <Navbar />
+         <Route exact path="/login" component={Login} />
+         <Route exact path="/signup" component={Signup} />
+         
+         <Route path="/" render={() => user.isLoggedIn ? <Sidenav/> : <Redirect to='/login'/>} />
+         <Route exact path="/" component={ReplaceLater} />
+         <Route
+            exact
+            path="/chats/:id"
+            render={() => user.isLoggedIn ? <ChattingSection /> : <Redirect to="/login" /> }
+         />
+      </>
+   );
 }
+
 const mapStateToProps = createStructuredSelector({
    alerts: selectAllAlerts,
    user: selectUser
 });
+
 const mapDispatchToProps = dispatch => ({});
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
