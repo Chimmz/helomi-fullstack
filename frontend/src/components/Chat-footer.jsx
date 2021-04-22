@@ -4,6 +4,7 @@ import { withRouter, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../redux/user/user.selectors';
+import { addNewMsg } from '../redux/msg/msg.actions.creators';
 
 import io from 'socket.io-client';
 import TextInput from './formUI/TextInput';
@@ -16,27 +17,39 @@ socket.onAny((evt, ...args) => {
    console.log(`EVENT: ${evt}, ARGS: ${args}`);
 });
 
-function ChatFooter({ user: { currentUser } }) {
+function ChatFooter({ user: { currentUser }, dispatch }) {
    const [newMsg, setNewMsg] = useState('');
    const currentChat = useParams().id;
 
    useEffect(() => {
       socket.emit('join-self', currentUser._id);
-      socket.on('new-msg-in', ({ from, text, sentAt }) => {
-         // Send msg here
+      socket.on('new-msg-in', ({ newMsg, status }) => {
+         // alert(msg.text);
+         console.log('NEW MSG', newMsg);
+         status === 'success' && dispatch(addNewMsg(currentChat, newMsg));
       });
       return () => socket.disconnect();
    }, []);
 
    const sendMessage = ev => {
       ev && ev.preventDefault();
+      const sentAt = new Date();
 
       socket.emit('private-msg-out', {
          from: currentUser._id,
          sendTo: currentChat,
          text: newMsg,
-         sentAt: new Date()
+         sentAt
       });
+      dispatch(
+         addNewMsg(currentChat, {
+            sender: currentUser._id,
+            receiver: currentChat,
+            text: newMsg,
+            createdAt: sentAt
+         })
+      );
+      setNewMsg('');
    };
 
    const onChange = ev => setNewMsg(ev.target.value);

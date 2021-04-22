@@ -32,7 +32,7 @@ function Signup(props) {
       setSignupData({ ...signupData, [name]: value });
    };
    const handleSignup = async () => {
-      const res = await new utils.API().signup(signupData);
+      const res = await utils.API.signup(signupData);
       // console.log(res);
       const alertId = uuidv4();
       switch (res.status) {

@@ -50,7 +50,7 @@
       &:focus {
          background: $color-primary-lighter;
 
-         & + .login__formgroup__icon {
+         & + .auth__formgroup__icon {
             color: $color-black;
          }
       }

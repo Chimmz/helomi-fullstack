@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const http = require('http');
 const mongoose = require('mongoose');
 const app = require('./app');
+const PrivateMsg = require('./models/PrivateMsg');
 const server = http.createServer(app);
 const io = require('socket.io')(server);
 
@@ -30,10 +31,22 @@ io.on('connect', socket => {
       console.log(`${socket.id} is joining himself @ ${userId}`);
    });
 
-   socket.on('private-msg-out', msgDetails => {
+   socket.on('private-msg-out', async msgDetails => {
       const { from, sendTo, text, sentAt } = msgDetails;
-      io.to(sendTo).emit('new-msg-in', { from, text, sentAt });
-      console.log(`Sending ${text} to ${sendTo}`);
+      try {
+         const newMsg = await PrivateMsg.create({
+            sender: from,
+            receiver: sendTo,
+            createdAt: sentAt,
+            text
+         });
+         console.log('NEW MSG', newMsg);
+         io.to(sendTo).emit('new-msg-in', { newMsg, status: 'success' });
+
+         console.log(`Sending ${text} to ${sendTo}`);
+      } catch (err) {
+         io.to(sendTo).emit('new-msg-in', { newMsg, status: 'fail' });
+      }
    });
 
    socket.on('disconnect', () =>

@@ -4,6 +4,7 @@
    font-size: 1em;
    width: max-content;
    max-width: 60ch;
+   width: max-content;
    background-color: $color-white;
    border-radius: 1rem;
    margin-bottom: 0.4rem;
@@ -50,6 +51,7 @@
 
       & .textmsg__time {
          color: rgba($color-white, 0.9);
+         margin-left: 1.5rem;
       }
    }
    &--not-sent {

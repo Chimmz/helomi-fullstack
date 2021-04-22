@@ -27,7 +27,7 @@ function Login(props) {
       setLoginData({ ...loginData, [name]: value });
    };
    const handleLogin = async () => {
-      const res = await new utils.API().login(loginData);
+      const res = await utils.API.login(loginData);
       const alertId = uuidv4();
       switch (res.status) {
          case 'success':
@@ -49,6 +49,18 @@ function Login(props) {
             );
             authError();
             break;
+
+         case 'error':
+            addAndRemoveAlert(
+               () =>
+                  addAlert({
+                     text:
+                        'Sorry, we could not log you in. Please check your internet connection',
+                     type: 'warning',
+                     id: alertId
+                  }),
+               () => removeAlert(alertId)
+            );
          default:
       }
       console.log(res);

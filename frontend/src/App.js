@@ -39,7 +39,7 @@ function App(props) {
          <Route
             exact
             path="/chats/:id"
-            render={() => user.isLoggedIn ? <ChattingSection /> : <Redirect to="/login" /> }
+            render={(routeProps) => user.isLoggedIn ? <ChattingSection {...routeProps}/> : <Redirect to="/login" /> }
          />
       </>
    );

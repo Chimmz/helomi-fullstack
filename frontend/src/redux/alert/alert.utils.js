@@ -1,4 +1,4 @@
-export const addAndRemoveAlert = (add, remove, timeout = 3000) => {
+export const addAndRemoveAlert = (add, remove, timeout = 4500) => {
    setTimeout(remove, timeout);
    add();
 };

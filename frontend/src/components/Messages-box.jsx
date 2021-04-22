@@ -4,50 +4,39 @@ import { useParams, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectRecentMsgs } from '../redux/msg/msg.selectors';
+import { selectChatMsgs } from '../redux/msg/msg.selectors';
 import { loadChatMsgs } from '../redux/msg/msg.actions.creators';
 import { selectUser } from '../redux/user/user.selectors';
 
 import Textmsg from './Textmsg';
 import './Messages-box.scss';
 
-function MessagesBox({ user, messages, loadMsgs }) {
+function MessagesBox({ allMsgs, loadChatMsgs, user }) {
    const chatId = useParams().id;
-   const [msgs, setMsgs] = useState(messages);
 
-   async function getMsgs() {
-      try {
-         const response = await fetch(
-            `http://localhost:5000/users/friends/${chatId}/msgs`,
-            {
-               method: 'GET',
-               headers: { Authorization: `Bearer ${user.token}` }
-            }
-         );
-         const { msgs } = await response.json();
-         setMsgs(msgs);
-      } catch (err) {
-         console.log(err);
-      }
-   }
    useEffect(() => {
-      getMsgs();
-   }, [chatId]);
+      // alert('Mounted');
+      loadChatMsgs(user.token, chatId);
+   }, []);
+   useEffect(() => {
+      console.log('allMsgs', allMsgs);
+   }, [allMsgs?.length]);
 
-   messages = messages?.map(msg => ({ ...msg, isRead: true }));
    return (
       <div className="chatting-section__messages-box">
-         {msgs.map(msg => (
-            <Textmsg key={msg._id} msg={msg} />
+         {allMsgs?.map(msg => (
+            <Textmsg key={msg._id + msg.createdAt} msg={msg} />
          ))}
       </div>
    );
 }
-const mapStateToProps = createStructuredSelector({
-   messages: selectRecentMsgs,
-   user: selectUser
+const mapStateToProps = (state, ownProps) => ({
+   user: selectUser(state),
+   allMsgs: selectChatMsgs(ownProps.match.params.id)(state)
 });
 
 export default withRouter(
-   connect(mapStateToProps, { loadMsgs: loadChatMsgs })(MessagesBox)
+   connect(mapStateToProps, {
+      loadChatMsgs: (token, chatId) => loadChatMsgs(token, chatId)
+   })(MessagesBox)
 );

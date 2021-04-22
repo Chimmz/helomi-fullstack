@@ -1,28 +1,32 @@
 //  prettier-ignore
-import { ADD_NEW_UNREAD_MSG, GET_MSGS, SET_RECENT_MSGS } from './msg.action.types';
+import { ADD_NEW_MSG, LOAD_CHAT_MSGS } from './msg.action.types';
+import * as utils from '../../utils';
+
+export const addLoadedChatMsgs = (chatId, msgs) => ({
+   type: LOAD_CHAT_MSGS,
+   payload: { chatId, msgs }
+});
+
+export const addNewMsg = (chatId, msg) => ({
+   type: ADD_NEW_MSG,
+   payload: { chatId, msg }
+});
 
 export const loadChatMsgs = (authToken, chatId) => {
-   return async function (dispatch) {
+   return async dispatch => {
       try {
-         const response = await fetch(
-            `http://localhost:5000/users/friends/${chatId}/msgs`,
-            { method: 'GET', headers: { Authorization: `Bearer ${authToken}` } }
-         );
+         const response = await utils.API.fetchChatMsgs(authToken, chatId);
          const { msgs } = await response.json();
-
-         dispatch({
-            type: SET_RECENT_MSGS,
-            payload: { msgs }
-         });
+         dispatch(
+            addLoadedChatMsgs(chatId, [
+               ...msgs.map(m => ({
+                  ...m,
+                  isRead: m.receiver !== chatId && true // This condition doesnt work yet
+               }))
+            ])
+         );
       } catch (err) {
-         console.log(err);
+         console.log('ERR', err);
       }
-   };
-};
-
-export const addNewUnreadMsg = msg => {
-   return {
-      type: ADD_NEW_UNREAD_MSG,
-      payload: { msg }
    };
 };
