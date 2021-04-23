@@ -9,6 +9,10 @@
    align-items: center;
    padding: 0 1rem;
    color: $color-primary;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   width: 100%;
 
    & .icon {
       @include icon-inset-shadow($color-primary);

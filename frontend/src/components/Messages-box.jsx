@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
+import ReactScrollableFeed from 'react-scrollable-feed';
 // import ScrollToBottom from 'react-scroll-to-bottom';
 
 import { connect } from 'react-redux';
@@ -23,11 +24,13 @@ function MessagesBox({ allMsgs, loadChatMsgs, user }) {
    }, [allMsgs?.length]);
 
    return (
-      <div className="chatting-section__messages-box">
-         {allMsgs?.map(msg => (
-            <Textmsg key={msg._id + msg.createdAt} msg={msg} />
-         ))}
-      </div>
+      <ReactScrollableFeed>
+         <div className="chatting-section__messages-box">
+            {allMsgs?.map(msg => (
+               <Textmsg key={msg._id} msg={msg} />
+            ))}
+         </div>
+      </ReactScrollableFeed>
    );
 }
 const mapStateToProps = (state, ownProps) => ({

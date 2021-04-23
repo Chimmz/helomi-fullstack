@@ -11,7 +11,6 @@ import MessagesBox from '../Messages-box';
 import './Chatting-section.scss';
 
 function ChattingSection({ allMsgs, isLoaded }) {
-   // console.log('From chatting-sec, allMsgs = ', allMsgs, 'params', '');
    return (
       <div className="chatting-section">
          <ChatHeader />

@@ -24,9 +24,9 @@ function ChatFooter({ user: { currentUser }, dispatch }) {
    useEffect(() => {
       socket.emit('join-self', currentUser._id);
       socket.on('new-msg-in', ({ newMsg, status }) => {
-         // alert(msg.text);
+         // alert(newMsg.text);
          console.log('NEW MSG', newMsg);
-         status === 'success' && dispatch(addNewMsg(currentChat, newMsg));
+         status === 'success' && dispatch(addNewMsg(newMsg.sender, newMsg));
       });
       return () => socket.disconnect();
    }, []);
@@ -52,7 +52,13 @@ function ChatFooter({ user: { currentUser }, dispatch }) {
       setNewMsg('');
    };
 
-   const onChange = ev => setNewMsg(ev.target.value);
+   const onChange = ev => {
+      setNewMsg(ev.target.value);
+      if (newMsg) {
+         // Implement 'is typing' here...
+         // socket.to(currentChat).emit('is-typing', {whoIsTyping: currentUser})
+      }
+   };
 
    return (
       <div className="chatting-section__footer">
