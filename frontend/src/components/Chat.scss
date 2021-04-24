@@ -34,6 +34,12 @@
       align-self: flex-start;
       font-size: 1.2rem;
    }
+   &__is-typing {
+      font-weight: bold;
+      font-size: 1.35em;
+      color: $color-white;
+      letter-spacing: 0.2px;
+   }
    &:hover {
       color: $color-black;
       background-color: rgba($color-primary-lighter, 0.6);
@@ -50,8 +56,8 @@
          width: 2.2rem;
          height: 2.2rem;
          position: absolute;
+         top: 50%;
          right: 1rem;
-         transform: translateY(1rem);
          font-size: 1.2rem;
          font-weight: bold;
          @include flex-center;

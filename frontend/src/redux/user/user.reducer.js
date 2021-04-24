@@ -1,10 +1,11 @@
 // prettier-ignore
-import { SET_USER, LOAD_USER, AUTH_ERROR, RESET_USER, LOGOUT_USER } from './user.actions.type';
+import { SET_USER, LOAD_USER, AUTH_ERROR, RESET_USER, LOGOUT_USER, USER_LOADED } from './user.actions.type';
 
 const INITIAL_STATE = {
    currentUser: null,
    token: '',
-   isLoggedIn: false
+   isLoggedIn: false,
+   isLoading: true
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -22,9 +23,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
 
       case SET_USER:
          return {
+            ...state,
             currentUser: payload.user,
             token: payload.token,
-            isLoggedIn: true
+            isLoggedIn: true,
+            isLoading: false
          };
 
       case AUTH_ERROR:
@@ -35,7 +38,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
          return {
             currentUser: null,
             token: '',
-            isLoggedIn: false
+            isLoggedIn: false,
+            isLoading: false
          };
 
       default:

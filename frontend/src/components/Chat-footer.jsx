@@ -4,7 +4,9 @@ import { withRouter, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../redux/user/user.selectors';
+import { selectChats } from '../redux/chat/chat.selectors';
 import { addNewMsg } from '../redux/msg/msg.actions.creators';
+import { setSomeoneIsTyping } from '../redux/chat/chat.action.creators';
 
 import io from 'socket.io-client';
 import TextInput from './formUI/TextInput';
@@ -17,17 +19,24 @@ socket.onAny((evt, ...args) => {
    console.log(`EVENT: ${evt}, ARGS: ${args}`);
 });
 
-function ChatFooter({ user: { currentUser }, dispatch }) {
+function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
    const [newMsg, setNewMsg] = useState('');
    const currentChat = useParams().id;
 
    useEffect(() => {
       socket.emit('join-self', currentUser._id);
+
       socket.on('new-msg-in', ({ newMsg, status }) => {
          // alert(newMsg.text);
          console.log('NEW MSG', newMsg);
          status === 'success' && dispatch(addNewMsg(newMsg.sender, newMsg));
       });
+
+      socket.on('user-is-typing', chatId => {
+         // alert(`${chatId} is typing`);
+         dispatch(setSomeoneIsTyping(chatId));
+      });
+
       return () => socket.disconnect();
    }, []);
 
@@ -54,10 +63,12 @@ function ChatFooter({ user: { currentUser }, dispatch }) {
 
    const onChange = ev => {
       setNewMsg(ev.target.value);
-      if (newMsg) {
-         // Implement 'is typing' here...
-         // socket.to(currentChat).emit('is-typing', {whoIsTyping: currentUser})
-      }
+
+      newMsg.length &&
+         socket.emit('typing', {
+            typist: currentUser._id,
+            allChats: allChats.map(chat => chat._id)
+         });
    };
 
    return (
@@ -90,6 +101,7 @@ function ChatFooter({ user: { currentUser }, dispatch }) {
    );
 }
 const mapStateToProps = createStructuredSelector({
-   user: selectUser
+   user: selectUser,
+   allChats: selectChats
 });
 export default withRouter(connect(mapStateToProps)(ChatFooter));

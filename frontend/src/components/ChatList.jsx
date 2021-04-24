@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectUser, selectCurrentUser } from '../redux/user/user.selectors';
+import { selectChats } from '../redux/chat/chat.selectors';
 
-import io from 'socket.io-client';
 import Chat from './Chat';
+import LoadingSpinner from './UI/Loader';
 import './ChatList.scss';
 
-// const socket = io.connect('/');
-
-function ChatList({ user, currentUser }) {
-   const { friends } = currentUser;
-   return (
+function ChatList({ user, currentUser, chats }) {
+   console.log('CHATSSS', chats);
+   return chats.length ? (
       <div className="allchats__chatlist remove-bullets">
-         {friends.map(f => (
-            <Chat key={f.id} chat={f} />
-         ))}
+         {chats.map(ch => <Chat key={ch.id} chat={ch} />) || ''}
       </div>
+   ) : (
+      <LoadingSpinner />
    );
 }
 
-const mapStateToProps = createStructuredSelector({
-   user: selectUser,
-   currentUser: selectCurrentUser
-});
+const mapStateToProps = createStructuredSelector({ chats: selectChats });
 export default connect(mapStateToProps)(ChatList);

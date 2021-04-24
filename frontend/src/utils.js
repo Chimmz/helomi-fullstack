@@ -16,7 +16,9 @@ class APIRequest {
          body: JSON.stringify({ username, password })
       })
          .then(response => response.json())
-         .catch(err => err);
+         .catch(err => {
+            console.log(err);
+         });
    }
 
    fetchChatMsgs(authToken, chatId) {

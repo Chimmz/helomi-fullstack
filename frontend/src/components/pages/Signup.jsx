@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-// prettier-ignore
-import {createStructuredSelector} from 'reselect'
+import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../../redux/user/user.selectors';
-// prettier-ignore
-import { setUser,  resetUser,  authError } from '../../redux/user/user.actions.creators';
+import { signupUser } from '../../redux/user/user.actions.creators';
 import { addAlert, removeAlert } from '../../redux/alert/alert.action.creators';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,9 +13,7 @@ import TextInput from '../formUI/TextInput';
 import * as utils from '../../utils';
 import './Login-Signup.scss';
 
-function Signup(props) {
-   // prettier-ignore
-   const { addAlert, removeAlert, setUser, authError, resetUser, user, history } = props;
+function Signup({ addAlert, removeAlert, signupUser, user }) {
    const [signupData, setSignupData] = useState({
       username: '',
       password: '',
@@ -31,43 +27,13 @@ function Signup(props) {
       const { name, value } = ev.target;
       setSignupData({ ...signupData, [name]: value });
    };
-   const handleSignup = async () => {
-      const res = await utils.API.signup(signupData);
-      // console.log(res);
-      const alertId = uuidv4();
-      switch (res.status) {
-         case 'success':
-            addAndRemoveAlert(
-               () =>
-                  addAlert({
-                     text: `You have been successfully logged in`,
-                     type: 'success',
-                     id: alertId
-                  }),
-               () => removeAlert(alertId)
-            );
-            history.push('/');
-            resetUser();
-            setUser(res.data.user, res.token);
-            break;
-         case 'error':
-            // prettier-ignore
-            addAndRemoveAlert(
-               () => addAlert({ text: `${res.message}`, type: 'warning', id: alertId }),
-               () => removeAlert(alertId)
-            )
-            authError();
-            break;
-         default:
-      }
-   };
 
    const handleSubmit = ev => {
       ev.preventDefault();
 
       const emptyFields = utils.getEmptyFields(signupData);
       if (!emptyFields.length) {
-         handleSignup();
+         signupUser(signupData);
          return;
       }
       emptyFields
@@ -138,14 +104,10 @@ function Signup(props) {
    );
 }
 
-const mapStateToProps = createStructuredSelector({
-   user: selectUser
-});
+const mapStateToProps = createStructuredSelector({ user: selectUser });
 const mapDispatchToProps = dispatch => ({
    addAlert: alert => dispatch(addAlert(alert)),
    removeAlert: id => dispatch(removeAlert(id)),
-   setUser: (user, token) => dispatch(setUser(user, token)),
-   resetUser: () => dispatch(resetUser()),
-   authError: () => dispatch(authError())
+   signupUser: data => dispatch(signupUser(data))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

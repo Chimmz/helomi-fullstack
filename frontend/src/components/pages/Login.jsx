@@ -7,71 +7,32 @@ import { createStructuredSelector } from 'reselect';
 import { addAlert, removeAlert } from '../../redux/alert/alert.action.creators';
 import { selectUser } from '../../redux/user/user.selectors';
 import { selectAllAlerts } from '../../redux/alert/alert.selectors';
+import { loginUser } from '../../redux/user/user.actions.creators';
 
-// prettier-ignore
-import { authError, resetUser, setUser, } from '../../redux/user/user.actions.creators';
-
-import { addAndRemoveAlert } from '../../redux/alert/alert.utils';
 import * as utils from '../../utils';
 import { v4 as uuidv4 } from 'uuid';
+import { addAndRemoveAlert } from '../../redux/alert/alert.utils';
 import TextInput from '../formUI/TextInput';
+import LoadingSpinner from '../UI/Loader';
 import './Login-Signup.scss';
 
 function Login(props) {
-   // prettier-ignore
-   const { user, alerts, addAlert, removeAlert, setUser, authError, resetUser, history } = props;
+   const { user, alerts, loginUser, addAlert, removeAlert, dispatch } = props;
    const [loginData, setLoginData] = useState({ username: '', password: '' });
+   const [showSpinner, setShowSpinner] = useState(false);
 
    const onChangeData = ev => {
       const { name, value } = ev.target;
       setLoginData({ ...loginData, [name]: value });
    };
-   const handleLogin = async () => {
-      const res = await utils.API.login(loginData);
-      const alertId = uuidv4();
-      switch (res.status) {
-         case 'success':
-            // prettier-ignore
-            addAndRemoveAlert(
-               () => addAlert({ text: 'You have been successfully logged in', type: 'success', id: alertId }),
-               () => removeAlert(alertId)
-            );
-            history.push('/');
-            resetUser(); // Also works without resetting
-            setUser(res.data.user, res.token);
-            break;
-
-         case 'fail':
-            // prettier-ignore
-            addAndRemoveAlert(
-               () => addAlert({ text: `${res.message}`, type: 'warning', id: alertId }),
-               () => removeAlert(alertId)
-            );
-            authError();
-            break;
-
-         case 'error':
-            addAndRemoveAlert(
-               () =>
-                  addAlert({
-                     text:
-                        'Sorry, we could not log you in. Please check your internet connection',
-                     type: 'warning',
-                     id: alertId
-                  }),
-               () => removeAlert(alertId)
-            );
-         default:
-      }
-      console.log(res);
-   };
 
    const handleSubmit = ev => {
       ev.preventDefault();
+      // setUserSubmits(true);
       const emptyFields = utils.getEmptyFields(loginData);
 
       if (!emptyFields.length) {
-         handleLogin();
+         loginUser(loginData);
          return;
       }
       emptyFields
@@ -122,10 +83,12 @@ function Login(props) {
                   Log into my account
                </button>
             </div>
+
             <p className="go-to-sign-up">
                Don't have an account?{' '}
                <Link to="/signup">Create a new account</Link>
             </p>
+            {/* {userSubmits && alerts.length && <LoadingSpinner size="lg" />} */}
          </form>
       </>
    );
@@ -134,11 +97,10 @@ const mapStateToProps = createStructuredSelector({
    user: selectUser,
    alerts: selectAllAlerts
 });
+
 const mapDispatchToProps = dispatch => ({
    addAlert: alert => dispatch(addAlert(alert)),
    removeAlert: id => dispatch(removeAlert(id)),
-   setUser: (user, token) => dispatch(setUser(user, token)),
-   authError: () => dispatch(authError()),
-   resetUser: () => dispatch(resetUser())
+   loginUser: loginData => dispatch(loginUser(loginData))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

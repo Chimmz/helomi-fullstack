@@ -31,6 +31,12 @@ io.on('connect', socket => {
       console.log(`${socket.id} is joining himself @ ${userId}`);
    });
 
+   socket.on('typing', ({ typist, allChats }) => {
+      console.log(allChats);
+      allChats.forEach(chatId => io.to(chatId).emit('user-is-typing', typist));
+      console.log(`${typist} is typing`);
+   });
+
    socket.on('private-msg-out', async msgDetails => {
       const { from, sendTo, text, sentAt } = msgDetails;
       try {
