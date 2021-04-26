@@ -1,7 +1,7 @@
 export const dateTimeFormat = (timestamp, options) => {
-   return new Intl.DateTimeFormat(window.navigator.language, options)
-      .format(timestamp)
-      .replace(' ', '');
+   return new Intl.DateTimeFormat(window.navigator.language, options).format(
+      timestamp
+   );
 };
 
 export const getDaysPassed = (date1, date2) => {
@@ -10,13 +10,20 @@ export const getDaysPassed = (date1, date2) => {
 
 export const getMsgSentTime = timestamp => {
    const formatOptions = { hour: 'numeric', hour12: true, minute: 'numeric' };
-   const numDaysPassed = getDaysPassed(new Date(timestamp), new Date());
+   const numDaysPassed = Math.round(
+      getDaysPassed(new Date(timestamp), new Date())
+   );
+
    if (numDaysPassed < 1) return dateTimeFormat(timestamp, formatOptions);
    if (numDaysPassed === 1)
       return ['Yesterday', dateTimeFormat(timestamp, formatOptions)].join(', ');
-   formatOptions.day = 'numeric';
-   formatOptions.weekday = 'short';
-   formatOptions.month = 'long';
-   formatOptions.year = '2-digit';
-   return dateTimeFormat(timestamp);
+
+   if (numDaysPassed <= 5)
+      return `${numDaysPassed}d, ${dateTimeFormat(timestamp, formatOptions)}`;
+
+   return dateTimeFormat(timestamp, {
+      ...formatOptions,
+      day: 'numeric',
+      month: 'short'
+   });
 };

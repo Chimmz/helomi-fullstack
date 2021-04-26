@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,10 +8,10 @@ import Chat from './Chat';
 import LoadingSpinner from './UI/Loader';
 import './ChatList.scss';
 
-function ChatList({ user, currentUser, chats }) {
+function ChatList({ chats }) {
    console.log('CHATSSS', chats);
    return chats.length ? (
-      <div className="allchats__chatlist remove-bullets">
+      <div className="allchats__chatlist">
          {chats.map(ch => <Chat key={ch.id} chat={ch} />) || ''}
       </div>
    ) : (

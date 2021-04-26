@@ -41,5 +41,5 @@ const mapStateToProps = (state, ownProps) => ({
 export default withRouter(
    connect(mapStateToProps, {
       loadChatMsgs: (token, chatId) => loadChatMsgs(token, chatId)
-   })(MessagesBox)
+   })(React.memo(MessagesBox))
 );

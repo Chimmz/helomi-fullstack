@@ -48,17 +48,17 @@
    &--has-unread-messages {
       .chat__info {
          .chat__name,
-         .chat__lastmessage {
+         .chat__lastmessage--unread {
             font-weight: bold;
          }
       }
       & .unread-messages-count {
-         width: 2.2rem;
-         height: 2.2rem;
+         width: 2.5rem;
+         height: 2.5rem;
          position: absolute;
          top: 50%;
          right: 1rem;
-         font-size: 1.2rem;
+         font-size: 1.1rem;
          font-weight: bold;
          @include flex-center;
          border-radius: 50%;
@@ -74,7 +74,7 @@
       background-color: $color-primary-lighter;
       // color: $color-black;
 
-      // color: rgba($color-white, 0.8);
-      // background-color: $color-primary-darkest;
+      color: $color-white;
+      background-color: $color-primary-darkest;
    }
 }

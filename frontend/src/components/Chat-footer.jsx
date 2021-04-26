@@ -27,8 +27,6 @@ function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
       socket.emit('join-self', currentUser._id);
 
       socket.on('new-msg-in', ({ newMsg, status }) => {
-         // alert(newMsg.text);
-         console.log('NEW MSG', newMsg);
          status === 'success' && dispatch(addNewMsg(newMsg.sender, newMsg));
       });
 
@@ -41,7 +39,7 @@ function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
    }, []);
 
    const sendMessage = ev => {
-      ev && ev.preventDefault();
+      ev?.preventDefault();
       const sentAt = new Date();
 
       socket.emit('private-msg-out', {
