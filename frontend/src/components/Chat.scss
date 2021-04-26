@@ -62,7 +62,7 @@
          font-weight: bold;
          @include flex-center;
          border-radius: 50%;
-         background: $color-white;
+         background: rgba($color-white, 0.9);
          color: $color-red;
       }
    }
@@ -76,5 +76,9 @@
 
       color: $color-white;
       background-color: $color-primary-darkest;
+
+      & .chat__time {
+         color: rgba($color-white, 0.85);
+      }
    }
 }
