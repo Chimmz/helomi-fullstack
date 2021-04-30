@@ -1,9 +1,7 @@
 .chatting-section {
    grid-column: 3 / -1;
    grid-row: 2;
-   // height: 90vh;
-   display: flex;
-   flex-direction: column;
-   position: relative;
    z-index: 5;
+   display: grid;
+   grid-template-rows: max-content 1fr max-content;
 }

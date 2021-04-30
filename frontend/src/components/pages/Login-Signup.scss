@@ -12,6 +12,7 @@
       font-family: 'Poppins', sans-serif;
       color: $color-primary-lightest;
       margin-bottom: 4rem;
+      font-size: 3rem;
    }
    &__formgroup {
       width: max-content;
@@ -65,19 +66,16 @@
    &__submit {
       display: block;
       width: 40vw;
-      opacity: 0.8;
       font-size: 1.5rem;
       padding: 1.5rem 3rem;
       border-radius: 99rem;
       transform: translateX(1.5rem);
       transition: all 0.5s;
       background: $color-primary-darkest;
-      color: $color-primary-lighter;
-      border: 2px solid transparent;
-      background: $color-black;
+      color: rgba($color-white, 0.9);
 
       &:hover {
-         opacity: 1;
+         background: darken($color-primary-darkest, 5%);
       }
    }
    .go-to-sign-up {

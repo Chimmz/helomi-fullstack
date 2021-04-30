@@ -22,8 +22,8 @@
       width: max-content;
       align-self: flex-end;
       color: $color-gray-dark;
-      font-size: 0.95em;
-      letter-spacing: 0.2px;
+      font-size: 0.9em;
+      // letter-spacing: 0.2px;
       margin: 3px 1.5rem 3px 0;
    }
    &__sender-name {
@@ -39,7 +39,6 @@
       border-top-left-radius: 0.2rem;
 
       & .textmsg__time {
-         // align-self: flex-start;
          margin: 3px 1.5rem 3px 1.5rem;
       }
    }

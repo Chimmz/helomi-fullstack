@@ -4,7 +4,6 @@
 .allchats {
    grid-row: 2 / span 1;
    grid-column: 1 / span 2;
-
    height: 90vh;
    background-color: $color-primary;
 
@@ -12,48 +11,7 @@
       height: 15%;
       @include flex-center;
    }
-   &__search {
-      width: 75%;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      background: rgba($color-white, 0.2);
-      border-radius: 1000rem;
-      position: relative;
 
-      &-icon {
-         position: absolute;
-         left: 90%;
-         color: $color-white;
-         opacity: 0.5;
-         font-size: 1.5rem;
-         transition: all 0.5s;
-      }
-      &-field {
-         flex: 1;
-         background: transparent;
-         border: none;
-         padding: 0.7rem 2rem;
-         font: inherit;
-         letter-spacing: 0.7px;
-         font-weight: 300;
-         font-size: 1.35rem;
-         color: $color-white;
-         transition: all 0.2s 0.3s;
-
-         &::-webkit-input-placeholder {
-            color: $color-primary-lightest;
-            font-weight: 400;
-         }
-         &:focus {
-            padding: 0.7rem 5rem;
-
-            & + .allchats__search-icon {
-               left: 2rem;
-            }
-         }
-      }
-   }
    &__chatlist {
       height: 85%;
       overflow-y: scroll;

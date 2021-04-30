@@ -2,9 +2,8 @@
 @import '../sass/mixins';
 
 .chatting-section__messages-box {
-   flex: 1;
    background-color: $color-gray-light;
-   padding: calc(10vh + 1rem) 2rem;
+   padding: 5px 2rem;
    font-size: 1.2rem;
    overflow-y: scroll;
 

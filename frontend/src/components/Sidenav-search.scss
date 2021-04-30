@@ -24,6 +24,7 @@
          z-index: 3;
          transition: all 0.5s;
       }
+
       &-field {
          flex: 1;
          background: transparent;
@@ -50,7 +51,7 @@
       }
 
       &__results {
-         background: $color-white;
+         background: rgba($color-white, 0.95);
          position: absolute;
          top: 105%;
          left: 0;
@@ -58,7 +59,8 @@
          border-radius: 0.7rem;
          z-index: 1;
          font-size: 1.4rem;
-         padding: 0.3rem;
+         padding: 0.4rem;
+         box-shadow: 0 5px 5px rgba($color-black, 0.2);
 
          &__result {
             padding: 1rem 1.5rem;

@@ -19,9 +19,6 @@ function Signup({ addAlert, removeAlert, signupUser, user }) {
       password: '',
       email: ''
    });
-   useEffect(() => {
-      console.log('From signup', user);
-   }, []);
 
    const onChangeData = ev => {
       const { name, value } = ev.target;

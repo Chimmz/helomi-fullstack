@@ -1,15 +1,13 @@
 import React from 'react';
 
-// prettier-ignore
-function Dropdown({ items, itemClassName, isVisible, onClickItem, ...restProps }) {
-   return isVisible && (
-      <>
-         {items.map(item => (
-            <li key={item} className={itemClassName} {...restProps} onClick={() => onClickItem(2)}>
-               <span>{item}</span>
-            </li>
-         ))}
-      </>
-   )
+function Dropdown(props) {
+   const { showIf, listClassName, children: listItems, ...restProps } = props;
+   return (
+      showIf && (
+         <ul className={listClassName} {...restProps}>
+            {listItems}
+         </ul>
+      )
+   );
 }
 export default Dropdown;

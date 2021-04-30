@@ -15,9 +15,9 @@ html {
 }
 body {
    min-height: 100vh;
-   // max-height: 100vh;
    font-size: 1rem;
    font-family: 'Roboto', sans-serif;
+   background-color: $color-gray-light;
 }
 
 #root {
@@ -37,8 +37,9 @@ body {
 .heading {
    font-family: 'Poppins', sans-serif;
    color: $color-gray-darkest;
+
    &-primary {
-      font-size: 3rem;
+      font-size: 4rem;
       font-weight: 400;
    }
    &-secondary {

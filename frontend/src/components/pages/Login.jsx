@@ -17,7 +17,7 @@ import LoadingSpinner from '../UI/Loader';
 import './Login-Signup.scss';
 
 function Login(props) {
-   const { user, alerts, loginUser, addAlert, removeAlert, dispatch } = props;
+   const { user, alerts, loginUser, addAlert, removeAlert } = props;
    const [loginData, setLoginData] = useState({ username: '', password: '' });
    const [showSpinner, setShowSpinner] = useState(false);
 
@@ -28,7 +28,6 @@ function Login(props) {
 
    const handleSubmit = ev => {
       ev.preventDefault();
-      // setUserSubmits(true);
       const emptyFields = utils.getEmptyFields(loginData);
 
       if (!emptyFields.length) {
@@ -88,7 +87,6 @@ function Login(props) {
                Don't have an account?{' '}
                <Link to="/signup">Create a new account</Link>
             </p>
-            {/* {userSubmits && alerts.length && <LoadingSpinner size="lg" />} */}
          </form>
       </>
    );

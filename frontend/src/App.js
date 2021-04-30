@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-constructor */
-/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 

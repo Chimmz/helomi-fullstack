@@ -1,6 +1,6 @@
-//  prettier-ignore
 import { ADD_NEW_MSG, LOAD_CHAT_MSGS } from './msg.action.types';
 import * as utils from '../../utils';
+import * as chatActionCreators from '../chat/chat.action.creators';
 
 export const addLoadedChatMsgs = (chatId, msgs) => ({
    type: LOAD_CHAT_MSGS,
@@ -25,8 +25,14 @@ export const loadChatMsgs = (authToken, chatId) => {
                }))
             ])
          );
+         dispatch(
+            chatActionCreators.setChatMsgsLoading({ chatId, isLoading: false })
+         );
       } catch (err) {
          console.log('ERR', err);
+         dispatch(
+            chatActionCreators.setChatMsgsLoading({ chatId, isLoading: true })
+         );
       }
    };
 };

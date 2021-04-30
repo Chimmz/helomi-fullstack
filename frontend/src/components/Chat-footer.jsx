@@ -20,23 +20,27 @@ socket.onAny((evt, ...args) => {
 });
 
 function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
-   const [newMsg, setNewMsg] = useState('');
    const currentChat = useParams().id;
+   const [newMsg, setNewMsg] = useState('');
 
    useEffect(() => {
       socket.emit('join-self', currentUser._id);
-
       socket.on('new-msg-in', ({ newMsg, status }) => {
          status === 'success' && dispatch(addNewMsg(newMsg.sender, newMsg));
       });
-
-      socket.on('user-is-typing', chatId => {
-         // alert(`${chatId} is typing`);
-         dispatch(setSomeoneIsTyping(chatId));
+      socket.on('user-is-typing', ({ typist: chatId, isTyping }) => {
+         dispatch(setSomeoneIsTyping({ chatId, isTyping }));
       });
-
       return () => socket.disconnect();
    }, []);
+
+   useEffect(() => {
+      socket.emit('typing', {
+         typist: currentUser._id,
+         allChats: allChats.map(chat => chat._id),
+         isTyping: Boolean(newMsg.length)
+      });
+   }, [newMsg]);
 
    const sendMessage = ev => {
       ev?.preventDefault();
@@ -61,12 +65,6 @@ function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
 
    const onChange = ev => {
       setNewMsg(ev.target.value);
-
-      newMsg.length &&
-         socket.emit('typing', {
-            typist: currentUser._id,
-            allChats: allChats.map(chat => chat._id)
-         });
    };
 
    return (
@@ -98,6 +96,7 @@ function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
       </div>
    );
 }
+
 const mapStateToProps = createStructuredSelector({
    user: selectUser,
    allChats: selectChats

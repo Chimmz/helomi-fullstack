@@ -44,7 +44,7 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
                   {lastChatMsg.text}
                </span>
             )}
-            {unreadMsgsCount > 0 && (
+            {unreadMsgsCount && (
                <span className="unread-messages-count">{unreadMsgsCount}</span>
             )}
          </div>

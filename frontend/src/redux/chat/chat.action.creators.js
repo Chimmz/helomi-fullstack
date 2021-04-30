@@ -1,5 +1,6 @@
+// prettier-ignore
+import { SET_CHATS, SET_CHAT_MSGS_LOADING, SOMEONE_IS_TYPING } from './chat.action.types';
 import * as utils from '../../utils';
-import { SET_CHATS, SOMEONE_IS_TYPING } from './chat.action.types';
 
 export const setChats = chats => {
    return dispatch => {
@@ -11,7 +12,12 @@ export const setChats = chats => {
    };
 };
 
-export const setSomeoneIsTyping = chatId => ({
+export const setSomeoneIsTyping = ({ chatId, isTyping }) => ({
    type: SOMEONE_IS_TYPING,
-   payload: { chatId }
+   payload: { chatId, isTyping }
+});
+
+export const setChatMsgsLoading = ({ chatId, isLoading }) => ({
+   type: SET_CHAT_MSGS_LOADING,
+   payload: { chatId, isLoading }
 });

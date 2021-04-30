@@ -31,10 +31,10 @@ io.on('connect', socket => {
       console.log(`${socket.id} is joining himself @ ${userId}`);
    });
 
-   socket.on('typing', ({ typist, allChats }) => {
-      console.log(allChats);
-      allChats.forEach(chatId => io.to(chatId).emit('user-is-typing', typist));
-      console.log(`${typist} is typing`);
+   socket.on('typing', ({ typist, isTyping, allChats }) => {
+      allChats.forEach(chatId =>
+         io.to(chatId).emit('user-is-typing', { typist, isTyping })
+      );
    });
 
    socket.on('private-msg-out', async msgDetails => {
@@ -46,7 +46,6 @@ io.on('connect', socket => {
             createdAt: sentAt,
             text
          });
-         console.log('NEW MSG', newMsg);
          io.to(sendTo).emit('new-msg-in', { newMsg, status: 'success' });
 
          console.log(`Sending ${text} to ${sendTo}`);

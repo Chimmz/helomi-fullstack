@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
 import ReactScrollableFeed from 'react-scrollable-feed';
-// import ScrollToBottom from 'react-scroll-to-bottom';
 
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectChatMsgs } from '../redux/msg/msg.selectors';
 import { loadChatMsgs } from '../redux/msg/msg.actions.creators';
+import { selectChatMsgs } from '../redux/msg/msg.selectors';
 import { selectUser } from '../redux/user/user.selectors';
+import { selectIsLoadingChatMsgs } from '../redux/chat/chat.selectors';
 
 import Textmsg from './Textmsg';
 import './Messages-box.scss';
 
-function MessagesBox({ allMsgs, loadChatMsgs, user }) {
+function MessagesBox({ allMsgs, isLoadingChatMsgs, loadChatMsgs, user }) {
    const chatId = useParams().id;
 
    useEffect(() => {
-      // alert('Mounted');
-      loadChatMsgs(user.token, chatId);
-   }, []);
+      isLoadingChatMsgs && loadChatMsgs(user.token, chatId);
+   }, [chatId]);
+
    useEffect(() => {
       console.log('allMsgs', allMsgs);
    }, [allMsgs?.length]);
@@ -35,7 +34,8 @@ function MessagesBox({ allMsgs, loadChatMsgs, user }) {
 }
 const mapStateToProps = (state, ownProps) => ({
    user: selectUser(state),
-   allMsgs: selectChatMsgs(ownProps.match.params.id)(state)
+   allMsgs: selectChatMsgs(ownProps.match.params.id)(state),
+   isLoadingChatMsgs: selectIsLoadingChatMsgs(ownProps.match.params.id)(state)
 });
 
 export default withRouter(

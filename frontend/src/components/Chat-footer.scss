@@ -2,17 +2,12 @@
 @import '../sass/mixins';
 
 .chatting-section__footer {
-   height: 10vh;
    background-color: $color-gray-light;
    border-top: 1px solid rgb(180, 174, 174);
    display: flex;
    align-items: center;
    padding: 0 1rem;
    color: $color-primary;
-   position: absolute;
-   left: 0;
-   bottom: 0;
-   width: 100%;
 
    & .icon {
       @include icon-inset-shadow($color-primary);
@@ -36,8 +31,9 @@
       &__input {
          width: 100%;
          color: $color-gray-darker;
-         // border: 1px solid rgb(190, 189, 189);
-         border-radius: 999rem;
+         border: 1px solid rgb(204, 203, 203);
+         padding: 2.2rem 3rem;
+         border-radius: 1rem;
          transition: width 0.3s;
 
          & + * {
@@ -48,6 +44,9 @@
                align-self: center;
                @include icon-inset-shadow($color-gray-dark);
             }
+         }
+         &:focus {
+            border: 1px solid rgb(190, 189, 189);
          }
       }
    }

@@ -1,19 +1,17 @@
 // prettier-ignore
-import { ADD_NEW_MSG, LOAD_CHAT_MSGS } from './msg.action.types';
+import * as actionTypes from './msg.action.types';
 
 const initialState = {
-   messages: {},
-   isLoaded: false
+   messages: {}
 };
 
 const msgReducer = (state = initialState, action) => {
    const { type, payload } = action;
    switch (type) {
-      case LOAD_CHAT_MSGS:
+      case actionTypes.LOAD_CHAT_MSGS:
          const { chatId, msgs } = payload;
          return {
             ...state,
-            isLoaded: true,
             messages: {
                ...state.messages,
                [chatId]: state.messages[chatId]?.length
@@ -21,10 +19,9 @@ const msgReducer = (state = initialState, action) => {
                   : [...msgs]
             }
          };
-         break;
 
-      case ADD_NEW_MSG:
-         let { chatId: id, msg } = payload; // chatId renamed to id
+      case actionTypes.ADD_NEW_MSG:
+         let { chatId: id, msg } = payload;
          return {
             ...state,
             messages: {
@@ -34,7 +31,7 @@ const msgReducer = (state = initialState, action) => {
                   : [msg]
             }
          };
-         break;
+
       default:
          return state;
    }

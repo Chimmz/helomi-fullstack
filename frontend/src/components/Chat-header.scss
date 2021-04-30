@@ -2,15 +2,11 @@
 @import '../sass//mixins.scss';
 
 .chatting-section__header {
-   height: 9.5vh;
-   padding: 0 0rem 0 2rem;
+   // height: 9.5vh;
+   padding: 0.5rem 2rem;
    display: flex;
    align-items: center;
    background-color: $color-primary-darkest;
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
    z-index: 10;
 
    &__userdetails {
