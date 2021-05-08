@@ -3,8 +3,8 @@ const PrivateMsg = require('../models/PrivateMsg');
 const catchAsyncError = require('../utils/catchAsyncError');
 const AppError = require('../utils/AppError');
 
-const handleWrongRole = (currentUser, sender, next) => {
-   if (currentUser === sender) return 'true';
+const handleWrongRole = (req, sender, next) => {
+   if (req.user._id.toString() == sender.toString()) return 'true';
    return next(new AppError("You're not authorized to delete this msg", 403));
 };
 
@@ -24,7 +24,7 @@ exports.sendMsg = catchAsyncError(async (req, res, next) => {
 exports.editMsg = catchAsyncError(async (req, res, next) => {
    const msg = await PrivateMsg.findById(req.params.id);
    if (!msg) return next(new AppError('Message does not exist', 404));
-   if (handleWrongRole(`${req.user._id}`, `${msg.sender}`, next) === 'true') {
+   if (handleWrongRole(req, msg.sender, next) === 'true') {
       await PrivateMsg.updateOne({ _id: msg._id }, req.body);
       return res.json('Edited');
    }
@@ -33,7 +33,7 @@ exports.editMsg = catchAsyncError(async (req, res, next) => {
 exports.deleteMsg = catchAsyncError(async (req, res, next) => {
    const msg = await PrivateMsg.findById(req.params.id);
    if (!msg) return next(new AppError('Message does not exist', 404));
-   if (handleWrongRole(`${req.user._id}`, `${msg.sender}`, next) === 'true') {
+   if (handleWrongRole(req, msg.sender, next) === 'true') {
       await PrivateMsg.findByIdAndDelete(req.params.id);
       return res.json('Deleted');
    }

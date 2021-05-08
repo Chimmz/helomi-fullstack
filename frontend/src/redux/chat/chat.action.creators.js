@@ -1,6 +1,5 @@
 // prettier-ignore
 import { SET_CHATS, SET_CHAT_MSGS_LOADING, SOMEONE_IS_TYPING } from './chat.action.types';
-import * as utils from '../../utils';
 
 export const setChats = chats => {
    return dispatch => {

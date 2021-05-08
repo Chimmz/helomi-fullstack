@@ -1,7 +1,14 @@
+@import '../../sass/mixins.scss';
+
 .chatting-section {
    grid-column: 3 / -1;
    grid-row: 2;
    z-index: 5;
    display: grid;
    grid-template-rows: max-content 1fr max-content;
+   position: relative; // Relative to loader which is 'absolute'
+
+   & .loader {
+      @include absolute-center;
+   }
 }

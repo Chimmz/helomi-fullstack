@@ -17,14 +17,7 @@ export const loadChatMsgs = (authToken, chatId) => {
       try {
          const response = await utils.API.fetchChatMsgs(authToken, chatId);
          const { msgs } = await response.json();
-         dispatch(
-            addLoadedChatMsgs(chatId, [
-               ...msgs.map(m => ({
-                  ...m,
-                  isRead: m.receiver !== chatId && true // This condition doesnt work yet
-               }))
-            ])
-         );
+         dispatch(addLoadedChatMsgs(chatId, msgs));
          dispatch(
             chatActionCreators.setChatMsgsLoading({ chatId, isLoading: false })
          );

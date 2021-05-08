@@ -46,11 +46,8 @@
    }
 
    &--has-unread-messages {
-      .chat__info {
-         .chat__name,
-         .chat__lastmessage--unread {
-            font-weight: bold;
-         }
+      & .chat__info :is(.chat__name, .chat__lastmessage--unread) {
+         font-weight: bold;
       }
       & .unread-messages-count {
          width: 2.5rem;
@@ -58,7 +55,7 @@
          position: absolute;
          top: 50%;
          right: 1rem;
-         font-size: 1.1rem;
+         font-size: 1.3rem;
          font-weight: bold;
          @include flex-center;
          border-radius: 50%;

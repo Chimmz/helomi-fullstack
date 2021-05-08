@@ -1,8 +1,7 @@
-export const dateTimeFormat = (timestamp, options) => {
-   return new Intl.DateTimeFormat(window.navigator.language, options).format(
+export const dateTimeFormat = (timestamp, options) =>
+   new Intl.DateTimeFormat(window.navigator.language, options).format(
       timestamp
    );
-};
 
 export const getDaysPassed = (date1, date2) => {
    return (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24);
@@ -18,8 +17,9 @@ export const getMsgSentTime = timestamp => {
    if (numDaysPassed === 1)
       return ['Yesterday', dateTimeFormat(timestamp, formatOptions)].join(', ');
 
-   if (numDaysPassed <= 5)
-      return `${numDaysPassed}d, ${dateTimeFormat(timestamp, formatOptions)}`;
+   if (numDaysPassed <= 7)
+      return `${dateTimeFormat(timestamp, { weekday: 'short' })}, 
+         ${dateTimeFormat(timestamp, formatOptions)}`;
 
    return dateTimeFormat(timestamp, {
       ...formatOptions,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -7,6 +7,8 @@ import { selectUser } from './redux/user/user.selectors';
 import { selectAllAlerts } from './redux/alert/alert.selectors';
 import { LOAD_USER } from './redux/user/user.actions.type';
 import store from './redux/store';
+
+import { SocketProvider, socketContext } from './contexts/SocketProvider';
 
 import Navbar from './components/layout/Navbar';
 import ChattingSection from './components/layout/Chatting-section';
@@ -23,7 +25,7 @@ function ReplaceLater() {
 
 function App({ alerts, user }) {
    return (
-      <>
+      <SocketProvider>
          <Alerts alerts={alerts} />
          <Navbar />
          <Route exact path="/login" component={Login} />
@@ -46,7 +48,7 @@ function App({ alerts, user }) {
                )
             }
          />
-      </>
+      </SocketProvider>
    );
 }
 

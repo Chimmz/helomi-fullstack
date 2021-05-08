@@ -1,38 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { withRouter, useParams } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../redux/user/user.selectors';
 import { selectChats } from '../redux/chat/chat.selectors';
-import { addNewMsg } from '../redux/msg/msg.actions.creators';
-import { setSomeoneIsTyping } from '../redux/chat/chat.action.creators';
 
-import io from 'socket.io-client';
+import { socketContext } from '../contexts/SocketProvider';
+
 import TextInput from './formUI/TextInput';
 import './Icon.scss';
 import './Chat-footer.scss';
 
-const socket = io.connect('/');
-
-socket.onAny((evt, ...args) => {
-   console.log(`EVENT: ${evt}, ARGS: ${args}`);
-});
-
 function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
    const currentChat = useParams().id;
+   const { socket, socketEmitPrivateMsgOut } = useContext(socketContext);
    const [newMsg, setNewMsg] = useState('');
-
-   useEffect(() => {
-      socket.emit('join-self', currentUser._id);
-      socket.on('new-msg-in', ({ newMsg, status }) => {
-         status === 'success' && dispatch(addNewMsg(newMsg.sender, newMsg));
-      });
-      socket.on('user-is-typing', ({ typist: chatId, isTyping }) => {
-         dispatch(setSomeoneIsTyping({ chatId, isTyping }));
-      });
-      return () => socket.disconnect();
-   }, []);
 
    useEffect(() => {
       socket.emit('typing', {
@@ -44,28 +27,16 @@ function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
 
    const sendMessage = ev => {
       ev?.preventDefault();
-      const sentAt = new Date();
-
-      socket.emit('private-msg-out', {
+      socketEmitPrivateMsgOut({
          from: currentUser._id,
          sendTo: currentChat,
          text: newMsg,
-         sentAt
+         sentAt: new Date()
       });
-      dispatch(
-         addNewMsg(currentChat, {
-            sender: currentUser._id,
-            receiver: currentChat,
-            text: newMsg,
-            createdAt: sentAt
-         })
-      );
       setNewMsg('');
    };
 
-   const onChange = ev => {
-      setNewMsg(ev.target.value);
-   };
+   const onChange = ev => setNewMsg(ev.target.value);
 
    return (
       <div className="chatting-section__footer">

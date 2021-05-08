@@ -4,10 +4,9 @@
    font-size: 1.15em;
    width: max-content;
    max-width: 60ch;
-   width: max-content;
    background-color: $color-white;
    border-radius: 1rem;
-   margin-bottom: 0.4rem;
+   margin-bottom: 0.5rem;
    display: flex;
    flex-direction: column;
    position: relative;
@@ -23,8 +22,7 @@
       align-self: flex-end;
       color: $color-gray-dark;
       font-size: 0.9em;
-      // letter-spacing: 0.2px;
-      margin: 3px 1.5rem 3px 0;
+      margin: 5px 1.5rem 5px 0;
    }
    &__sender-name {
       position: absolute;

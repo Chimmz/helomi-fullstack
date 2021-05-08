@@ -47,7 +47,6 @@ io.on('connect', socket => {
             text
          });
          io.to(sendTo).emit('new-msg-in', { newMsg, status: 'success' });
-
          console.log(`Sending ${text} to ${sendTo}`);
       } catch (err) {
          io.to(sendTo).emit('new-msg-in', { newMsg, status: 'fail' });
@@ -59,6 +58,4 @@ io.on('connect', socket => {
    );
 });
 
-server.listen(port, function () {
-   console.log(`Server listens on port ${port}`);
-});
+server.listen(port, () => console.log(`Server listens on port ${port}`));

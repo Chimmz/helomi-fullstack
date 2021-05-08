@@ -18,10 +18,6 @@ function MessagesBox({ allMsgs, isLoadingChatMsgs, loadChatMsgs, user }) {
       isLoadingChatMsgs && loadChatMsgs(user.token, chatId);
    }, [chatId]);
 
-   useEffect(() => {
-      console.log('allMsgs', allMsgs);
-   }, [allMsgs?.length]);
-
    return (
       <ReactScrollableFeed>
          <div className="chatting-section__messages-box">
@@ -32,6 +28,7 @@ function MessagesBox({ allMsgs, isLoadingChatMsgs, loadChatMsgs, user }) {
       </ReactScrollableFeed>
    );
 }
+
 const mapStateToProps = (state, ownProps) => ({
    user: selectUser(state),
    allMsgs: selectChatMsgs(ownProps.match.params.id)(state),
