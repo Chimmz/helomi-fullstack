@@ -8,7 +8,7 @@ const initialState = {
 const msgReducer = (state = initialState, action) => {
    const { type, payload } = action;
    switch (type) {
-      case actionTypes.LOAD_CHAT_MSGS:
+      case actionTypes.FETCH_CHAT_MSGS:
          const { chatId, msgs } = payload;
          return {
             ...state,

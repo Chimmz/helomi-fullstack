@@ -1,9 +1,9 @@
-import { ADD_NEW_MSG, LOAD_CHAT_MSGS } from './msg.action.types';
+import { ADD_NEW_MSG, FETCH_CHAT_MSGS } from './msg.action.types';
 import * as utils from '../../utils';
 import * as chatActionCreators from '../chat/chat.action.creators';
 
-export const addLoadedChatMsgs = (chatId, msgs) => ({
-   type: LOAD_CHAT_MSGS,
+export const addFetchedChatMsgs = (chatId, msgs) => ({
+   type: FETCH_CHAT_MSGS,
    payload: { chatId, msgs }
 });
 
@@ -12,12 +12,12 @@ export const addNewMsg = (chatId, msg) => ({
    payload: { chatId, msg }
 });
 
-export const loadChatMsgs = (authToken, chatId) => {
+export const fetchChatMsgs = (authToken, chatId) => {
    return async dispatch => {
       try {
          const response = await utils.API.fetchChatMsgs(authToken, chatId);
          const { msgs } = await response.json();
-         dispatch(addLoadedChatMsgs(chatId, msgs));
+         dispatch(addFetchedChatMsgs(chatId, msgs));
          dispatch(
             chatActionCreators.setChatMsgsLoading({ chatId, isLoading: false })
          );

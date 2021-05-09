@@ -1,6 +1,11 @@
 .pic {
    border-radius: 50% !important;
 
+   &--lg {
+      width: 25rem !important;
+      height: 25rem !important;
+   }
+
    &--sm {
       width: 5rem !important;
       height: 5rem !important;

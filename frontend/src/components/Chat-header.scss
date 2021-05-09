@@ -2,7 +2,6 @@
 @import '../sass//mixins.scss';
 
 .chatting-section__header {
-   // height: 9.5vh;
    padding: 0.5rem 2rem;
    display: flex;
    align-items: center;
@@ -21,6 +20,7 @@
    &__icon {
       color: $color-primary-lighter;
       margin-right: 2.5rem;
+      margin-block: auto; // To force vertical alignment
       font-size: 3rem;
       cursor: pointer;
       transition: all 1s;
@@ -33,7 +33,27 @@
       }
    }
    &__userphoto {
+      border-radius: 50%;
       margin-right: 1.4rem;
+
+      &:hover {
+         cursor: pointer;
+         box-shadow: 0 0 0 2px $color-primary-light;
+      }
+      & .user-img {
+         transition: transform 0.3s;
+      }
+
+      &--zoomed-in,
+      &--zoomed-in:hover {
+         z-index: 51;
+         box-shadow: none;
+
+         & .user-img {
+            transform: scale(7);
+            transform-origin: top left;
+         }
+      }
    }
    &__username {
       color: $color-white;

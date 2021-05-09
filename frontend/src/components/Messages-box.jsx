@@ -3,7 +3,7 @@ import { useParams, withRouter } from 'react-router-dom';
 import ReactScrollableFeed from 'react-scrollable-feed';
 
 import { connect } from 'react-redux';
-import { loadChatMsgs } from '../redux/msg/msg.actions.creators';
+import { fetchChatMsgs } from '../redux/msg/msg.actions.creators';
 import { selectChatMsgs } from '../redux/msg/msg.selectors';
 import { selectUser } from '../redux/user/user.selectors';
 import { selectIsLoadingChatMsgs } from '../redux/chat/chat.selectors';
@@ -11,11 +11,11 @@ import { selectIsLoadingChatMsgs } from '../redux/chat/chat.selectors';
 import Textmsg from './Textmsg';
 import './Messages-box.scss';
 
-function MessagesBox({ allMsgs, isLoadingChatMsgs, loadChatMsgs, user }) {
+function MessagesBox({ allMsgs, isLoadingChatMsgs, fetchChatMsgs, user }) {
    const chatId = useParams().id;
 
    useEffect(() => {
-      isLoadingChatMsgs && loadChatMsgs(user.token, chatId);
+      if (isLoadingChatMsgs) fetchChatMsgs(user.token, chatId);
    }, [chatId]);
 
    return (
@@ -37,6 +37,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default withRouter(
    connect(mapStateToProps, {
-      loadChatMsgs: (token, chatId) => loadChatMsgs(token, chatId)
+      fetchChatMsgs: (token, chatId) => fetchChatMsgs(token, chatId)
    })(React.memo(MessagesBox))
 );
