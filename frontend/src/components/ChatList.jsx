@@ -9,10 +9,9 @@ import LoadingSpinner from './UI/Loader';
 import './ChatList.scss';
 
 function ChatList({ chats }) {
-   console.log('CHATSSS', chats);
    return chats.length ? (
       <div className="allchats__chatlist">
-         {chats.map(ch => <Chat key={ch.id} chat={ch} />) || ''}
+         {chats.map(ch => <Chat key={ch.id} chat={ch} />)}
       </div>
    ) : (
       <LoadingSpinner />

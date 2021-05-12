@@ -8,7 +8,7 @@ import { selectAllAlerts } from './redux/alert/alert.selectors';
 import { LOAD_USER } from './redux/user/user.actions.type';
 import store from './redux/store';
 
-import { SocketProvider, socketContext } from './contexts/SocketProvider';
+import { SocketProvider } from './contexts/SocketProvider';
 
 import Navbar from './components/layout/Navbar';
 import ChattingSection from './components/layout/Chatting-section';

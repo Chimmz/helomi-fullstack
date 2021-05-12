@@ -18,19 +18,17 @@ export const fetchChatMsgs = (authToken, chatId) => {
          const response = await utils.API.fetchChatMsgs(authToken, chatId);
          const { msgs } = await response.json();
          dispatch(addFetchedChatMsgs(chatId, msgs));
-         dispatch(
-            actionCreators.setChatMsgsLoading({ chatId, isLoading: false })
-         );
       } catch (err) {
          console.log('ERR', err);
+      } finally {
          dispatch(
-            actionCreators.setChatMsgsLoading({ chatId, isLoading: true })
+            actionCreators.setChatMsgsLoading({ chatId, isLoading: false })
          );
       }
    };
 };
 
-export const markMsgsAsRead = msgs => ({
+export const markMsgsAsRead = (msgIdsArr, chatId) => ({
    type: actionTypes.MARK_MSGS_AS_READ,
-   payload: { msgs }
+   payload: { msgIdsArr, chatId }
 });

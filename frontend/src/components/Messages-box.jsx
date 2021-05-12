@@ -10,6 +10,7 @@ import { selectUser } from '../redux/user/user.selectors';
 import { selectIsLoadingChatMsgs } from '../redux/chat/chat.selectors';
 
 import { socketContext } from '../contexts/SocketProvider';
+import { v4 as uuidv4 } from 'uuid';
 import Textmsg from './Textmsg';
 import './Messages-box.scss';
 
@@ -20,8 +21,19 @@ function MessagesBox(props) {
    const { socket } = useContext(socketContext);
    console.log('unreadMsgs'.toUpperCase(), unreadMsgs);
 
+   // If any new message is sent by active chat, mark that message as true since it will be viewed immediately
+   useEffect(() => {
+      socket.on('new-msg-in', ({ newMsg, status }) => {
+         if (newMsg.sender === chatId) {
+            socket.emit('set-unreadMsgs-to-read', { unreadMsgs });
+            markMsgsAsRead(newMsg._id, [chatId]);
+         }
+      });
+   }, []);
+
    // Upon mounting, set any unseen msgs to seen
    useEffect(() => {
+      if (isLoadingChatMsgs) fetchChatMsgs(user.token, chatId);
       if (!unreadMsgs?.length) return;
 
       socket.emit('set-unreadMsgs-to-read', { unreadMsgs });
@@ -31,15 +43,11 @@ function MessagesBox(props) {
       );
    }, [chatId]);
 
-   useEffect(() => {
-      if (isLoadingChatMsgs) fetchChatMsgs(user.token, chatId);
-   }, [chatId]);
-
    return (
       <ReactScrollableFeed>
          <div className="chatting-section__messages-box">
             {allMsgs?.map(msg => (
-               <Textmsg key={msg._id} msg={msg} />
+               <Textmsg key={uuidv4() + msg._id} msg={msg} />
             ))}
          </div>
       </ReactScrollableFeed>
