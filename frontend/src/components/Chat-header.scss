@@ -44,14 +44,17 @@
          transition: transform 0.3s;
       }
 
-      &--zoomed-in,
-      &--zoomed-in:hover {
+      &--zoomed-in {
          z-index: 51;
-         box-shadow: none;
+         border-radius: 0 !important;
+         pointer-events: none;
 
          & .user-img {
             transform: scale(7);
             transform-origin: top left;
+         }
+         &:hover {
+            box-shadow: none;
          }
       }
    }

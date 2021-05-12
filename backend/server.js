@@ -53,6 +53,29 @@ io.on('connect', socket => {
       }
    });
 
+   socket.on('set-unreadMsgs-to-read', async ({ unreadMsgs }) => {
+      console.log(unreadMsgs);
+      const foundMsgs = await Promise.all(
+         unreadMsgs.map(async msg => PrivateMsg.findOne({ _id: msg._id }))
+      );
+      console.log(foundMsgs);
+      await Promise.all(
+         foundMsgs.map(
+            async msg =>
+               msg &&
+               (await PrivateMsg.updateOne({ _id: msg._id }, { isRead: true }))
+         )
+      );
+      // await PrivateMsg.updateMany(
+      //    {
+      //       _id: {
+      //          $in: [unreadMsgs.map(m => mongoose.Types.ObjectId(m._id))]
+      //       }
+      //    },
+      //    { isRead: true }
+      // );
+   });
+
    socket.on('disconnect', () =>
       console.log(`User disconnected: ${socket.id}`)
    );

@@ -32,6 +32,21 @@ const msgReducer = (state = initialState, action) => {
             }
          };
 
+      case actionTypes.MARK_MSGS_AS_READ:
+         let { msgIds, chatId: chId } = payload;
+         console.log(msgIds, state.messages[chId]);
+         return {
+            ...state,
+            messages: {
+               ...state.messages,
+               [chId]: state.messages[chId].map(msg =>
+                  msgIds.includes(msg._id)
+                     ? { ...msg, isRead: true }
+                     : { ...msg }
+               )
+            }
+         };
+
       default:
          return state;
    }
