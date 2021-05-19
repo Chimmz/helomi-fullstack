@@ -42,7 +42,7 @@
    }
    &--outgoing {
       margin-left: auto;
-      background: $color-primary;
+      background: $color-primary !important;
       color: $color-white;
       border-bottom-right-radius: 0.2rem;
 

@@ -5,12 +5,9 @@ const router = express.Router();
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
-router.get(
-   '/friends/:id/msgs',
-   authController.protect,
-   userController.getMsgsWithFriend
-);
-
+router
+   .route('/:id')
+   .get(authController.protect, userController.getUserPublicProfile);
 router.patch(
    '/update-my-profile',
    authController.protect,

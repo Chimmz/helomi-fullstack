@@ -10,7 +10,7 @@ import './Chat.scss';
 import { getMsgSentTime } from '../redux/msg/msg.utils';
 
 function Chat({ chat, allReduxMsgs, currentUser }) {
-   const lastChatMsg = allReduxMsgs[chat._id]?.slice(-1).pop() || 'au'; // 'auto' should be replaced with initial data from backend
+   const lastChatMsg = allReduxMsgs[chat._id]?.slice(-1).pop() || ''; // 'auto' should be replaced with initial data from backend
 
    const showLastMsgAsUnread =
       currentUser.id === lastChatMsg.sender ? false : !lastChatMsg.isRead;
@@ -18,7 +18,7 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
    const unreadMsgsCount =
       allReduxMsgs[chat._id]?.reduce((accum, msg) => {
          return msg.sender === chat._id && !msg.isRead ? accum + 1 : accum + 0;
-      }, 0) || 'AU'; // 'AUTO' should be soon replaced with initial data from backend
+      }, 0) || ''; // 'AUTO' should be soon replaced with initial data from backend
 
    return (
       <NavLink

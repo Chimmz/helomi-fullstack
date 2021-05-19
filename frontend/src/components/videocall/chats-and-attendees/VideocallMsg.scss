@@ -1,0 +1,45 @@
+@import '../../../sass/variables.scss';
+@import '../../Textmsg.scss';
+
+.videocall-msg {
+   font-size: 1.2rem;
+   padding: 0.5em 1em;
+   width: max-content;
+   max-width: 40ch;
+   border-radius: 0.7rem;
+   background: $color-white;
+   font-family: 'Roboto', sans-serif;
+   position: relative;
+
+   &__content {
+      font-size: 1em;
+      line-height: 1.3em;
+   }
+
+   &__time {
+      // width: max-content;
+      margin-left: auto;
+      color: $color-gray-dark;
+      // font-size: 0.9em;
+   }
+
+   &__sender-name {
+      position: absolute;
+      top: -1.2em;
+      left: 1.2em;
+      // opacity: 80%;
+      width: max-content;
+      color: $color-primary-dark;
+   }
+   &__sender-photo {
+      position: absolute;
+      right: 100%;
+      bottom: 100%;
+      // border: 3px solid $soft-blue;
+      transform: translate(50%, 50%);
+   }
+
+   &:not(:last-child) {
+      margin-bottom: 2.5em;
+   }
+}

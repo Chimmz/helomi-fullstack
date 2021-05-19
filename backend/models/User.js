@@ -43,10 +43,10 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre(/^find/, function (next) {
-   this.populate({
-      path: 'friends',
-      select: '-__v -friends'
-   });
+   // this.populate({
+   //    path: 'friends',
+   //    select: '-__v -friends'
+   // });
    next();
 });
 

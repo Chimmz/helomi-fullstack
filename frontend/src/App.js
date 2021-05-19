@@ -16,6 +16,7 @@ import Sidenav from './components/layout/Sidenav';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Alerts from './components/Alerts';
+import VideoCall from './components/videocall/VideoCall';
 import './App.scss';
 
 // store.dispatch({ type: LOAD_USER });
@@ -48,6 +49,7 @@ function App({ alerts, user }) {
                )
             }
          />
+         <VideoCall />
       </SocketProvider>
    );
 }

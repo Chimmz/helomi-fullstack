@@ -1,0 +1,35 @@
+@import '../../../sass/variables.scss';
+
+.videocall__chats {
+   & .newmsg {
+      position: absolute;
+      margin: 0 auto;
+      bottom: 1rem;
+      right: 1em;
+      left: 1em;
+      right: 1em;
+      bottom: 1em;
+
+      & .input {
+         background: $color-white;
+         outline: none;
+         border: none;
+         padding: 1.4rem 1.7rem;
+         width: 100%;
+         font: inherit;
+         font-size: 1.35rem;
+         border-radius: 1rem;
+         border: 1px solid transparent;
+
+         &:focus {
+            border: 1px solid $color-gray-light;
+         }
+      }
+      & .send {
+         position: absolute;
+         top: 50%;
+         right: 0;
+         transform: translate(-3px, -50%);
+      }
+   }
+}

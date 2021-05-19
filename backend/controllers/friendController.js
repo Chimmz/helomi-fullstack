@@ -13,7 +13,7 @@ exports.addFriend = catchAsyncError(async (req, res, next) => {
    req.user.friends.push(friend._id);
    await req.user.save();
 
-   res.json({
+   return res.status(200).json({
       user: await User.findById(req.user._id)
    });
    next();
@@ -24,7 +24,7 @@ exports.deleteFriend = catchAsyncError(async (req, res, next) => {
 
    if (!friend) next(new AppError('User to delete not found', 404));
    req.user.friends = req.user.friends.filter(
-      f => `${f._id}` !== `${req.params.id}`
+      f => `${f._id}` !== req.params.id
    );
    await req.user.save();
 
