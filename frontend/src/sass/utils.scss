@@ -40,3 +40,33 @@
       transform: rotate(45deg) translateX(50%) scaleY(1.5);
    }
 }
+
+.with-popup-label {
+   position: relative;
+   cursor: pointer;
+
+   &::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      background: $color-white;
+      color: $color-gray-darkest;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      box-shadow: 0 0 1rem 0 rgba($color-black, 0.2);
+      visibility: hidden;
+      transition: transform 0.2s;
+   }
+   &:hover::after {
+      visibility: visible;
+      transform: translateX(-50%) translateY(-2rem);
+      opacity: 1;
+      z-index: 10;
+   }
+}
