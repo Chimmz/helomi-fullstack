@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import './ChatsAndAttendees.scss';
 import ChatsAndAttendeesNav from './ChatsAndAttendeesNav';
 import MsgSection from './Msg-section';
 import Attendees from './Attendees';
+import './ChatsAndAttendees.scss';
 
 function ChatsAndAttendees() {
+   const [isViewingAttendees, setIsViewingAttendees] = useState(true);
+
    return (
       <div class="videocall__chats-and-attendees">
          <h1 class="heading">Group Chat</h1>
-         {/* <MsgSection /> */}
-         <Attendees />
+         {isViewingAttendees ? <Attendees /> : <MsgSection />}
 
-         <ChatsAndAttendeesNav />
+         <ChatsAndAttendeesNav
+            isViewingAttendees={isViewingAttendees}
+            setIsViewingAttendees={setIsViewingAttendees}
+         />
       </div>
    );
 }

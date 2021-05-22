@@ -6,3 +6,12 @@
       transform: rotate(700deg);
    }
 }
+
+@keyframes zoom-into-view {
+   from {
+      transform: scale(0);
+   }
+   to {
+      transform: scale(1);
+   }
+}

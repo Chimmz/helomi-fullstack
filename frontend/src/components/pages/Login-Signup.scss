@@ -66,11 +66,11 @@
    &__submit {
       display: block;
       width: 40vw;
-      font-size: 1.5rem;
-      padding: 1.5rem 3rem;
-      border-radius: 99rem;
+      font-size: 1.5rem !important;
+      padding: 1.5rem 3rem !important;
+      border-radius: 99rem !important;
       transform: translateX(1.5rem);
-      transition: all 0.5s;
+      transition: all 0.5s !important;
       background: $color-primary-darkest;
       color: rgba($color-white, 0.9);
 

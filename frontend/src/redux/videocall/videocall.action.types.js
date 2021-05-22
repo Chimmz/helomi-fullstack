@@ -1,0 +1,4 @@
+export const START_CALL = 'START_CALL';
+export const END_CALL = 'END_CALL';
+export const ZOOM_TO_FULLSCREEN = 'ZOOM_TO_FULLSCREEN';
+export const EXIT_FULLSCREEN = 'EXIT_FULLSCREEN';

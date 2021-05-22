@@ -22,7 +22,7 @@ class APIRequest {
    }
 
    fetchChatMsgs(authToken, chatId) {
-      return fetch(`http://localhost:5000/users/friends/${chatId}/msgs`, {
+      return fetch(`http://localhost:5000/privatemsg/friends/${chatId}/msgs`, {
          method: 'GET',
          headers: { Authorization: `Bearer ${authToken}` }
       });

@@ -1,15 +1,25 @@
 import React from 'react';
 import './ChatsAndAttendeesNav.scss';
 
-function ChatsAndAttendeesNav() {
+function ChatsAndAttendeesNav(props) {
+   const { isViewingAttendees, setIsViewingAttendees } = props;
+
    return (
-      <div class="videocall__chats-and-attendees-nav">
-         <span class="chats" data-nav-item="chat-msgs">
-            <i class="fas fa-comments"></i>
+      <div className="videocall__chats-and-attendees-nav">
+         <span
+            className={`chats ${!isViewingAttendees && 'nav-item--active'}`}
+            data-nav-item="chat-msgs"
+            onClick={() => setIsViewingAttendees(false)}
+         >
+            <i className="fas fa-comments"></i>
          </span>
-         <div class="attendees nav-item--active" data-nav-item="attendees">
-            <span class="total">15</span>
-            <i class="fas fa-users"></i>
+         <div
+            className={`attendees ${isViewingAttendees && 'nav-item--active'}`}
+            data-nav-item="attendees"
+            onClick={() => setIsViewingAttendees(true)}
+         >
+            <span className="total">15</span>
+            <i className="fas fa-users"></i>
          </div>
       </div>
    );

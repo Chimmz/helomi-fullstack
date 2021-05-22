@@ -66,14 +66,6 @@ io.on('connect', socket => {
                (await PrivateMsg.updateOne({ _id: msg._id }, { isRead: true }))
          )
       );
-      // await PrivateMsg.updateMany(
-      //    {
-      //       _id: {
-      //          $in: [unreadMsgs.map(m => mongoose.Types.ObjectId(m._id))]
-      //       }
-      //    },
-      //    { isRead: true }
-      // );
    });
 
    socket.on('disconnect', () =>

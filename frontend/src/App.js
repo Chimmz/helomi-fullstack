@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from './redux/user/user.selectors';
 import { selectAllAlerts } from './redux/alert/alert.selectors';
+import { selectIsVideoCalling } from './redux/videocall/videocall.selectors';
 import { LOAD_USER } from './redux/user/user.actions.type';
 import store from './redux/store';
 
@@ -24,7 +25,7 @@ function ReplaceLater() {
    return <div className="default-img"></div>;
 }
 
-function App({ alerts, user }) {
+function App({ alerts, user, isVideoCalling }) {
    return (
       <SocketProvider>
          <Alerts alerts={alerts} />
@@ -49,14 +50,15 @@ function App({ alerts, user }) {
                )
             }
          />
-         <VideoCall />
+         {isVideoCalling && <VideoCall />}
       </SocketProvider>
    );
 }
 
 const mapStateToProps = createStructuredSelector({
    alerts: selectAllAlerts,
-   user: selectUser
+   user: selectUser,
+   isVideoCalling: selectIsVideoCalling
 });
 
 export default withRouter(connect(mapStateToProps)(App));

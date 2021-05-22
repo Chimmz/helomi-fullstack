@@ -8,8 +8,8 @@ import './Call-section.scss';
 function CallSection() {
    return (
       <div class="videocall__call videocall__call--peer-to-peer">
-         {/* <PeerToPeerCall /> */}
-         <ConferenceCall />
+         <PeerToPeerCall />
+         {/* <ConferenceCall /> */}
          <CallFooter />
       </div>
    );

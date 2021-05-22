@@ -15,7 +15,7 @@
          border-top: 2px solid $soft-blue;
          border-bottom: 2px solid $soft-blue;
          border-radius: 1.5rem;
-         padding: 1.5em 0;
+         padding: 2em 0;
          font-size: 1.75rem;
          color: $color-gray-dark;
 
@@ -56,8 +56,9 @@
          }
 
          & .nav-item--active {
-            color: $color-primary;
             border-right: 2px solid $color-primary;
+            color: $color-primary;
+            // background: $color-gray-lightest;
          }
       }
    }

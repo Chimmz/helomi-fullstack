@@ -47,7 +47,7 @@ function Navbar({ user }) {
             <img src="img/helomi-logox2.png" alt="" className="navbar__logo" />{' '}
          </Link>
 
-         <div className="navbar__links remove-bullets">
+         {/* <div className="navbar__links remove-bullets">
             {user.isLoggedIn &&
                authlinks.map(({ label, icon }) => (
                   <NavLink
@@ -60,7 +60,7 @@ function Navbar({ user }) {
                      <span className="navbar__link__label">{label}</span>
                   </NavLink>
                ))}
-         </div>
+         </div> */}
       </nav>
    );
 }

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const AppError = require('../utils/AppError');
 const catchAsyncError = require('../utils/catchAsyncError');
+const PrivateMsg = require('../models/PrivateMsg');
 
 const createToken = function (id) {
    const token = jwt.sign({ id }, process.env.JWT_PRIVATE_KEY, {
@@ -26,13 +27,16 @@ exports.login = catchAsyncError(async function (req, res, next) {
    if (!username || !password)
       return next(new AppError('Wrong username or password entered', 401));
 
-   const user = await User.findOne({ username }).select('+password');
+   const user = await User.findOne({ username }).select('+password').populate({
+      path: 'friends',
+      select: '-__v, -id, -friends'
+   });
    if (!user || !(await user.checkPasswordMatch(user.password, password)))
       return next(new AppError('Wrong username or password entered', 401));
 
    return res.status(200).json({
       status: 'success',
-      data: { user },
+      data: { user, },
       token: createToken(user._id)
    });
 });

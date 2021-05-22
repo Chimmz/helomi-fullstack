@@ -4,18 +4,15 @@ import { withRouter, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser, selectCurrentUser } from '../redux/user/user.selectors';
+import { startVideoCall } from '../redux/videocall/videocall.action.creators';
 
-import CallIcon from '@material-ui/icons/Call';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Dropdown from './formUI/Dropdown';
 import Overlay from './UI/Overlay';
-
 import './Chat-header.scss';
 import './Icon.scss';
 
 // 'user' is not in use for now
-function ChatHeader({ user, currentUser: { friends } }) {
+function ChatHeader({ user, currentUser: { friends }, dispatch }) {
    const currentChat = useParams().id;
    const currentChatName = friends.find(f => f._id === currentChat).username;
    const [chatPhotoZoomedIn, setChatPhotoZoomedIn] = useState(false);
@@ -40,22 +37,16 @@ function ChatHeader({ user, currentUser: { friends } }) {
             </span>
          </div>
          <div className="chatting-section__header__nav">
-            <CallIcon
-               className="chatting-section__header__icon"
-               style={{ fontSize: '2.2rem' }}
-            />
-            <VideocamIcon
-               className="chatting-section__header__icon"
-               style={{ fontSize: '2.2rem' }}
-            />
-            <div className="chatting-section__header__icon">
-               <MoreVertIcon className="" style={{ fontSize: '2.2rem' }} />
-               {/* <Dropdown
-                  showIf={'a'}
-                  listClassName="allchats__search__results remove-bullets"
-                  children={[...'a'.repeat(5)]}
-               /> */}
-            </div>
+            <i
+               class="fas fa-phone-alt with-label with-label-at-bottom"
+               data-label="Start audio call"
+            ></i>
+            <i
+               class="fas fa-video with-label with-label-at-bottom"
+               data-label="Start video call"
+               onClick={() => dispatch(startVideoCall())}
+            ></i>
+            <i class="fas fa-ellipsis-v"></i>
          </div>
          <Overlay
             showIf={chatPhotoZoomedIn}
