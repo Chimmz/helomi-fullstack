@@ -3,17 +3,17 @@ import './ChatListInPrompt.scss';
 
 function ChatListInPrompt() {
    return (
-      <ul class="user-chatlist remove-bullets">
-         <li class="each-row">
+      <ul className="user-chatlist remove-bullets">
+         <li className="each-row">
             <input type="checkbox" id="add-chat" />
-            <label for="add-chat">
-               <div class="chat">
+            <label htmlFor="add-chat">
+               <div className="chat">
                   <img
                      src="img/face3.jpg"
                      alt=""
-                     class="chat__photo pic pic--sm"
+                     className="chat__photo pic pic--sm"
                   />
-                  <span class="chat__name">Mary Branson</span>
+                  <span className="chat__name">Mary Branson</span>
                </div>
             </label>
          </li>

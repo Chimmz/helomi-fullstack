@@ -1,17 +1,29 @@
 import React from 'react';
+
+import { connect } from 'react-redux';
+import { setIsAddingNewPeerToCall } from '../../../redux/videocall/videocall.action.creators';
+
 import './CallOptions.scss';
 
-function CallOptions() {
+function CallOptions({ dispatch }) {
+   const displayAddToCallPrompt = () =>
+      dispatch(setIsAddingNewPeerToCall(true));
    return (
-      <div class="videocall__call__options">
+      <div
+         className="videocall__call__options"
+         onClick={displayAddToCallPrompt}
+      >
          <span
-            class="videocall__call__option with-label with-label-at-top"
+            className="videocall__call__option with-label with-label-at-top"
             data-label="Add new participant"
          >
-            <i class="fas fa-user-plus"></i>
+            <i className="fas fa-user-plus"></i>
          </span>
       </div>
    );
 }
 
-export default CallOptions;
+// const mapDispatchToProps = dispatch => ({
+
+// })
+export default connect()(CallOptions);

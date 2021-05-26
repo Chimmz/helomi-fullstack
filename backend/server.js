@@ -1,10 +1,17 @@
 const dotenv = require('dotenv');
+const { v4: uuidv4 } = require('uuid');
 const http = require('http');
 const mongoose = require('mongoose');
 const app = require('./app');
 const PrivateMsg = require('./models/PrivateMsg');
 const server = http.createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+   cors: {
+      origin: '*',
+      methods: ['GET', 'POST']
+   }
+});
+const { ExpressPeerServer } = require('peer');
 
 const port = process.env.PORT || 5000;
 dotenv.config({ path: './config.env' });
@@ -20,8 +27,16 @@ mongoose
       useUnifiedTopology: true,
       useCreateIndex: true
    })
-   .then(() => console.log('Database connection successful'))
+   .then(_ => console.log('Database connection successful'))
    .catch(err => console.log('Error in connecting to database', err));
+
+const peerServer = ExpressPeerServer({
+   server,
+   debug: true,
+   generateClientId: uuidv4()
+});
+
+// peerServer.on('connection', () => console.log('A new peer connection'));
 
 io.on('connect', socket => {
    console.log(`New connection: ${socket.id}`);
@@ -54,11 +69,9 @@ io.on('connect', socket => {
    });
 
    socket.on('set-unreadMsgs-to-read', async ({ unreadMsgs }) => {
-      console.log(unreadMsgs);
       const foundMsgs = await Promise.all(
-         unreadMsgs.map(async msg => PrivateMsg.findOne({ _id: msg._id }))
+         unreadMsgs.map(msg => msg && PrivateMsg.findOne({ _id: msg._id }))
       );
-      console.log(foundMsgs);
       await Promise.all(
          foundMsgs.map(
             async msg =>
@@ -66,6 +79,16 @@ io.on('connect', socket => {
                (await PrivateMsg.updateOne({ _id: msg._id }, { isRead: true }))
          )
       );
+   });
+
+   // For video call
+
+   socket.on('outgoing-videocall', callDetails => {
+      io.to(callDetails.to).emit('incoming-videocall', callDetails);
+   });
+
+   socket.on('answer-call', ({ to: caller, answer }) => {
+      io.to(caller).emit('call-answered', answer);
    });
 
    socket.on('disconnect', () =>

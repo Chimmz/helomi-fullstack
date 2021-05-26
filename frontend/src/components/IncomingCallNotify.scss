@@ -1,0 +1,38 @@
+@import '../sass/variables';
+@import '../sass/mixins';
+
+.callnotify {
+   position: fixed;
+   top: calc(10vh + 1rem);
+   left: 4rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background: $color-black;
+   padding: 1.5rem 3rem;
+   border-radius: 2rem;
+   z-index: 100;
+
+   &__icon {
+      color: $color-green;
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      transform: rotate(-45deg);
+   }
+
+   &__msg {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      color: $color-white;
+      margin-bottom: 2rem;
+   }
+
+   &__user-actions {
+      display: flex;
+      gap: 1rem;
+   }
+   &__user-action--acept {
+      background: $color-green;
+   }
+}

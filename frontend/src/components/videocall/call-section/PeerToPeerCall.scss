@@ -11,14 +11,13 @@
          position: absolute; // relative to allparticipants
          bottom: 1rem;
          right: 1rem;
-         width: 8rem;
-         height: 8rem;
+         width: 10rem;
+         height: 10rem;
          box-shadow: none !important;
          z-index: 3;
 
          & video {
-            // background: gray;
-            // border: 1px solid white;
+            background: gray;
             border-radius: 0.5em;
          }
       }

@@ -1,20 +1,25 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import { setIsAddingNewPeerToCall } from '../../redux/videocall/videocall.action.creators';
 import ChatListInPrompt from './ChatListInPrompt';
 import './AddToCallPrompt.scss';
 
-function AddToCallPrompt() {
+function AddToCallPrompt({ hidePrompt }) {
    return (
-      <div class="modal add-attendee-modal">
-         <h1 class="add-attendee-modal__header">Add someone</h1>
+      <div className="modal add-attendee-modal slide-in-from-up-to-center">
+         <h1 className="add-attendee-modal__header">Add someone</h1>
          <ChatListInPrompt />
-         <div class="add-attendee-modal__footer">
-            <button class="btn btn-text-white">Close</button>
-            <button class="btn btn-white">Add</button>
+         <div className="add-attendee-modal__footer">
+            <button className="btn btn-text-white">Close</button>
+            <button className="btn btn-white">Add</button>
          </div>
-         <span class="add-attendee-modal__close">&times;</span>
+         <span className="add-attendee-modal__close" onClick={hidePrompt}>
+            &times;
+         </span>
       </div>
    );
 }
-
-export default AddToCallPrompt;
+const mapDispatchToProps = dispatch => ({
+   hidePrompt: () => dispatch(setIsAddingNewPeerToCall(false))
+});
+export default connect(null, mapDispatchToProps)(AddToCallPrompt);

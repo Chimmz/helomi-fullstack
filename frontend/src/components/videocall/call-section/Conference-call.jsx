@@ -4,29 +4,41 @@ import AllParticpantsInCall from './AllParticpantsInCall';
 function ConferenceCall() {
    return (
       <AllParticpantsInCall>
-         <div class="videocall__participant">
-            <video src="" class="videocall__participant__video"></video>
-            <span class="videocall__participant__name">Rachel Brandley</span>
+         <div className="videocall__participant">
+            <video src="" className="videocall__participant__video"></video>
+            <span className="videocall__participant__name">
+               Rachel Brandley
+            </span>
          </div>
-         <div class="videocall__participant">
-            <video src="" class="videocall__participant__video"></video>
-            <span class="videocall__participant__name">Rachel Brandley</span>
+         <div className="videocall__participant">
+            <video src="" className="videocall__participant__video"></video>
+            <span className="videocall__participant__name">
+               Rachel Brandley
+            </span>
          </div>
-         <div class="videocall__participant">
-            <video src="" class="videocall__participant__video"></video>
-            <span class="videocall__participant__name">Rachel Brandley</span>
+         <div className="videocall__participant">
+            <video src="" className="videocall__participant__video"></video>
+            <span className="videocall__participant__name">
+               Rachel Brandley
+            </span>
          </div>
-         <div class="videocall__participant">
-            <video src="" class="videocall__participant__video"></video>
-            <span class="videocall__participant__name">Rachel Brandley</span>
+         <div className="videocall__participant">
+            <video src="" className="videocall__participant__video"></video>
+            <span className="videocall__participant__name">
+               Rachel Brandley
+            </span>
          </div>
-         <div class="videocall__participant">
-            <video src="" class="videocall__participant__video"></video>
-            <span class="videocall__participant__name">Rachel Brandley</span>
+         <div className="videocall__participant">
+            <video src="" className="videocall__participant__video"></video>
+            <span className="videocall__participant__name">
+               Rachel Brandley
+            </span>
          </div>
-         <div class="videocall__participant">
-            <video src="" class="videocall__participant__video"></video>
-            <span class="videocall__participant__name">Rachel Brandley</span>
+         <div className="videocall__participant">
+            <video src="" className="videocall__participant__video"></video>
+            <span className="videocall__participant__name">
+               Rachel Brandley
+            </span>
          </div>
       </AllParticpantsInCall>
    );

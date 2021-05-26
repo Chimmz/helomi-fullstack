@@ -19,7 +19,6 @@ function MessagesBox(props) {
    const { allMsgs, unreadMsgs, markMsgsAsRead, isLoadingChatMsgs, fetchChatMsgs, user } = props;
    const chatId = useParams().id;
    const { socket } = useContext(socketContext);
-   console.log('unreadMsgs'.toUpperCase(), unreadMsgs);
 
    // If any new message is sent by active chat, mark that message as true since it will be viewed immediately
    useEffect(() => {

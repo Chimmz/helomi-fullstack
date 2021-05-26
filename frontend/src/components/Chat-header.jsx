@@ -12,7 +12,7 @@ import './Chat-header.scss';
 import './Icon.scss';
 
 // 'user' is not in use for now
-function ChatHeader({ user, currentUser: { friends }, dispatch }) {
+function ChatHeader({ user, currentUser: { _id, friends }, dispatch }) {
    const currentChat = useParams().id;
    const currentChatName = friends.find(f => f._id === currentChat).username;
    const [chatPhotoZoomedIn, setChatPhotoZoomedIn] = useState(false);
@@ -38,15 +38,15 @@ function ChatHeader({ user, currentUser: { friends }, dispatch }) {
          </div>
          <div className="chatting-section__header__nav">
             <i
-               class="fas fa-phone-alt with-label with-label-at-bottom"
+               className="fas fa-phone-alt with-label with-label-at-bottom"
                data-label="Start audio call"
             ></i>
             <i
-               class="fas fa-video with-label with-label-at-bottom"
+               className="fas fa-video with-label with-label-at-bottom"
                data-label="Start video call"
-               onClick={() => dispatch(startVideoCall())}
+               onClick={() => dispatch(startVideoCall(_id))}
             ></i>
-            <i class="fas fa-ellipsis-v"></i>
+            <i className="fas fa-ellipsis-v"></i>
          </div>
          <Overlay
             showIf={chatPhotoZoomedIn}

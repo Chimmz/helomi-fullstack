@@ -13,6 +13,9 @@
       outline: none;
       cursor: pointer;
    }
+   &:hover {
+      filter: brightness(105%);
+   }
 
    &-primary {
       background: $color-primary;
@@ -30,6 +33,14 @@
       &:hover {
          color: $color-primary-darkest;
       }
+   }
+   &-green {
+      background: $color-green;
+      color: $color-white;
+   }
+   &-red {
+      background: $color-red;
+      color: $color-white;
    }
 
    &-text-white {

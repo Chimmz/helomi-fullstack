@@ -2,9 +2,9 @@ import React from 'react';
 
 function ParticpantInCall() {
    return (
-      <div class="videocall__participant">
-         <video src="" class="videocall__participant__video"></video>
-         <span class="videocall__participant__name">Mary Smith</span>
+      <div className="videocall__participant">
+         <video src="" className="videocall__participant__video"></video>
+         <span className="videocall__participant__name">Mary Smith</span>
       </div>
    );
 }

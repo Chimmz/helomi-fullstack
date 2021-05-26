@@ -7,7 +7,7 @@ import MoreActionsInCall from './MoreActionsInCall';
 
 function CallFooter() {
    return (
-      <div class="videocall__call__footer">
+      <div className="videocall__call__footer">
          <CallOptions />
          <CallControls />
          <MoreActionsInCall />

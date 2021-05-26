@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
-   exitFullscreen,
-   zoomToFullscreen
-} from '../../../redux/videocall/videocall.action.creators';
+   ZOOM_TO_FULLSCREEN,
+   EXIT_FULLSCREEN
+} from '../../../redux/videocall/videocall.action.types';
 import { selectIsFullscreen } from '../../../redux/videocall/videocall.selectors';
 
 import './MoreActionsInCall.scss';
 
-function MoreActionsInCall({ isFullscreen, zoomToFullscreen, exitFullscreen }) {
+function MoreActionsInCall({ isFullscreen, dispatch }) {
    return (
       <div className="videocall__call__more-actions">
          <input type="checkbox" id="more-actions" />
@@ -21,7 +21,7 @@ function MoreActionsInCall({ isFullscreen, zoomToFullscreen, exitFullscreen }) {
                {isFullscreen ? (
                   <li
                      className="videocall__call__option"
-                     onClick={exitFullscreen}
+                     onClick={() => dispatch({ type: EXIT_FULLSCREEN })}
                   >
                      <i className="fas fa-compress-arrows-alt"></i>
                      <span>Exit full screen</span>
@@ -29,7 +29,7 @@ function MoreActionsInCall({ isFullscreen, zoomToFullscreen, exitFullscreen }) {
                ) : (
                   <li
                      className="videocall__call__option"
-                     onClick={zoomToFullscreen}
+                     onClick={() => dispatch({ type: ZOOM_TO_FULLSCREEN })}
                   >
                      <i className="fas fa-expand-arrows-alt screen-size"></i>
                      <span>Zoom to full screen</span>
@@ -40,11 +40,8 @@ function MoreActionsInCall({ isFullscreen, zoomToFullscreen, exitFullscreen }) {
       </div>
    );
 }
-const mapDispatchToProps = dispatch => ({
-   exitFullscreen: () => dispatch(exitFullscreen()),
-   zoomToFullscreen: () => dispatch(zoomToFullscreen())
-});
+
 const mapStateToProps = createStructuredSelector({
    isFullscreen: selectIsFullscreen
 });
-export default connect(mapStateToProps, mapDispatchToProps)(MoreActionsInCall);
+export default connect(mapStateToProps)(MoreActionsInCall);

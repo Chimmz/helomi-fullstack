@@ -12,7 +12,7 @@ function NewMsgForm() {
             placeholder="Type a new message here"
          />
          <span className="send icon icon--sm icon--bg-blue">
-            <i class="fas fa-paper-plane"></i>
+            <i className="fas fa-paper-plane"></i>
          </span>
       </form>
    );

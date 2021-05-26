@@ -3,6 +3,7 @@ import React, { createContext } from 'react';
 import store from '../redux/store';
 import { addNewMsg } from '../redux/msg/msg.actions.creators';
 import { setSomeoneIsTyping } from '../redux/chat/chat.action.creators';
+import { ring } from '../redux/videocall/videocall.action.creators';
 import io from 'socket.io-client';
 
 const socket = io.connect('/');
@@ -25,6 +26,15 @@ function socketEmitPrivateMsgOut({ from, sendTo: receiver, text, sentAt }) {
       addNewMsg(receiver, { sender: from, receiver, text, createdAt: sentAt })
    );
 }
+
+// For videoCall signals
+socket.on('incoming-videocall', function (callDetails) {
+   const { roomId, caller, offer } = callDetails;
+
+   alert(`Incoming video call from ${caller}`);
+   // store.dispatch(setRtcOffer(offer));
+   store.dispatch(ring(caller, roomId, offer));
+});
 
 export const socketContext = createContext();
 

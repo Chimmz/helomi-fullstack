@@ -6,7 +6,7 @@ import './Msg-section.scss';
 
 function MsgSection() {
    return (
-      <div class="videocall__chats">
+      <div className="videocall__chats">
          <VideocallMsg />
          <NewMsgForm />
       </div>

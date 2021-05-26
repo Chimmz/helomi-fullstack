@@ -5,10 +5,10 @@ import ConferenceCall from './Conference-call';
 import CallFooter from './CallFooter';
 import './Call-section.scss';
 
-function CallSection() {
+function CallSection({ chatId }) {
    return (
-      <div class="videocall__call videocall__call--peer-to-peer">
-         <PeerToPeerCall />
+      <div className="videocall__call videocall__call--peer-to-peer">
+         <PeerToPeerCall chatId={chatId} />
          {/* <ConferenceCall /> */}
          <CallFooter />
       </div>

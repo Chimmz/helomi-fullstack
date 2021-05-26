@@ -15,7 +15,7 @@
       display: flex;
       gap: 1.7rem;
       z-index: 41;
-      transition: top left right bottom 0.2s 0.2s;
+      transition: all 0.2s 0.2s;
 
       &--zoomed-into-view {
          border-radius: 2rem;

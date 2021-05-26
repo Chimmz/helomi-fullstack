@@ -9,9 +9,27 @@
 
 @keyframes zoom-into-view {
    from {
-      transform: scale(0);
+      transform: scale(0.5);
    }
    to {
       transform: scale(1);
+   }
+}
+
+@keyframes slide-in-from-up-to-center {
+   from {
+      top: 0%;
+   }
+   to {
+      top: 50%;
+   }
+}
+
+@keyframes fade-out {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
    }
 }

@@ -9,8 +9,8 @@ function ChatsAndAttendees() {
    const [isViewingAttendees, setIsViewingAttendees] = useState(true);
 
    return (
-      <div class="videocall__chats-and-attendees">
-         <h1 class="heading">Group Chat</h1>
+      <div className="videocall__chats-and-attendees">
+         <h1 className="heading">Group Chat</h1>
          {isViewingAttendees ? <Attendees /> : <MsgSection />}
 
          <ChatsAndAttendeesNav
