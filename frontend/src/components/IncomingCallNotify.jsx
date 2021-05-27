@@ -10,26 +10,21 @@ import {
 } from '../redux/videocall/videocall.action.types';
 import {
    selectRtcOffer,
-   selectCaller
+   selectCaller,
+   selectVideoChatRoomId
 } from '../redux/videocall/videocall.selectors';
 
 import './IncomingCallNotify.scss';
 
-function IncomingCallNotify({ caller, rtcOffer, dispatch }) {
+function IncomingCallNotify({ caller, rtcOffer, videocallRoomId, dispatch }) {
+   console.log(caller);
    const { socket } = useContext(socketContext);
 
    const handleAccept = async () => {
-      const iceConfig = {
-         iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-      };
-      const peerConn = new RTCPeerConnection(iceConfig);
-      peerConn.setRemoteDescription(new RTCSessionDescription(rtcOffer));
+      socket.emit('join-videocall-room', videocallRoomId);
 
-      const answer = await peerConn.createAnswer();
-      await peerConn.setLocalDescription(answer);
-
-      socket.emit('answer-call', { to: caller, answer });
-      acceptCall();
+      dispatch({ type: STOP_RINGING });
+      dispatch({ type: ACCEPT_CALL });
    };
 
    return (
@@ -56,7 +51,8 @@ function IncomingCallNotify({ caller, rtcOffer, dispatch }) {
 
 const mapStateToProps = createStructuredSelector({
    rtcOffer: selectRtcOffer,
-   caller: selectCaller
+   caller: selectCaller,
+   videocallRoomId: selectVideoChatRoomId
 });
 
 export default connect(mapStateToProps)(IncomingCallNotify);

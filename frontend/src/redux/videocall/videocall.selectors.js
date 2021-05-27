@@ -22,6 +22,11 @@ export const selectRtcAnswer = createSelector(
 
 export const selectCaller = createSelector([actualCall], call => call.caller);
 
+export const selectCallingWho = createSelector(
+   [actualCall],
+   call => call.callingWho
+);
+
 export const selectCallAccepted = createSelector(
    [videocall],
    videocall => videocall.callAccepted

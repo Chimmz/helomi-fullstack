@@ -31,8 +31,10 @@ function socketEmitPrivateMsgOut({ from, sendTo: receiver, text, sentAt }) {
 socket.on('incoming-videocall', function (callDetails) {
    const { roomId, caller, offer } = callDetails;
 
-   alert(`Incoming video call from ${caller}`);
+   // alert(`Incoming video call from ${caller}`);
    // store.dispatch(setRtcOffer(offer));
+   const state = store.getState();
+   console.log(state);
    store.dispatch(ring(caller, roomId, offer));
 });
 

@@ -16,9 +16,9 @@ export const setRtcAnswer = answer => ({
    payload: { answer }
 });
 
-export const startVideoCall = userId => ({
+export const startVideoCall = (userId, callingWho) => ({
    type: START_CALL,
-   payload: { caller: userId, roomId: getVideoChatRoomId(userId) }
+   payload: { caller: userId, callingWho, roomId: getVideoChatRoomId(userId) }
 });
 
 // For incoming

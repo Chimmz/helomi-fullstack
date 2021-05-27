@@ -3,6 +3,7 @@ import * as videocallActions from './videocall.action.types';
 const initState = {
    call: {
       caller: null,
+      callingWho: null,
       roomId: null,
       offer: null,
       answer: null,
@@ -25,11 +26,9 @@ const videocallReducer = function (state = initState, action) {
             call: { ...state.call, caller, roomId },
             isRinging: true
          };
-         break;
 
       case videocallActions.STOP_RINGING:
          return { ...state, isRinging: false };
-         break;
 
       case videocallActions.START_CALL:
          return {
@@ -37,6 +36,7 @@ const videocallReducer = function (state = initState, action) {
             call: {
                ...state.call,
                caller: payload.caller,
+               callingWho: payload.callingWho,
                roomId: payload.roomId
             },
             isOnCall: true

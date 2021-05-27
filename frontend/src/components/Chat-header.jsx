@@ -44,7 +44,7 @@ function ChatHeader({ user, currentUser: { _id, friends }, dispatch }) {
             <i
                className="fas fa-video with-label with-label-at-bottom"
                data-label="Start video call"
-               onClick={() => dispatch(startVideoCall(_id))}
+               onClick={() => dispatch(startVideoCall(_id, currentChat))}
             ></i>
             <i className="fas fa-ellipsis-v"></i>
          </div>

@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from './redux/user/user.selectors';
 import { selectAllAlerts } from './redux/alert/alert.selectors';
+import {
+   selectCaller,
+   selectIsOnVideoCall
+} from './redux/videocall/videocall.selectors';
 import { LOAD_USER } from './redux/user/user.actions.type';
 import store from './redux/store';
 
@@ -16,6 +20,8 @@ import Sidenav from './components/layout/Sidenav';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Alerts from './components/Alerts';
+import VideoCall from './components/videocall/VideoCall';
+
 import './App.scss';
 
 // store.dispatch({ type: LOAD_USER });
@@ -23,7 +29,7 @@ function ReplaceLater() {
    return <div className="default-img"></div>;
 }
 
-function App({ alerts, user }) {
+function App({ alerts, user, isOnVideoCall, caller, callingWho }) {
    return (
       <SocketProvider>
          <Alerts alerts={alerts} />
@@ -48,13 +54,16 @@ function App({ alerts, user }) {
                )
             }
          />
+         {isOnVideoCall && <VideoCall />}
       </SocketProvider>
    );
 }
 
 const mapStateToProps = createStructuredSelector({
    alerts: selectAllAlerts,
-   user: selectUser
+   user: selectUser,
+   isOnVideoCall: selectIsOnVideoCall,
+   caller: selectCaller
 });
 
 export default withRouter(connect(mapStateToProps)(App));

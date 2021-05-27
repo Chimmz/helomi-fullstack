@@ -91,6 +91,14 @@ io.on('connect', socket => {
       io.to(caller).emit('call-answered', answer);
    });
 
+   socket.on('join-videocall-room', roomId => {
+      socket.join(roomId);
+   });
+
+   socket.on('candidate-out', ({ to, candidate }) => {
+      io.to(to).emit('candidate-in', candidate);
+   });
+
    socket.on('disconnect', () =>
       console.log(`User disconnected: ${socket.id}`)
    );

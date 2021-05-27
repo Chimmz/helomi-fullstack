@@ -22,12 +22,10 @@ function ChattingSection({ isLoadingMsgs, isOnVideoCall }) {
          {isLoadingMsgs && (
             <LoadingSpinner size="lg" msg="loading messages..." />
          )}
-         {isOnVideoCall && <VideoCall chatId={chatId} />}
       </div>
    );
 }
 const mapStateToProps = (state, ownProps) => ({
-   isLoadingMsgs: selectIsLoadingChatMsgs(ownProps.match.params.id)(state),
-   isOnVideoCall: selectIsOnVideoCall(state)
+   isLoadingMsgs: selectIsLoadingChatMsgs(ownProps.match.params.id)(state)
 });
 export default connect(mapStateToProps)(ChattingSection);
