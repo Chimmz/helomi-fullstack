@@ -9,7 +9,8 @@ const initState = {
       answer: null,
       candidate: null,
       isMuted: true,
-      videoStopped: false
+      videoStopped: false,
+      isConnected: false
    },
    isRinging: false,
    isOnCall: false,
@@ -27,6 +28,12 @@ const videocallReducer = function (state = initState, action) {
             call: { ...state.call, caller, roomId },
             isRinging: true
          };
+
+      case videocallActions.CALL_CONNECTED:
+         return { ...state, call: { ...state.call, isConnected: true } };
+
+      case videocallActions.CALL_DISCONNECTED:
+         return { ...state, call: { ...state.call, isConnected: false } };
 
       case videocallActions.STOP_RINGING:
          return { ...state, isRinging: false };

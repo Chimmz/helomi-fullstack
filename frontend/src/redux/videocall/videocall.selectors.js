@@ -8,6 +8,11 @@ export const selectIsRinging = createSelector(
    videocall => videocall.isRinging
 );
 
+export const selectCallConnected = createSelector(
+   [actualCall],
+   call => call.isConnected
+);
+
 export const selectIsOnVideoCall = createSelector(
    [videocall],
    videocall => videocall.isOnCall

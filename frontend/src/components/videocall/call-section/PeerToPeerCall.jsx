@@ -10,7 +10,13 @@ import {
    selectRtcOffer,
    selectVideoChatRoomId
 } from '../../../redux/videocall/videocall.selectors';
-import { SET_RTC_ANSWER } from '../../../redux/videocall/videocall.action.types';
+import {
+   CALL_CONNECTED,
+   CALL_DISCONNECTED,
+   SET_RTC_ANSWER
+} from '../../../redux/videocall/videocall.action.types';
+
+import { selectCallConnected } from '../../../redux/videocall/videocall.selectors';
 
 import { useToggle } from '../../../hooks/useToggle';
 import { socketContext } from '../../../contexts/SocketProvider';
@@ -28,26 +34,6 @@ function PeerToPeerCall(props) {
    const [localStream, setLocalStream] = useState(null);
    const [remoteStream, setRemoteStream] = useState(new MediaStream());
 
-   const getUserMediaStream = function getUserMedia() {
-      const getUserMedia = (
-         navigator.getUserMedia ||
-         navigator.webkitGetUserMedia ||
-         navigator.mozGetUserMedia
-      ).bind(window.navigator);
-
-      return new Promise(function (resolve, reject) {
-         getUserMedia(
-            { audio: true, video: true },
-            stream => {
-               console.log('STREAM', stream);
-               setLocalStream(stream);
-               resolve(stream);
-            },
-            err => reject(err)
-         );
-      });
-   };
-
    class PeerConnection {
       _iceConfig = {
          iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
@@ -57,14 +43,15 @@ function PeerToPeerCall(props) {
          this.isInitiator = isInitiator || false;
          this.stream = stream;
          this.isConnected = false;
-
          this.init();
       }
 
       init() {
+         this.connectStreamToVideo();
+         this.addOwnTracks();
+         this.connection.onnegotiationneeded = this.handleNegotiationNeeded;
          this.connection.onicecandidate = this.handleIceCandidate;
          this.connection.ontrack = this.handleTrackEvent;
-         this.connection.onnegotiationneeded = this.handleNegotiationNeeded;
          this.connection.onremovetrack = this.handleRemoveTrack;
          this.connection.oniceconnectionstatechange =
             this.handleIceConnectionStateChange;
@@ -75,6 +62,16 @@ function PeerToPeerCall(props) {
          this.connection.onsignalingstatechange =
             this.handleSignalingStateChange;
       }
+
+      connectStreamToVideo = () => {
+         localVideoRef.current.srcObject = this.stream;
+      };
+
+      addOwnTracks = () => {
+         this.stream
+            .getTracks()
+            .forEach(track => this.connection.addTrack(track, this.stream));
+      };
 
       handleNegotiationNeeded = async _ => {
          try {
@@ -127,8 +124,11 @@ function PeerToPeerCall(props) {
       };
 
       handleConnectionStateChange = _ => {
-         if (this.connection.connectionState === 'connected')
-            console.log('CONNECTED!!');
+         switch (this.connection.connectionState) {
+            case 'connected':
+               console.log('CONNECTED!!');
+               dispatch({ type: CALL_CONNECTED });
+         }
       };
 
       handleTrackEvent = ev => {
@@ -137,12 +137,6 @@ function PeerToPeerCall(props) {
          remoteVideoRef.current.srcObject = stream;
          console.log('Incoming track from remote peer');
       };
-      // handleCallAnswered = async answer => {
-      //    await this.connection.setRemoteDescription(
-      //       new RTCSessionDescription(answer)
-      //    );
-      //    dispatch({ type: SET_RTC_ANSWER, payload: { answer } });
-      // };
 
       handleRemoveTrack = ev => {};
       handleIceGatheringStateChange = ev => {};
@@ -173,53 +167,85 @@ function PeerToPeerCall(props) {
       };
    }
 
+   class PeerInitiator extends PeerConnection {
+      constructor(params) {
+         super(params);
+      }
+
+      handleCallAnswered = async answer => {
+         await this.connection.setRemoteDescription(
+            new RTCSessionDescription(answer)
+         );
+         dispatch({ type: SET_RTC_ANSWER, payload: { answer } });
+      };
+   }
+
+   class JoiningPeer extends PeerConnection {
+      constructor(params) {
+         super(params);
+      }
+
+      handleIncomingRtcOffer = async offer => {
+         await this.connection.setRemoteDescription(
+            new RTCSessionDescription(offer)
+         );
+      };
+
+      createRtcAnswer = async () => {
+         const answer = await this.connection.createAnswer();
+         await this.connection.setLocalDescription(answer);
+         socket.emit('answer-call', { to: caller, answer });
+      };
+   }
+
+   const getUserMediaStream = function getUserMedia() {
+      const getUserMedia = (
+         navigator.getUserMedia ||
+         navigator.webkitGetUserMedia ||
+         navigator.mozGetUserMedia ||
+         navigator.msGetUserMedia
+      ).bind(window.navigator);
+
+      return new Promise(function (resolve, reject) {
+         getUserMedia(
+            { audio: true, video: true },
+            stream => {
+               console.log('STREAM', stream);
+               setLocalStream(stream);
+               resolve(stream);
+            },
+            err => reject(err)
+         );
+      });
+   };
+
    const makeCall = async function () {
-      const peerConn = new PeerConnection({ isInitiator: true });
+      const stream = await getUserMediaStream();
+      const peerConn = new PeerInitiator({ isInitiator: true, stream });
+      console.log('At stage new', peerConn);
+
+      socket.on('candidate-in', peerConn.handleIncomingCandidate);
+      socket.on('call-answered', peerConn.handleCallAnswered);
+   };
+
+   const joinCall = async function () {
+      const stream = await getUserMediaStream();
+      const peerConn = new JoiningPeer({ isInitiator: false, stream });
       console.log('At stage new', peerConn);
 
       socket.on('candidate-in', peerConn.handleIncomingCandidate);
 
-      const stream = await getUserMediaStream();
-      stream
-         .getTracks()
-         .forEach(track => peerConn.connection.addTrack(track, stream));
-      localVideoRef.current.srcObject = stream;
-
-      socket.on('call-answered', async answer => {
-         await peerConn.connection.setRemoteDescription(
-            new RTCSessionDescription(answer)
-         );
-         dispatch({ type: SET_RTC_ANSWER, payload: { answer } });
-      });
-   };
-
-   const joinCall = async function () {
-      const peerConn = new PeerConnection({ isInitiator: false });
-      console.log('At stage new', peerConn);
-
-      const stream = await getUserMediaStream();
-      stream
-         .getTracks()
-         .forEach(track => peerConn.connection.addTrack(track, stream));
-      localVideoRef.current.srcObject = stream;
-
       const { rtcOffer } = props;
-      await peerConn.connection.setRemoteDescription(
-         new RTCSessionDescription(rtcOffer)
-      );
+      peerConn.handleIncomingRtcOffer(rtcOffer);
+      peerConn.createRtcAnswer();
 
-      const answer = await peerConn.connection.createAnswer();
-      await peerConn.connection.setLocalDescription(answer);
-      socket.emit('answer-call', { to: caller, answer });
-
-      const { rtcCandidate } = props;
-      console.log('rtcCandidate from props', rtcCandidate);
-      peerConn.handleIncomingCandidate(rtcCandidate);
+      // const { rtcCandidate } = props;
+      // console.log('rtcCandidate from props', rtcCandidate);
+      // peerConn.handleIncomingCandidate(rtcCandidate);
    };
 
    useEffect(() => {
-      if (caller === currentUser._id) makeCall();
-      else joinCall();
+      caller === currentUser._id ? makeCall() : joinCall();
       // socket.emit('join-video-chat-room', )
    }, []);
    return (
@@ -236,7 +262,11 @@ function PeerToPeerCall(props) {
             <span className="videocall__participant__name">Mary Smith</span>
          </div>
 
-         <div className="videocall__participant videocall__participant--user">
+         <div
+            className={`videocall__participant videocall__participant--user${
+               props.callConnected && '--send-to-bottom-right'
+            }`}
+         >
             {localStream && (
                <video
                   src=""
@@ -256,6 +286,7 @@ const mapStateToProps = createStructuredSelector({
    callingWho: selectCallingWho,
    videocallRoomId: selectVideoChatRoomId,
    rtcOffer: selectRtcOffer,
-   rtcCandidate: selectRtcCandidate
+   rtcCandidate: selectRtcCandidate,
+   callConnected: selectCallConnected
 });
 export default connect(mapStateToProps)(PeerToPeerCall);

@@ -33,10 +33,10 @@ socket.on('incoming-videocall', function (callDetails) {
    const { roomId, caller, offer } = callDetails;
    store.dispatch(ring(caller, roomId, offer));
 
-   socket.on('candidate-in', function (candidate) {
-      console.log('Candidate sent in');
-      store.dispatch({ type: SET_RTC_CANDIDATE, payload: { candidate } });
-   });
+   // socket.on('candidate-in', function (candidate) {
+   //    console.log('Candidate sent in');
+   //    store.dispatch({ type: SET_RTC_CANDIDATE, payload: { candidate } });
+   // });
 });
 
 export const socketContext = createContext();
