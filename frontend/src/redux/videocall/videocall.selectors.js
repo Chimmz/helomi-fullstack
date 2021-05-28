@@ -20,6 +20,11 @@ export const selectRtcAnswer = createSelector(
    call => call.answer
 );
 
+export const selectRtcCandidate = createSelector(
+   [actualCall],
+   call => call.candidate
+);
+
 export const selectCaller = createSelector([actualCall], call => call.caller);
 
 export const selectCallingWho = createSelector(

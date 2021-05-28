@@ -1,26 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { END_CALL } from '../../../redux/videocall/videocall.action.types';
+
+import { useToggle } from '../../../hooks/useToggle';
 import './CallControls.scss';
 
 function CallControls({ dispatch }) {
+   const [isMuted, _, toggleMuted] = useToggle(true);
+   const [videoOn, __, toggleVideo] = useToggle(true);
+   const [speakerOn, ___, toggleSpeaker] = useToggle(true);
+
    return (
       <div className="videocall__call__controls">
          <span
-            className="videocall__callcontrol with-label with-label-at-top videocall__callcontrol is-muted"
-            data-label="Mute audio"
+            className={`videocall__callcontrol with-label with-label-at-top videocall__callcontrol ${
+               isMuted && 'is-muted'
+            }`}
+            data-label={isMuted ? 'Unmute audio' : 'Mute audio'}
+            onClick={toggleMuted}
          >
             <i className="fas fa-microphone"></i>
          </span>
          <span
-            className="videocall__callcontrol with-label with-label-at-top"
-            data-label="Stop video"
+            className={`videocall__callcontrol with-label with-label-at-top ${
+               !videoOn && 'is-muted'
+            }`}
+            data-label={videoOn ? 'Stop video' : 'Start video'}
+            onClick={toggleVideo}
          >
             <i className="fas fa-video"></i>
          </span>
          <span
-            className="videocall__callcontrol with-label with-label-at-top"
-            data-label="Mute speaker"
+            className={`videocall__callcontrol with-label with-label-at-top ${
+               !speakerOn && 'is-muted'
+            }`}
+            data-label={speakerOn ? 'Mute speaker' : 'Unmute speaker'}
+            onClick={toggleSpeaker}
          >
             <i className="fas fa-volume-up"></i>
          </span>

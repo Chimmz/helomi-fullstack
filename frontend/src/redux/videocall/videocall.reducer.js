@@ -7,6 +7,7 @@ const initState = {
       roomId: null,
       offer: null,
       answer: null,
+      candidate: null,
       isMuted: true,
       videoStopped: false
    },
@@ -52,6 +53,12 @@ const videocallReducer = function (state = initState, action) {
          return {
             ...state,
             call: { ...state.call, answer: payload.answer }
+         };
+
+      case videocallActions.SET_RTC_CANDIDATE:
+         return {
+            ...state,
+            call: { ...state.call, candidate: payload.candidate }
          };
 
       case videocallActions.ACCEPT_CALL:
