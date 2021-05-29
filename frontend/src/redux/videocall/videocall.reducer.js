@@ -8,6 +8,7 @@ const initState = {
       offer: null,
       answer: null,
       candidate: null,
+      chatMsgs: [],
       isMuted: true,
       videoStopped: false,
       isConnected: false
@@ -70,6 +71,16 @@ const videocallReducer = function (state = initState, action) {
 
       case videocallActions.ACCEPT_CALL:
          return { ...state, isOnCall: true };
+
+      case videocallActions.ADD_VIDEOCALL_MSG:
+         const { msg, sender } = payload;
+         return {
+            ...state,
+            call: {
+               ...state.call,
+               chatMsgs: [...state.call.chatMsgs, { msg, sender }]
+            }
+         };
 
       case videocallActions.END_CALL:
          return { ...state, isOnCall: false };

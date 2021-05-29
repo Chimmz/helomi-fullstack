@@ -13,14 +13,14 @@ function ChatsAndAttendeesNav(props) {
          >
             <i className="fas fa-comments"></i>
          </span>
-         <div
+         {/* <div
             className={`attendees ${isViewingAttendees && 'nav-item--active'}`}
             data-nav-item="attendees"
             onClick={() => setIsViewingAttendees(true)}
          >
             <span className="total">15</span>
             <i className="fas fa-users"></i>
-         </div>
+         </div> */}
       </div>
    );
 }

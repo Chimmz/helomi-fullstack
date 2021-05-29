@@ -18,11 +18,7 @@ import './IncomingCallNotify.scss';
 
 function IncomingCallNotify({ caller, rtcOffer, videocallRoomId, dispatch }) {
    console.log(caller);
-   const { socket } = useContext(socketContext);
-
-   const handleAccept = async () => {
-      socket.emit('join-videocall-room', videocallRoomId);
-
+   const handleAccept = () => {
       dispatch({ type: STOP_RINGING });
       dispatch({ type: ACCEPT_CALL });
    };

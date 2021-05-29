@@ -91,12 +91,16 @@ io.on('connect', socket => {
       io.to(caller).emit('call-answered', answer);
    });
 
+   socket.on('candidate-out', ({ to, candidate }) => {
+      io.to(to).emit('candidate-in', candidate);
+   });
+
    socket.on('join-videocall-room', roomId => {
       socket.join(roomId);
    });
 
-   socket.on('candidate-out', ({ to, candidate }) => {
-      io.to(to).emit('candidate-in', candidate);
+   socket.on('send-video-call-msg', ({ msg, sender, room }) => {
+      socket.to(room).broadcast.emit('incoming-video-call-msg', { msg, sender });
    });
 
    socket.on('disconnect', () =>

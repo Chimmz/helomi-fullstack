@@ -6,7 +6,7 @@ import Attendees from './Attendees';
 import './ChatsAndAttendees.scss';
 
 function ChatsAndAttendees() {
-   const [isViewingAttendees, setIsViewingAttendees] = useState(true);
+   const [isViewingAttendees, setIsViewingAttendees] = useState(false);
 
    return (
       <div className="videocall__chats-and-attendees">

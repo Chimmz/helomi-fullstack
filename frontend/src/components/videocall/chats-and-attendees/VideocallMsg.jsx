@@ -17,7 +17,7 @@ function VideocallMsg() {
                We're all welcome to this conference call
             </p>
          </div>
-         <div className="videocall-msg textmsg--outgoing">
+         {/* <div className="videocall-msg textmsg--outgoing">
             <img
                src="img/faces3.jpg"
                alt=""
@@ -28,7 +28,7 @@ function VideocallMsg() {
                Hello all. We're all welcome to this conference call. Hello all.
                We're all welcome to this conference call
             </p>
-         </div>
+         </div> */}
       </>
    );
 }

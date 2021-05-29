@@ -20,13 +20,14 @@ import { selectCallConnected } from '../../../redux/videocall/videocall.selector
 
 import { useToggle } from '../../../hooks/useToggle';
 import { socketContext } from '../../../contexts/SocketProvider';
+import { v4 as uuidv4 } from 'uuid'
 import AllParticpantsInCall from './AllParticpantsInCall';
 import './PeerToPeerCall.scss';
 import './ParticpantInCall.scss';
 
 function PeerToPeerCall(props) {
    // prettier-ignore
-   const { caller, callingWho, videocallRoomId, currentUser, dispatch } = props;
+   const { caller, callingWho, videoChatRoomId, currentUser, dispatch } = props;
    console.log('caller, callingWho', caller, callingWho);
    const { socket } = useContext(socketContext);
    const localVideoRef = useRef();
@@ -83,7 +84,7 @@ function PeerToPeerCall(props) {
             socket.emit('outgoing-videocall', {
                caller: currentUser._id,
                to: callingWho,
-               roomId: videocallRoomId,
+               roomId: videoChatRoomId,
                offer
             });
          } catch (err) {
@@ -238,15 +239,12 @@ function PeerToPeerCall(props) {
       const { rtcOffer } = props;
       peerConn.handleIncomingRtcOffer(rtcOffer);
       peerConn.createRtcAnswer();
-
-      // const { rtcCandidate } = props;
-      // console.log('rtcCandidate from props', rtcCandidate);
-      // peerConn.handleIncomingCandidate(rtcCandidate);
    };
 
    useEffect(() => {
+      socket.emit('join-video-chat-room', videoChatRoomId);
       caller === currentUser._id ? makeCall() : joinCall();
-      // socket.emit('join-video-chat-room', )
+
    }, []);
    return (
       <AllParticpantsInCall>
@@ -259,12 +257,14 @@ function PeerToPeerCall(props) {
                   ref={remoteVideoRef}
                ></video>
             )}
-            <span className="videocall__participant__name">Mary Smith</span>
+            <span className="videocall__participant__name">{currentUser.username}</span>
          </div>
 
          <div
-            className={`videocall__participant videocall__participant--user${
-               props.callConnected && '--send-to-bottom-right'
+            className={`videocall__participant videocall__participant--user ${
+               props.callConnected
+                  ? 'videocall__participant--user-send-to-bottom-right'
+                  : 'videocall__participant--user-fullwidth'
             }`}
          >
             {localStream && (
@@ -284,7 +284,7 @@ const mapStateToProps = createStructuredSelector({
    currentUser: selectCurrentUser,
    caller: selectCaller,
    callingWho: selectCallingWho,
-   videocallRoomId: selectVideoChatRoomId,
+   videoChatRoomId: selectVideoChatRoomId,
    rtcOffer: selectRtcOffer,
    rtcCandidate: selectRtcCandidate,
    callConnected: selectCallConnected

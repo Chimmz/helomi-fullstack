@@ -5,17 +5,17 @@
 .videocall {
    &-modal {
       position: fixed;
-      top: 2rem;
-      left: 2rem;
-      right: 2rem;
-      bottom: 2rem;
+      top: 3rem;
+      left: 3rem;
+      right: 3rem;
+      bottom: 3rem;
       background: $color-white;
-      padding: 2.2rem;
+      padding: 2rem;
       padding-left: 5rem;
       display: flex;
-      gap: 2.2rem;
+      gap: 2rem;
       z-index: 41;
-      transition: all 0.2s 0.2s;
+      transition: all 0.2s;
 
       &--zoomed-into-view {
          border-radius: 2rem;

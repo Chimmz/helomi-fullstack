@@ -6,7 +6,7 @@ import { useToggle } from '../../../hooks/useToggle';
 import './CallControls.scss';
 
 function CallControls({ dispatch }) {
-   const [isMuted, _, toggleMuted] = useToggle(true);
+   const [micOn, _, toggleMic] = useToggle(false);
    const [videoOn, __, toggleVideo] = useToggle(true);
    const [speakerOn, ___, toggleSpeaker] = useToggle(true);
 
@@ -14,10 +14,10 @@ function CallControls({ dispatch }) {
       <div className="videocall__call__controls">
          <span
             className={`videocall__callcontrol with-label with-label-at-top videocall__callcontrol ${
-               isMuted && 'is-muted'
+               !micOn && 'is-muted'
             }`}
-            data-label={isMuted ? 'Unmute audio' : 'Mute audio'}
-            onClick={toggleMuted}
+            data-label={micOn ? 'Mute audio' : 'Unmute audio'}
+            onClick={toggleMic}
          >
             <i className="fas fa-microphone"></i>
          </span>
