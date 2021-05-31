@@ -26,7 +26,7 @@
 }
 
 .is-muted {
-   color: $color-red;
+   // color: $color-red;
    position: relative;
 
    &::before {
@@ -34,9 +34,11 @@
       position: absolute;
       top: 0;
       right: 50%;
-      width: 2px;
+      width: 3px;
       height: 100%;
       background: $color-red;
+      border-right: 1px solid $color-white;
+      border-left: 1px solid $color-white;
       transform: rotate(45deg) translateX(50%) scaleY(1.5);
    }
 }

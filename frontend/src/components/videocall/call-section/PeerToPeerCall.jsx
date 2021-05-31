@@ -20,7 +20,7 @@ import { selectCallConnected } from '../../../redux/videocall/videocall.selector
 
 import { useToggle } from '../../../hooks/useToggle';
 import { socketContext } from '../../../contexts/SocketProvider';
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 import AllParticpantsInCall from './AllParticpantsInCall';
 import './PeerToPeerCall.scss';
 import './ParticpantInCall.scss';
@@ -211,7 +211,6 @@ function PeerToPeerCall(props) {
          getUserMedia(
             { audio: true, video: true },
             stream => {
-               console.log('STREAM', stream);
                setLocalStream(stream);
                resolve(stream);
             },
@@ -242,9 +241,9 @@ function PeerToPeerCall(props) {
    };
 
    useEffect(() => {
+      console.log('videoChatRoomId', videoChatRoomId);
       socket.emit('join-video-chat-room', videoChatRoomId);
       caller === currentUser._id ? makeCall() : joinCall();
-
    }, []);
    return (
       <AllParticpantsInCall>
@@ -257,7 +256,6 @@ function PeerToPeerCall(props) {
                   ref={remoteVideoRef}
                ></video>
             )}
-            <span className="videocall__participant__name">{currentUser.username}</span>
          </div>
 
          <div

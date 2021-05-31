@@ -1,36 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../../redux/user/user.selectors';
+
 import './VideocallMsg.scss';
 import '../../Textmsg.scss';
 
-function VideocallMsg() {
+function VideocallMsg({ msg, currentUser }) {
+   console.log('In VideocallMsg, ', msg.sender._id, currentUser);
+   const { text, sender } = msg;
+   const sentByMe = sender._id === currentUser._id;
+
    return (
-      <>
-         <div className="videocall-msg textmsg--incoming">
-            <img
-               src="img/faces3.jpg"
-               alt=""
-               className="videocall-msg__sender-photo pic pic--xsm"
-            />
-            <div className="videocall-msg__sender-name">Mary Smith</div>
-            <p className="videocall-msg__content">
-               Hello all. We're all welcome to this conference call. Hello all.
-               We're all welcome to this conference call
-            </p>
+      <div
+         className={`videocall-msg textmsg--${
+            sentByMe ? 'outgoing' : 'incoming'
+         }`}
+      >
+         {/* <img
+            src="img/faces3.jpg"
+            alt=""
+            className="videocall-msg__sender-photo pic pic--xsm"
+         /> */}
+         <div className="videocall-msg__sender-name">
+            {sentByMe ? 'You' : sender.username}
          </div>
-         {/* <div className="videocall-msg textmsg--outgoing">
-            <img
-               src="img/faces3.jpg"
-               alt=""
-               className="videocall-msg__sender-photo pic pic--xsm"
-            />
-            <div className="videocall-msg__sender-name">Mary Smith</div>
-            <p className="videocall-msg__content">
-               Hello all. We're all welcome to this conference call. Hello all.
-               We're all welcome to this conference call
-            </p>
-         </div> */}
-      </>
+         <p className="videocall-msg__content">{text}</p>
+      </div>
    );
 }
 
-export default VideocallMsg;
+const mapStateToProps = createStructuredSelector({
+   currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps)(VideocallMsg);

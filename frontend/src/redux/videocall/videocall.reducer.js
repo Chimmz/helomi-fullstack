@@ -11,7 +11,8 @@ const initState = {
       chatMsgs: [],
       isMuted: true,
       videoStopped: false,
-      isConnected: false
+      isConnected: false,
+      callEnded: true
    },
    isRinging: false,
    isOnCall: false,
@@ -73,17 +74,35 @@ const videocallReducer = function (state = initState, action) {
          return { ...state, isOnCall: true };
 
       case videocallActions.ADD_VIDEOCALL_MSG:
-         const { msg, sender } = payload;
          return {
             ...state,
             call: {
                ...state.call,
-               chatMsgs: [...state.call.chatMsgs, { msg, sender }]
+               chatMsgs: [...state.call.chatMsgs, payload.msg]
             }
          };
 
       case videocallActions.END_CALL:
-         return { ...state, isOnCall: false };
+         return {
+            call: {
+               caller: null,
+               callingWho: null,
+               roomId: null,
+               offer: null,
+               answer: null,
+               candidate: null,
+               chatMsgs: [],
+               isMuted: true,
+               videoStopped: false,
+               isConnected: false
+            },
+            isRinging: false,
+            isOnCall: false,
+            isFullscreen: false,
+            isAddingNewPeerToCall: false,
+            isOnCall: false,
+            callEnded: true
+         };
 
       case videocallActions.ZOOM_TO_FULLSCREEN:
          return { ...state, isFullscreen: true };

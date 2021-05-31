@@ -33,3 +33,18 @@
       opacity: 1;
    }
 }
+
+@keyframes alert-with-many-colors {
+   0% {
+      color: $color-primary;
+   }
+   20% {
+      color: $color-primary-lighter;
+   }
+   50% {
+      color: $color-primary-lightest;
+   }
+   100% {
+      color: $color-green;
+   }
+}

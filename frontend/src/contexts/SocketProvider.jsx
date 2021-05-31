@@ -3,7 +3,10 @@ import React, { createContext } from 'react';
 import store from '../redux/store';
 import { addNewMsg } from '../redux/msg/msg.actions.creators';
 import { setSomeoneIsTyping } from '../redux/chat/chat.action.creators';
-import { SET_RTC_CANDIDATE } from '../redux/videocall/videocall.action.types';
+import {
+   ADD_VIDEOCALL_MSG,
+   SET_RTC_CANDIDATE
+} from '../redux/videocall/videocall.action.types';
 import { ring } from '../redux/videocall/videocall.action.creators';
 import io from 'socket.io-client';
 
@@ -37,6 +40,10 @@ socket.on('incoming-videocall', function (callDetails) {
    //    console.log('Candidate sent in');
    //    store.dispatch({ type: SET_RTC_CANDIDATE, payload: { candidate } });
    // });
+});
+
+socket.on('incoming-video-call-msg', msg => {
+   store.dispatch({ type: ADD_VIDEOCALL_MSG, payload: { msg } });
 });
 
 export const socketContext = createContext();

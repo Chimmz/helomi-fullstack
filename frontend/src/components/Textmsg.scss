@@ -34,7 +34,7 @@
 
    &--incoming {
       color: $color-gray-darkest;
-      border-top-left-radius: 0.2rem;
+      border-top-left-radius: 0.2rem !important;
 
       & .textmsg__time {
          margin: 3px 1.5rem 3px 1.5rem;
@@ -44,7 +44,7 @@
       margin-left: auto;
       background: $color-primary !important;
       color: $color-white;
-      border-bottom-right-radius: 0.2rem;
+      border-bottom-right-radius: 0.2rem !important;
 
       & .textmsg__time {
          color: rgba($color-white, 0.9);

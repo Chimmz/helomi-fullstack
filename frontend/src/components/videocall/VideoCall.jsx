@@ -20,13 +20,7 @@ function VideoCall({ chatId, dispatch, ...otherProps }) {
    const { isOnVideoCall, isAddingToCall, isFullscreen } = otherProps;
    const { socket } = useContext(socketContext);
 
-   useEffect(() => {
-      socket.on('incoming-video-call-msg', ({ msg, sender }) => {
-         alert('New msg');
-         console.log({ msg, sender });
-         dispatch({ type: ADD_VIDEOCALL_MSG, payload: { msg, sender } });
-      });
-   }, []);
+   useEffect(() => {}, []);
    return (
       <>
          <div

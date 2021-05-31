@@ -37,15 +37,18 @@ function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
    };
 
    const onChange = ev => setNewMsg(ev.target.value);
-
+   // const emojis = []
    return (
       <div className="chatting-section__footer">
-         <div className="icon">
+         {/* <div className="icon">
             <i className="fas fa-file-invoice"></i>
          </div>
-         <div className="icon">
-            <i className="far fa-laugh"></i>
-         </div>
+         <div className="emojis">
+            <div className="icon">
+               <i className="far fa-laugh"></i>
+            </div>
+            <div class="allemojis"></div>
+         </div> */}
 
          <form className="new-msg" onSubmit={sendMessage}>
             <div className="new-msg__group">

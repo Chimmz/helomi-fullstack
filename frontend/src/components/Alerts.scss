@@ -5,7 +5,7 @@
    position: fixed;
    top: calc(10vh + 4rem);
    left: 2rem;
-   z-index: 7;
+   z-index: 999;
 }
 .alert {
    font-size: 1.25em;
@@ -15,7 +15,7 @@
    align-items: center;
    justify-content: space-between;
    letter-spacing: 0.2px;
-   max-width: 50ch;
+   max-width: 60ch;
 
    & p {
       margin-right: 1rem;

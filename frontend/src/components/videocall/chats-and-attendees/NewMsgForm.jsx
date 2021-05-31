@@ -4,34 +4,39 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectVideoChatRoomId } from '../../../redux/videocall/videocall.selectors';
 import { selectCurrentUser } from '../../../redux/user/user.selectors';
+import { ADD_VIDEOCALL_MSG } from '../../../redux/videocall/videocall.action.types';
 
 import { socketContext } from '../../../contexts/SocketProvider';
 import '../../Icon.scss';
 import './NewMsgForm.scss';
 
-function NewMsgForm({ currentUser, videoChatRoom }) {
+function NewMsgForm({ currentUser, videoChatRoom, dispatch }) {
+   // console.log('In newmsgform, videoChatRoomId', videoChatRoom);
    const { socket } = useContext(socketContext);
-   const [newText, setNewText] = useState('');
+   const [newTextMsg, setNewTextMsg] = useState('');
 
-   const handleChange = ev => setNewText(ev.target.value);
+   const handleChange = ev => setNewTextMsg(ev.target.value);
 
    const sendNewMsg = function (ev) {
       ev?.preventDefault();
       const { _id, username } = currentUser;
 
-      socket.emit('send-video-call-msg', {
-         msg: newText,
+      const msg = {
+         text: newTextMsg,
          sender: { _id, username },
          room: videoChatRoom
-      });
-      setNewText('');
+      };
+      dispatch({ type: ADD_VIDEOCALL_MSG, payload: { msg } });
+      socket.emit('send-video-call-msg', msg);
+
+      setNewTextMsg('');
    };
 
    return (
       <form className="newmsg" onSubmit={sendNewMsg}>
          <input
             type="text"
-            value={newText}
+            value={newTextMsg}
             className="input"
             onChange={handleChange}
             placeholder="Type a new message here"

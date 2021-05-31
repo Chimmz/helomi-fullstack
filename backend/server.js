@@ -95,12 +95,13 @@ io.on('connect', socket => {
       io.to(to).emit('candidate-in', candidate);
    });
 
-   socket.on('join-videocall-room', roomId => {
+   socket.on('join-video-chat-room', roomId => {
       socket.join(roomId);
+      console.log(`${socket.id} is joining room: ${roomId}`);
    });
 
-   socket.on('send-video-call-msg', ({ msg, sender, room }) => {
-      socket.to(room).broadcast.emit('incoming-video-call-msg', { msg, sender });
+   socket.on('send-video-call-msg', ({ text, sender, room }) => {
+      socket.to(room).emit('incoming-video-call-msg', { text, sender });
    });
 
    socket.on('disconnect', () =>

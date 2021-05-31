@@ -3,7 +3,7 @@
 
 .videocall-msg {
    font-size: 1.2rem;
-   padding: 0.5em 1em;
+   padding: 0.7em 1em;
    width: max-content;
    max-width: 40ch;
    border-radius: 0.7rem;
@@ -26,15 +26,16 @@
    &__sender-name {
       position: absolute;
       top: -1.2em;
-      left: 1.2em;
+      left: 2px;
       // opacity: 80%;
       width: max-content;
       color: $color-primary-dark;
    }
+
    &__sender-photo {
       position: absolute;
-      right: 100%;
-      bottom: 100%;
+      left: 100%;
+      top: calc(100% + 3px);
       // border: 3px solid $soft-blue;
       transform: translate(50%, 50%);
    }
