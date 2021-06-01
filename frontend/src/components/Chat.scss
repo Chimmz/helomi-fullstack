@@ -13,7 +13,7 @@
    position: relative;
 
    &__photo {
-      margin-right: 1.4rem;
+      margin-right: 0.7rem;
    }
    &__info {
       display: flex;
@@ -27,6 +27,10 @@
    &__lastmessage {
       font-size: 1.35rem;
       letter-spacing: 0.2px;
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
    }
    &__time {
       position: absolute;

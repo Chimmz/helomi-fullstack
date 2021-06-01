@@ -83,26 +83,7 @@ const videocallReducer = function (state = initState, action) {
          };
 
       case videocallActions.END_CALL:
-         return {
-            call: {
-               caller: null,
-               callingWho: null,
-               roomId: null,
-               offer: null,
-               answer: null,
-               candidate: null,
-               chatMsgs: [],
-               isMuted: true,
-               videoStopped: false,
-               isConnected: false
-            },
-            isRinging: false,
-            isOnCall: false,
-            isFullscreen: false,
-            isAddingNewPeerToCall: false,
-            isOnCall: false,
-            callEnded: true
-         };
+         return { ...state, isOnCall: false };
 
       case videocallActions.ZOOM_TO_FULLSCREEN:
          return { ...state, isFullscreen: true };

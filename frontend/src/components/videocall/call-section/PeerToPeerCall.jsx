@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../../redux/user/user.selectors';
 import {
+   selectCallEnded,
    selectCaller,
    selectCallingWho,
    selectRtcCandidate,
@@ -13,6 +14,7 @@ import {
 import {
    CALL_CONNECTED,
    CALL_DISCONNECTED,
+   END_CALL,
    SET_RTC_ANSWER
 } from '../../../redux/videocall/videocall.action.types';
 
@@ -50,6 +52,7 @@ function PeerToPeerCall(props) {
       init() {
          this.connectStreamToVideo();
          this.addOwnTracks();
+
          this.connection.onnegotiationneeded = this.handleNegotiationNeeded;
          this.connection.onicecandidate = this.handleIceCandidate;
          this.connection.ontrack = this.handleTrackEvent;
@@ -117,6 +120,11 @@ function PeerToPeerCall(props) {
             case 'connected':
                console.log('CONNECTED!');
                break;
+
+            case 'disconnected':
+               dispatch({ type: CALL_DISCONNECTED });
+               break;
+
             case 'closed':
             case 'failed':
                this.closeVideoCall();
@@ -129,6 +137,14 @@ function PeerToPeerCall(props) {
             case 'connected':
                console.log('CONNECTED!!');
                dispatch({ type: CALL_CONNECTED });
+               break;
+
+            case 'disconnected':
+               dispatch({ type: CALL_DISCONNECTED });
+               break;
+
+            case 'closed':
+               alert('Connection closed');
          }
       };
 
@@ -143,28 +159,27 @@ function PeerToPeerCall(props) {
       handleIceGatheringStateChange = ev => {};
       handleSignalingStateChange = ev => {};
 
-      closeVideoCall = () => {
-         if (this.connection) {
-            this.connection.onicecandidate = null;
-            this.connection.ontrack = null;
-            this.connection.onnegotiationneeded = null;
-            this.connection.onremovetrack = null;
-            this.connection.oniceconnectionstatechange = null;
-            this.connection.onicegatheringstatechange = null;
-            this.connection.onsignalingstatechange = null;
-         }
+      handleCloseVideoCall = () => {
+         // if (this.connection) {
+         //    this.connection.onicecandidate = null;
+         //    this.connection.ontrack = null;
+         //    this.connection.onnegotiationneeded = null;
+         //    this.connection.onremovetrack = null;
+         //    this.connection.oniceconnectionstatechange = null;
+         //    this.connection.onicegatheringstatechange = null;
+         //    this.connection.onsignalingstatechange = null;
+         // }
          remoteVideoRef.current?.srcObject
             .getTracks()
             .forEach(track => track.stop());
-
          localVideoRef.current?.srcObject
             .getTracks()
             .forEach(track => track.stop());
 
-         this.connection.close();
-         this.connection = null;
+         // this.connection.close();
+         // this.connection = null;
 
-         socket.emit('call-ended-out', this.isInitiator ? callingWho : caller);
+         dispatch({ type: END_CALL });
       };
    }
 
@@ -226,6 +241,8 @@ function PeerToPeerCall(props) {
 
       socket.on('candidate-in', peerConn.handleIncomingCandidate);
       socket.on('call-answered', peerConn.handleCallAnswered);
+      socket.on('click-end-call-btn', peerConn.handleCloseVideoCall);
+      socket.on('user-left-call', peerConn.handleCloseVideoCall);
    };
 
    const joinCall = async function () {
@@ -234,9 +251,10 @@ function PeerToPeerCall(props) {
       console.log('At stage new', peerConn);
 
       socket.on('candidate-in', peerConn.handleIncomingCandidate);
+      socket.on('click-end-call-btn', peerConn.handleCloseVideoCall);
+      socket.on('user-left-call', peerConn.handleCloseVideoCall);
 
-      const { rtcOffer } = props;
-      peerConn.handleIncomingRtcOffer(rtcOffer);
+      peerConn.handleIncomingRtcOffer(props.rtcOffer);
       peerConn.createRtcAnswer();
    };
 
@@ -285,6 +303,7 @@ const mapStateToProps = createStructuredSelector({
    videoChatRoomId: selectVideoChatRoomId,
    rtcOffer: selectRtcOffer,
    rtcCandidate: selectRtcCandidate,
-   callConnected: selectCallConnected
+   callConnected: selectCallConnected,
+   callEnded: selectCallEnded
 });
 export default connect(mapStateToProps)(PeerToPeerCall);

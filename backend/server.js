@@ -104,6 +104,14 @@ io.on('connect', socket => {
       socket.to(room).emit('incoming-video-call-msg', { text, sender });
    });
 
+   socket.on('click-end-call-btn', ownId => {
+      io.to(ownId).emit('click-end-call-btn');
+   });
+
+   socket.on('leave-call', roomId => {
+      socket.to(roomId).emit('user-left-call');
+   });
+
    socket.on('disconnect', () =>
       console.log(`User disconnected: ${socket.id}`)
    );

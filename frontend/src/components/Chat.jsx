@@ -18,7 +18,7 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
    const unreadMsgsCount =
       allReduxMsgs[chat._id]?.reduce((accum, msg) => {
          return msg.sender === chat._id && !msg.isRead ? accum + 1 : accum + 0;
-      }, 0) || ''; // 'AUTO' should be soon replaced with initial data from backend
+      }, 0) || '';
 
    return (
       <NavLink

@@ -47,6 +47,11 @@ export const selectVideoChatMsgs = createSelector(
    call => call.chatMsgs
 );
 
+export const selectCallEnded = createSelector(
+   [actualCall],
+   call => call.callEnded
+)
+
 export const selectIsFullscreen = createSelector(
    [videocall],
    videocall => videocall.isFullscreen

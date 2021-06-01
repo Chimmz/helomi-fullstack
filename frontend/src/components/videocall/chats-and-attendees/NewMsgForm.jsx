@@ -11,7 +11,6 @@ import '../../Icon.scss';
 import './NewMsgForm.scss';
 
 function NewMsgForm({ currentUser, videoChatRoom, dispatch }) {
-   // console.log('In newmsgform, videoChatRoomId', videoChatRoom);
    const { socket } = useContext(socketContext);
    const [newTextMsg, setNewTextMsg] = useState('');
 

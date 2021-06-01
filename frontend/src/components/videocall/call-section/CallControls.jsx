@@ -1,14 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { END_CALL } from '../../../redux/videocall/videocall.action.types';
+import React, { useContext } from 'react';
 
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../../redux/user/user.selectors';
+import { selectVideoChatRoomId } from '../../../redux/videocall/videocall.selectors';
+import {
+   END_CALL,
+   RESET_VIDEOCALL_STATE
+} from '../../../redux/videocall/videocall.action.types';
+
+import { socketContext } from '../../../contexts/SocketProvider';
 import { useToggle } from '../../../hooks/useToggle';
 import './CallControls.scss';
 
-function CallControls({ dispatch }) {
+function CallControls({ videoChatRoom, currentUser, dispatch }) {
+   const { socket } = useContext(socketContext);
    const [micOn, _, toggleMic] = useToggle(false);
    const [videoOn, __, toggleVideo] = useToggle(true);
    const [speakerOn, ___, toggleSpeaker] = useToggle(true);
+
+   const handleClickEndCall = () => {
+      socket.emit('click-end-call-btn', currentUser._id);
+      socket.emit('leave-call', videoChatRoom);
+   };
 
    return (
       <div className="videocall__call__controls">
@@ -42,12 +56,15 @@ function CallControls({ dispatch }) {
          <span
             className="videocall__callcontrol with-label with-label-at-top"
             data-label="End call"
-            onClick={() => dispatch({ type: END_CALL })}
+            onClick={handleClickEndCall}
          >
             <i className="fas fa-phone" data-label="End call"></i>
          </span>
       </div>
    );
 }
-
-export default connect()(CallControls);
+const mapStateToProps = createStructuredSelector({
+   videoChatRoom: selectVideoChatRoomId,
+   currentUser: selectCurrentUser
+});
+export default connect(mapStateToProps)(CallControls);
