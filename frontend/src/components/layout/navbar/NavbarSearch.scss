@@ -1,0 +1,74 @@
+@import '../../../sass/variables.scss';
+@import '../../../sass/mixins.scss';
+
+.navbar {
+   &__search {
+      flex: 0 0 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+
+      &-input {
+         width: 70%;
+         height: 100%;
+         font: inherit;
+         font-size: 1.5rem;
+         padding: 1.2rem 2.2rem;
+         border-radius: 999px;
+         border: none;
+         background: $color-gray-light;
+         z-index: 10;
+         transition: 0.2s;
+
+         &:focus {
+            width: 100%;
+            background: $color-gray-light;
+         }
+      }
+      &-suggestions {
+         position: absolute;
+         top: 60%;
+         width: 100%;
+         background: $color-gray-light;
+         border-bottom-left-radius: 2rem;
+         border-bottom-right-radius: 2rem;
+         padding: 0.7rem 0;
+         box-shadow: 0 5px 1rem rgba(0, 0, 0, 0.2);
+         overflow: hidden;
+         padding-top: 3rem; // Must be > (vert. padding + fontsize) of search input
+         z-index: 30;
+
+         & > *:not(:last-child) {
+            border-bottom: 1px solid $color-gray-lightest;
+         }
+      }
+      &-suggestion {
+         display: flex;
+         align-items: center;
+         padding: 1rem 1.5rem;
+
+         &__photo {
+            margin-right: 7px;
+         }
+
+         &__user-info {
+            display: flex;
+            flex-direction: column;
+            margin-right: auto;
+         }
+
+         &__username {
+            font-size: 1.4em;
+            font-weight: 500;
+         }
+         &__mutual-friends {
+            font-size: 1.2rem;
+            color: gray;
+         }
+
+         &:hover {
+            background: $color-gray-lightest;
+         }
+      }
+   }
+}

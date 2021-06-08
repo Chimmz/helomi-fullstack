@@ -14,7 +14,7 @@ import store from './redux/store';
 
 import { SocketProvider } from './contexts/SocketProvider';
 
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/layout/navbar/Navbar';
 import ChattingSection from './components/layout/Chatting-section';
 import Sidenav from './components/layout/Sidenav';
 import Signup from './components/pages/Signup';

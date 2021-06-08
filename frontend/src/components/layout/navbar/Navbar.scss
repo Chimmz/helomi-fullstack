@@ -1,5 +1,5 @@
-@import '../../sass/variables.scss';
-@import '../../sass/mixins.scss';
+@import '../../../sass/variables.scss';
+@import '../../../sass/mixins.scss';
 
 .navbar {
    height: 10vh;
@@ -8,11 +8,14 @@
    background: $color-white;
    display: flex;
    justify-content: space-between;
-   padding: 0 7rem;
+   align-items: center;
+   gap: 3rem;
+   padding: 0 5rem;
 
    &__logo {
       align-self: center;
    }
+
    &__links {
       display: flex;
       align-items: center;

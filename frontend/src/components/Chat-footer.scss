@@ -6,7 +6,7 @@
    border-top: 1px solid rgb(180, 174, 174);
    display: flex;
    align-items: center;
-   padding: 0 1rem;
+   padding: 0 2rem;
    color: $color-primary;
 
    & .icon {
@@ -32,8 +32,9 @@
          width: 100%;
          color: $color-gray-darker;
          border: 1px solid rgb(204, 203, 203);
-         padding: 2.5rem 2rem !important;
-         border-radius: 1rem;
+         padding: 2.5rem 3rem !important;
+         padding-right: 5rem;
+         border-radius: 999px;
          transition: width 0.3s;
 
          & + * {

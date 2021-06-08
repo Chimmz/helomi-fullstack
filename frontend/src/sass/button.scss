@@ -13,16 +13,13 @@
       outline: none;
       cursor: pointer;
    }
-   &:hover {
-      filter: brightness(105%);
-   }
 
    &-primary {
       background: $color-primary;
       color: $color-white;
 
       &:hover {
-         background: $color-primary-darker;
+         background: $color-primary-darkest;
       }
    }
 
@@ -48,7 +45,8 @@
    }
 
    &-md {
-      padding: 0.3em 0.7em;
+      font-size: 1.3rem;
+      padding: 0.5em 0.7em;
       border-radius: 0.3em;
    }
 }

@@ -14,10 +14,12 @@
       padding-left: 5rem;
       display: flex;
       gap: 2rem;
+      opacity: 0;
       z-index: 41;
       transition: all 0.2s;
 
       &--zoomed-into-view {
+         opacity: 1;
          border-radius: 2rem;
          animation: zoom-into-view 0.4s;
       }

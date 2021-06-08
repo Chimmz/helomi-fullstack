@@ -22,7 +22,7 @@ function ChatHeader({ user, currentUser: { _id, friends }, dispatch }) {
          <div className="chatting-section__header__userdetails">
             <div
                className={`chatting-section__header__userphoto chatting-section__header__userphoto--${
-                  chatPhotoZoomedIn && 'zoomed-in'
+                  chatPhotoZoomedIn ? 'zoomed-in' : 'zoomed-out'
                }`}
             >
                <img

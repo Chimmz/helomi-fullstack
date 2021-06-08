@@ -169,12 +169,22 @@ function PeerToPeerCall(props) {
          //    this.connection.onicegatheringstatechange = null;
          //    this.connection.onsignalingstatechange = null;
          // }
-         remoteVideoRef.current?.srcObject
-            .getTracks()
-            .forEach(track => track.stop());
-         localVideoRef.current?.srcObject
-            .getTracks()
-            .forEach(track => track.stop());
+         // console.log(
+         //    'localVideoRef',
+         //    localVideoRef.current.srcObject,
+         //    'remoteVideoRef',
+         //    remoteVideoRef.current.srcObject
+         // );
+         // localVideoRef.current?.srcObject
+         //    .getTracks()
+         //    .forEach(track => track.stop());
+
+         // localVideoRef.current.srcObject = null;
+
+         // if (localVideoRef.current?.srcObject)
+         //    localVideoRef.current?.srcObject
+         //       .getTracks()
+         //       .forEach(track => track.stop());
 
          // this.connection.close();
          // this.connection = null;

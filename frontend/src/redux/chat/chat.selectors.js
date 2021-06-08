@@ -8,6 +8,11 @@ export const selectChats = createSelector(
    chat => chat.chats
 );
 
+export const selectTotalChatCount = createSelector(
+   [selectChats],
+   chats => chats.length
+);
+
 export const selectIsLoadingChatMsgs = chatId =>
    createSelector(
       [selectChats],
