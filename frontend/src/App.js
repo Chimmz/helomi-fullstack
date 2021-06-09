@@ -26,7 +26,11 @@ import './App.scss';
 
 // store.dispatch({ type: LOAD_USER });
 function ReplaceLater() {
-   return <div className="default-img"></div>;
+   return (
+      <div className="default-img">
+         <img src={process.env.PUBLIC_URL + '/img/helomi-default.png'} />;
+      </div>
+   );
 }
 
 function App({ alerts, user, isOnVideoCall, caller, callingWho }) {
