@@ -38,6 +38,15 @@ const chatReducer = (state = initState, action) => {
             )
          };
 
+      case actionTypes.ADD_CHAT:
+         return {
+            ...state,
+            chats: [
+               ...state.chats,
+               { ...payload.chat, isTyping: false, isLoadingMsgs: true }
+            ]
+         };
+
       default:
          return state;
    }

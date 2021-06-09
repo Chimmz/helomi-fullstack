@@ -41,7 +41,7 @@ const Myprofile = function ({ currentUser, totalChatCount, dispatch }) {
                   {currentUser.username}
                </span>
                <span className="navbar__myprofile__dropdown__friendscount">
-                  {totalChatCount} friends
+                  {totalChatCount} {`friend${totalChatCount !== 1 && 's'}`}
                </span>
                <span className="navbar__myprofile__dropdown__datejoined">
                   Joined Mar. 24

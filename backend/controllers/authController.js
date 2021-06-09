@@ -36,7 +36,7 @@ exports.login = catchAsyncError(async function (req, res, next) {
 
    return res.status(200).json({
       status: 'success',
-      data: { user, },
+      data: { user },
       token: createToken(user._id)
    });
 });
@@ -59,7 +59,7 @@ exports.protect = catchAsyncError(async function (req, res, next) {
       next(new AppError('Authentication failed. Login to get access', 401));
 
    const user = await User.findById(decoded.id);
-   // console.log('REQ.USER', user);
+   console.log('Req.user:', user);
    if (!user) return next(new AppError('User no longer exists', 401));
    req.user = user;
    next();

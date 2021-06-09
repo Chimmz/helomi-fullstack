@@ -8,6 +8,7 @@ router.post('/login', authController.login);
 router
    .route('/:id')
    .get(authController.protect, userController.getUserPublicProfile);
+
 router.patch(
    '/update-my-profile',
    authController.protect,

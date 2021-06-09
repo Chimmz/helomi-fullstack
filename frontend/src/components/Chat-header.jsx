@@ -10,11 +10,11 @@ import Dropdown from './formUI/Dropdown';
 import Overlay from './UI/Overlay';
 import './Chat-header.scss';
 import './Icon.scss';
+import { selectChatName } from '../redux/chat/chat.selectors';
 
 // 'user' is not in use for now
-function ChatHeader({ user, currentUser: { _id, friends }, dispatch }) {
+function ChatHeader({ user, currentChatName, currentUser, dispatch }) {
    const currentChat = useParams().id;
-   const currentChatName = friends.find(f => f._id === currentChat).username;
    const [chatPhotoZoomedIn, setChatPhotoZoomedIn] = useState(false);
 
    return (
@@ -44,7 +44,9 @@ function ChatHeader({ user, currentUser: { _id, friends }, dispatch }) {
             <i
                className="fas fa-video with-label with-label-at-bottom"
                data-label="Start video call"
-               onClick={() => dispatch(startVideoCall(_id, currentChat))}
+               onClick={() =>
+                  dispatch(startVideoCall(currentUser._id, currentChat))
+               }
             ></i>
             <i className="fas fa-ellipsis-v"></i>
          </div>
@@ -55,8 +57,9 @@ function ChatHeader({ user, currentUser: { _id, friends }, dispatch }) {
       </div>
    );
 }
-const mapStateToProps = createStructuredSelector({
-   user: selectUser,
-   currentUser: selectCurrentUser
+const mapStateToProps = (state, ownProps) => ({
+   user: selectUser(state),
+   currentUser: selectCurrentUser(state),
+   currentChatName: selectChatName(ownProps.match.params.id)(state)
 });
 export default withRouter(connect(mapStateToProps)(ChatHeader));

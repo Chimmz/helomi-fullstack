@@ -27,6 +27,27 @@ class APIRequest {
          headers: { Authorization: `Bearer ${authToken}` }
       });
    }
+
+   searchPeople(authToken, queryStr) {
+      return fetch(
+         `http://localhost:5000/friends/search-people?username=${queryStr}`,
+         {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${authToken}` }
+         }
+      )
+         .then(response => response.json())
+         .catch(err => err);
+   }
+
+   addUserAsFriend(authToken, userId) {
+      return fetch(`http://localhost:5000/friends/add/${userId}`, {
+         method: 'POST',
+         headers: { Authorization: `Bearer ${authToken}` }
+      })
+         .then(response => response.json())
+         .catch(err => err);
+   }
 }
 
 export const API = new APIRequest();
