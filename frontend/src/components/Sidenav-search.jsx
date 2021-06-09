@@ -42,7 +42,7 @@ function SidenavSearch({ chats, history }) {
 
             <Dropdown
                showIf={showResults}
-               listClassName="allchats__search__results remove-bullets"
+               className="allchats__search__results remove-bullets"
                children={
                   searchResults.length ? (
                      searchResults.map(chat => (

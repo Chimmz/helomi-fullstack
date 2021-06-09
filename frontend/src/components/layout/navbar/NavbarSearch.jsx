@@ -3,21 +3,28 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { addUserAsFriend } from '../../../redux/chat/chat.action.creators';
-import { selectUser } from '../../../redux/user/user.selectors';
+import {
+   selectUser,
+   selectCurrentUser
+} from '../../../redux/user/user.selectors';
 import { API } from '../../../utils';
+import Overlay from '../../UI/Overlay';
 
 import './NavbarSearch.scss';
 
-function NavbarSearch({ user, dispatch }) {
+function NavbarSearch({ user, currentUser, dispatch }) {
    const authToken = user.token;
    const [searchQuery, setSearchQuery] = useState('');
    const [searchResults, setSearchResults] = useState([]);
+   const [isShowingSuggestions, setIsShowingSuggestions] = useState(false);
 
    const searchPeople = async function (query) {
       try {
          const response = await API.searchPeople(authToken, query);
          console.log(response.users);
          setSearchResults(response.users);
+
+         if (response.users.length) setIsShowingSuggestions(true);
       } catch (err) {}
    };
 
@@ -29,18 +36,26 @@ function NavbarSearch({ user, dispatch }) {
       else searchPeople(value);
    };
 
+   const handleClickAddBtn = () => {
+      dispatch(addUserAsFriend(authToken, user._id));
+      setIsShowingSuggestions(false);
+   };
+
    return (
       <div className="navbar__search">
          <input
             type="text"
             className={`navbar__search-input navbar__search-input--${
-               searchResults.length && 'is-showing-suggestions'
+               isShowingSuggestions && 'is-showing-suggestions'
             }`}
             placeholder="Search people"
             value={searchQuery}
             onChange={handleChange}
+            onFocus={() =>
+               searchResults.length && setIsShowingSuggestions(true)
+            }
          />
-         {searchResults.length && searchQuery ? (
+         {isShowingSuggestions && (
             <div className="navbar__search-suggestions">
                {searchResults.map(user => (
                   <div className="navbar__search-suggestion" key={user._id}>
@@ -62,23 +77,27 @@ function NavbarSearch({ user, dispatch }) {
                      </div>
                      <button
                         className="btn btn-md btn-primary navbar__search-suggestion-addfriend"
-                        onClick={() =>
-                           dispatch(addUserAsFriend(authToken, user._id))
-                        }
+                        onClick={handleClickAddBtn}
                      >
                         Add friend
                      </button>
                   </div>
                ))}
             </div>
-         ) : (
-            ''
          )}
+         <Overlay
+            showIf={isShowingSuggestions}
+            transparent
+            onClick={() => {
+               setIsShowingSuggestions(false);
+            }}
+         />
       </div>
    );
 }
 
 const mapStateToProps = createStructuredSelector({
-   user: selectUser
+   user: selectUser,
+   currentUser: selectCurrentUser
 });
 export default connect(mapStateToProps)(NavbarSearch);

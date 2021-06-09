@@ -15,6 +15,7 @@ const createToken = function (id) {
 exports.signup = catchAsyncError(async function (req, res, next) {
    const { username, email, password } = req.body;
    const newUser = await User.create({ username, email, password });
+
    return res.status(201).json({
       status: 'success',
       data: { user: newUser },
@@ -31,6 +32,7 @@ exports.login = catchAsyncError(async function (req, res, next) {
       path: 'friends',
       select: '-__v, -id, -friends'
    });
+
    if (!user || !(await user.checkPasswordMatch(user.password, password)))
       return next(new AppError('Wrong username or password entered', 401));
 

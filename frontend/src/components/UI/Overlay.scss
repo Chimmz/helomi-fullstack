@@ -12,6 +12,11 @@
    z-index: 40;
    // transition: all 1.5s;
 
+   &--transparent {
+      background: transparent;
+      z-index: 30;
+   }
+
    &--hidden {
       display: none;
    }

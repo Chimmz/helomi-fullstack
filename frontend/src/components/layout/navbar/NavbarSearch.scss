@@ -16,34 +16,37 @@
          padding: 1.2rem 2.2rem;
          border-radius: 2rem;
          border: none;
-         border-bottom: 1px solid $color-gray-lightest;
-         background: $color-gray-light;
-         z-index: 11;
+         border: 1px solid rgb(219, 216, 216);
+         background: $color-white;
+         z-index: 31;
          transition: 0.2s;
 
          &:focus {
-            // width: 100%;
-            background: $color-gray-light;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
          }
+
          &--is-showing-suggestions {
+            border: none;
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
          }
       }
       &-suggestions {
          position: absolute;
-         top: 100%;
+         top: 98%;
          width: 100%;
-         background: $color-gray-light;
+         background: $color-white;
          border-bottom-left-radius: 2rem;
          border-bottom-right-radius: 2rem;
+         border-top: 1px solid rgb(219, 216, 216);
          padding: 0.7rem 0;
-         box-shadow: 0 5px 1rem rgba(0, 0, 0, 0.2);
+         box-shadow: 0 7px 1rem rgba(0, 0, 0, 0.3);
          overflow: hidden;
-         z-index: 10;
+         z-index: 31;
 
          & > *:not(:last-child) {
-            border-bottom: 1px solid $color-gray-lightest;
+            border-bottom: 1px solid $color-gray-lighter;
          }
       }
       &-suggestion {

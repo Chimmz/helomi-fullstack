@@ -47,6 +47,12 @@ const chatReducer = (state = initState, action) => {
             ]
          };
 
+      case actionTypes.DELETE_CHAT:
+         return {
+            ...state,
+            chats: state.chats.filter(chat => chat._id !== payload.chatId)
+         };
+
       default:
          return state;
    }

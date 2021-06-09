@@ -4,7 +4,8 @@ import {
    SET_CHATS,
    ADD_CHAT,
    SET_CHAT_MSGS_LOADING,
-   SOMEONE_IS_TYPING
+   SOMEONE_IS_TYPING,
+   DELETE_CHAT
 } from './chat.action.types';
 import { addAlert } from '../alert/alert.action.creators';
 
@@ -28,9 +29,15 @@ export const setChatMsgsLoading = ({ chatId, isLoading }) => ({
    payload: { chatId, isLoading }
 });
 
+export const deleteChat = (authToken, chatId) => async dispatch => {
+   API.deleteFriend(authToken, chatId);
+   dispatch({ type: DELETE_CHAT, payload: { chatId } });
+};
+
 export const addUserAsFriend = (authToken, userId) => async dispatch => {
    try {
       const response = await API.addUserAsFriend(authToken, userId);
+      console.log('Response: ', response);
       const newAlert = { id: uuidv4() };
 
       switch (response.status) {
@@ -40,34 +47,22 @@ export const addUserAsFriend = (authToken, userId) => async dispatch => {
             delete addedUser.friends;
 
             dispatch({ type: ADD_CHAT, payload: { chat: addedUser } });
-            dispatch(
-               addAlert({
-                  ...newAlert,
-                  type: 'success',
-                  text: `${addedUser.username} is now your friend`
-               })
-            );
+
+            newAlert.type = 'success';
+            newAlert.text = `${addedUser.username} is now your friend`;
             break;
+
          case 'fail':
-            dispatch(
-               addAlert({
-                  ...newAlert,
-                  type: 'warning',
-                  text: `${response.message}`
-               })
-            );
-            break;
          case 'error':
-            dispatch(
-               addAlert({
-                  ...newAlert,
-                  type: 'warning',
-                  text: `Friend couldn't be added. Please check your internet connection`
-               })
-            );
+            newAlert.type = 'warning';
+            newAlert.text =
+               response.status === 'fail'
+                  ? response.message
+                  : "Friend couldn't be added. Please check your internet connection";
             break;
       }
-      console.log('In chat creators:', response);
+
+      dispatch(addAlert(newAlert));
    } catch (err) {
       console.log('In chat creators:', err);
    }

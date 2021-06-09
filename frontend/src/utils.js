@@ -48,6 +48,15 @@ class APIRequest {
          .then(response => response.json())
          .catch(err => err);
    }
+
+   deleteFriend(authToken, chatId) {
+      return fetch(`http://localhost:5000/friends/${chatId}`, {
+         method: 'DELETE',
+         headers: { Authorization: `Bearer ${authToken}` }
+      })
+         .then(response => response.json())
+         .catch(err => err);
+   }
 }
 
 export const API = new APIRequest();

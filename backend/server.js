@@ -11,7 +11,6 @@ const io = require('socket.io')(server, {
       methods: ['GET', 'POST']
    }
 });
-const { ExpressPeerServer } = require('peer');
 
 const port = process.env.PORT || 5000;
 dotenv.config({ path: './config.env' });
@@ -29,14 +28,6 @@ mongoose
    })
    .then(_ => console.log('Database connection successful'))
    .catch(err => console.log('Error in connecting to database', err));
-
-const peerServer = ExpressPeerServer({
-   server,
-   debug: true,
-   generateClientId: uuidv4()
-});
-
-// peerServer.on('connection', () => console.log('A new peer connection'));
 
 io.on('connect', socket => {
    console.log(`New connection: ${socket.id}`);

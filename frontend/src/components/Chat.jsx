@@ -27,7 +27,7 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
          activeClassName="chat--active"
       >
          <img
-            src="img/realtor-3.jpeg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9ho0lI0YvJexoiXfCuKSVGaDDq5LanKzAA&usqp=CAU"
             alt=""
             className="chat__photo pic pic--sm"
          />

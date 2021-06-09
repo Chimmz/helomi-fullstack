@@ -17,7 +17,7 @@ const Myprofile = function ({ currentUser, totalChatCount, dispatch }) {
       <div className="navbar__myprofile">
          <div className="navbar__loggedin-user" onClick={toggleShowFullProfile}>
             <img
-               src="../../../../img/realtor-3.jpeg"
+               src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                alt=""
                className="navbar__photo pic pic--xsm"
             />
@@ -28,7 +28,7 @@ const Myprofile = function ({ currentUser, totalChatCount, dispatch }) {
             <div className="navbar__myprofile__dropdown">
                <div className="navbar__myprofile__dropdown__picture">
                   <img
-                     src="../../../../img/realtor-3.jpeg"
+                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9ho0lI0YvJexoiXfCuKSVGaDDq5LanKzAA&usqp=CAU"
                      alt=""
                      className="navbar__myprofile__dropdown__photo pic pic--lg"
                   />
@@ -37,15 +37,19 @@ const Myprofile = function ({ currentUser, totalChatCount, dispatch }) {
                      Change photo
                   </span>
                </div>
-               <span className="navbar__myprofile__dropdown__username">
-                  {currentUser.username}
-               </span>
-               <span className="navbar__myprofile__dropdown__friendscount">
-                  {totalChatCount} {`friend${totalChatCount !== 1 && 's'}`}
-               </span>
-               <span className="navbar__myprofile__dropdown__datejoined">
+               <div className="navbar__myprofile__dropdown__user-details">
+                  <span className="navbar__myprofile__dropdown__username">
+                     {currentUser.username}
+                  </span>
+                  <span className="navbar__myprofile__dropdown__friendscount">
+                     {totalChatCount}{' '}
+                     {`${!totalChatCount === 1 ? 'friend' : 'friends'}`}
+                  </span>
+                  {/* <span className="navbar__myprofile__dropdown__datejoined">
                   Joined Mar. 24
-               </span>
+               </span> */}
+               </div>
+
                <button
                   className="btn btn-md btn-primary logout"
                   onClick={handleLogout}
