@@ -33,7 +33,7 @@ exports.addUserAsFriend = catchAsyncError(async (req, res, next) => {
          new AppError(`You cannot add an already exisiting friend.`, 400)
       );
 
-   if (userToAdd._id + '' === req.user._id + '')
+   if (`${userToAdd._id}` === `${req.user._id}`)
       return next(
          new AppError(`You cannot add yourself. Add someone else.`, 400)
       );

@@ -36,8 +36,8 @@ function NavbarSearch({ user, currentUser, dispatch }) {
       else searchPeople(value);
    };
 
-   const handleClickAddBtn = () => {
-      dispatch(addUserAsFriend(authToken, user._id));
+   const handleClickAddBtn = userId => {
+      dispatch(addUserAsFriend(authToken, userId));
       setIsShowingSuggestions(false);
    };
 
@@ -60,7 +60,7 @@ function NavbarSearch({ user, currentUser, dispatch }) {
                {searchResults.map(user => (
                   <div className="navbar__search-suggestion" key={user._id}>
                      <img
-                        src="../../../img/realtor-3.jpeg"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9ho0lI0YvJexoiXfCuKSVGaDDq5LanKzAA&usqp=CAU"
                         alt=""
                         className="navbar__search-suggestion__photo pic pic--xsm"
                      />
@@ -71,13 +71,13 @@ function NavbarSearch({ user, currentUser, dispatch }) {
                               {user.email}
                            </span>
                         </span>
-                        <span className="navbar__search-suggestion__mutual-friends">
+                        {/* <span className="navbar__search-suggestion__mutual-friends">
                            3 mutual friends
-                        </span>
+                        </span> */}
                      </div>
                      <button
                         className="btn btn-md btn-primary navbar__search-suggestion-addfriend"
-                        onClick={handleClickAddBtn}
+                        onClick={() => handleClickAddBtn(user._id)}
                      >
                         Add friend
                      </button>

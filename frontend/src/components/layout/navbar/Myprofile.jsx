@@ -8,10 +8,10 @@ import { LOGOUT_USER } from '../../../redux/user/user.actions.type';
 import { useToggle } from '../../../hooks/useToggle';
 import './Myprofile.scss';
 import { selectTotalChatCount } from '../../../redux/chat/chat.selectors';
+import { logOutUser } from '../../../redux/user/user.actions.creators';
 
-const Myprofile = function ({ currentUser, totalChatCount, dispatch }) {
+const Myprofile = function ({ currentUser, totalChatCount, logOutUser }) {
    const [showFullProfile, _, toggleShowFullProfile] = useToggle(false);
-   const handleLogout = () => dispatch({ type: LOGOUT_USER });
 
    return (
       <div className="navbar__myprofile">
@@ -24,40 +24,45 @@ const Myprofile = function ({ currentUser, totalChatCount, dispatch }) {
             <span className="navbar__username">{currentUser.username}</span>
          </div>
 
-         {showFullProfile && (
-            <div className="navbar__myprofile__dropdown">
-               <div className="navbar__myprofile__dropdown__picture">
-                  <img
-                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9ho0lI0YvJexoiXfCuKSVGaDDq5LanKzAA&usqp=CAU"
-                     alt=""
-                     className="navbar__myprofile__dropdown__photo pic pic--lg"
-                  />
-                  <span className="changephoto">
-                     <i className="fas fa-camera"></i>
-                     Change photo
-                  </span>
-               </div>
-               <div className="navbar__myprofile__dropdown__user-details">
-                  <span className="navbar__myprofile__dropdown__username">
-                     {currentUser.username}
-                  </span>
-                  <span className="navbar__myprofile__dropdown__friendscount">
-                     {totalChatCount}{' '}
-                     {`${!totalChatCount === 1 ? 'friend' : 'friends'}`}
-                  </span>
-                  {/* <span className="navbar__myprofile__dropdown__datejoined">
+         <div
+            className={`navbar__myprofile__dropdown ${
+               showFullProfile && 'navbar__myprofile__dropdown--slide-into-view'
+            }`}
+         >
+            <div className="navbar__myprofile__dropdown__picture">
+               <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9ho0lI0YvJexoiXfCuKSVGaDDq5LanKzAA&usqp=CAU"
+                  alt=""
+                  className="navbar__myprofile__dropdown__photo pic pic--lg"
+               />
+               <span className="changephoto">
+                  <i className="fas fa-camera"></i>
+                  Change photo
+               </span>
+            </div>
+            <div className="navbar__myprofile__dropdown__user-details">
+               <span className="navbar__myprofile__dropdown__username">
+                  {currentUser.username}
+               </span>
+               <span className="navbar__myprofile__dropdown__email">
+                  {currentUser.email}
+               </span>
+               <span className="navbar__myprofile__dropdown__friendscount">
+                  {totalChatCount}{' '}
+                  {`${totalChatCount === 1 ? 'friend' : 'friends'}`}
+               </span>
+               {/* <span className="navbar__myprofile__dropdown__datejoined">
                   Joined Mar. 24
                </span> */}
-               </div>
-
-               <button
-                  className="btn btn-md btn-primary logout"
-                  onClick={handleLogout}
-               >
-                  Log out
-               </button>
             </div>
-         )}
+
+            <button
+               className="btn btn-md btn-primary logout"
+               onClick={logOutUser}
+            >
+               Log out
+            </button>
+         </div>
       </div>
    );
 };
@@ -66,4 +71,8 @@ const mapStateToProps = createStructuredSelector({
    currentUser: selectCurrentUser,
    totalChatCount: selectTotalChatCount
 });
-export default connect(mapStateToProps)(Myprofile);
+
+const mapDispatchToProps = dispatch => ({
+   logOutUser: () => dispatch(logOutUser())
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Myprofile);

@@ -13,9 +13,9 @@ import './Icon.scss';
 import './Chat-footer.scss';
 
 function ChatFooter({ user: { currentUser }, allChats, dispatch }) {
-   const currentChat = useParams().id;
-   const { socket, socketEmitPrivateMsgOut } = useContext(socketContext);
    const [newMsg, setNewMsg] = useState('');
+   const { socket, socketEmitPrivateMsgOut } = useContext(socketContext);
+   const currentChat = useParams().id;
 
    useEffect(() => {
       socket.emit('typing', {

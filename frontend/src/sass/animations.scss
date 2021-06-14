@@ -48,3 +48,14 @@
       color: $color-green;
    }
 }
+
+@keyframes roll-down-suggestions {
+   from {
+      height: 0;
+      top: 0;
+   }
+   to {
+      top: 98%;
+      height: 100%;
+   }
+}

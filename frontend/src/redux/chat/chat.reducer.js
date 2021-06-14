@@ -1,13 +1,17 @@
 import * as actionTypes from './chat.action.types';
 
 const initState = {
-   chats: {}
+   chats: []
 };
 
 const chatReducer = (state = initState, action) => {
    const { type, payload } = action;
    switch (type) {
       case actionTypes.SET_CHATS:
+         // if (!payload.chats.length)
+         //    return {
+         //       chats:
+         //    }
          return {
             ...state,
             chats: payload.chats.map(chat => ({
@@ -51,6 +55,10 @@ const chatReducer = (state = initState, action) => {
          return {
             ...state,
             chats: state.chats.filter(chat => chat._id !== payload.chatId)
+         };
+      case actionTypes.RESET_CHATS:
+         return {
+            chats: {}
          };
 
       default:

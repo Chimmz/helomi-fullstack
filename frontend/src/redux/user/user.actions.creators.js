@@ -5,6 +5,8 @@ import { addAndRemoveAlert } from '../alert/alert.utils';
 import { v4 as uuidv4 } from 'uuid';
 import { addAlert, removeAlert } from '../alert/alert.action.creators';
 import { setChats } from '../chat/chat.action.creators';
+import { RESET_CHATS } from '../chat/chat.action.types';
+import { RESET_MSGS } from '../msg/msg.action.types';
 
 export const setUser = (user = null, token = '') => {
    // delete user.friends;
@@ -14,7 +16,12 @@ export const setUser = (user = null, token = '') => {
 export const loadUser = () => ({ type: LOAD_USER });
 export const authError = () => ({ type: AUTH_ERROR });
 export const resetUser = () => ({ type: RESET_USER });
-export const logoutUser = () => ({ type: LOGOUT_USER });
+
+export const logOutUser = () => dispatch => {
+   dispatch({ type: LOGOUT_USER });
+   dispatch({ type: RESET_CHATS });
+   dispatch({ type: RESET_MSGS });
+};
 
 export const loginUser = loginData => {
    return async dispatch => {
@@ -63,6 +70,7 @@ export const signupUser = signupData => {
    return async dispatch => {
       const res = await utils.API.signup(signupData);
       const alertId = uuidv4();
+      console.log(res);
       switch (res.status) {
          case 'success':
             // prettier-ignore

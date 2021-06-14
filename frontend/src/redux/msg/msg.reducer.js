@@ -47,6 +47,11 @@ const msgReducer = (state = initialState, action) => {
             }
          };
 
+      case actionTypes.RESET_MSGS:
+         return {
+            messages: {}
+         };
+
       default:
          return state;
    }

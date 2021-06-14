@@ -63,7 +63,7 @@ function ChatHeader({ user, currentChatName, currentUser, dispatch }) {
                ></i>
                <Dropdown
                   className="chatting-section__header__nav__options__dropdown"
-                  showIf={optionsShown}
+                  showIf={false}
                   children={
                      <li
                         className="chatting-section__header__nav__options__item"

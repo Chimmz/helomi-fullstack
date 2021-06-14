@@ -1,5 +1,5 @@
 export const searchChatByQuery = (chats, query) => {
-   if (!query) return [];
+   if (!query || !chats) return [];
    return chats.filter(
       chat =>
          chat.username.toLowerCase().startsWith(query.toLowerCase()) ||
