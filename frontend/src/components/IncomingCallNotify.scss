@@ -9,6 +9,9 @@
    flex-direction: column;
    align-items: center;
    background: rgba($color-black, 0.95);
+   box-shadow: 0 0 1rem rgba($color-primary, 0.7),
+      0 0 10rem rgba($color-primary, 0.5);
+   border: 2px solid $color-primary-darker;
    padding: 2rem 3rem;
    border-radius: 1.5rem;
    z-index: 100;
@@ -23,7 +26,6 @@
    }
 
    &__name {
-      font-family: 'Poppins', sans-serif;
       letter-spacing: 1px;
       font-size: 2.2rem;
       color: $color-white;
@@ -32,15 +34,12 @@
 
    &__msg {
       font-size: 1.2rem;
-      color: $color-gray-light;
-      margin-bottom: 2rem;
+      color: #b3b3b3;
+      margin-bottom: 3rem;
    }
 
    &__user-actions {
       display: flex;
       gap: 1rem;
-   }
-   &__user-action--acept {
-      background: $color-green;
    }
 }

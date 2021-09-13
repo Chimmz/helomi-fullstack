@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { useContext, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../../../redux/user/user.selectors';
 
+import { themeContext } from '../../../contexts/ThemeProvider';
+
 import NavbarSearch from './NavbarSearch';
 import Myprofile from './Myprofile';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ThemeToggler from './ThemeToggler';
 
 import './Navbar.scss';
 
 function Navbar({ user }) {
    const { isLoggedIn } = user;
+   const { appTheme } = useContext(themeContext);
+   const darkTheme = appTheme === 'dark';
 
    const authlinks = [
       {
          label: 'Posts',
          icon: (
             <RateReviewIcon
-               className="navbar__link__icon"
+               className='navbar__link__icon'
                style={{ fontSize: '2rem' }}
             />
          )
@@ -30,7 +35,7 @@ function Navbar({ user }) {
          label: 'My profile',
          icon: (
             <PersonIcon
-               className="navbar__link__icon"
+               className='navbar__link__icon'
                style={{ fontSize: '2.2rem' }}
             />
          )
@@ -39,20 +44,21 @@ function Navbar({ user }) {
          label: 'Settings',
          icon: (
             <SettingsIcon
-               className="navbar__link__icon"
+               className='navbar__link__icon'
                style={{ fontSize: '2rem' }}
             />
          )
       }
    ];
    return (
-      <nav className="navbar">
-         <Link to="/">
-            <img src="img/helomi-logox2.png" alt="" className="navbar__logo" />{' '}
+      <nav className={`navbar ${darkTheme && 'd-theme'}`}>
+         <Link to='/' className='navbar__logo'>
+            helomi
          </Link>
 
          {isLoggedIn && <NavbarSearch />}
          {isLoggedIn && <Myprofile />}
+         <ThemeToggler />
 
          {/* <div className="navbar__links remove-bullets">
             {user.isLoggedIn &&

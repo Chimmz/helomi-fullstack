@@ -7,6 +7,10 @@
       gap: 6rem;
       flex-wrap: wrap;
       color: $color-gray-dark;
+
+      &.d-theme {
+         color: rgb(175, 175, 175);
+      }
    }
    &control {
       cursor: pointer;

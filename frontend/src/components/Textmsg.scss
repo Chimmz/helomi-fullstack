@@ -1,9 +1,8 @@
 @import '../sass/variables';
 
 .textmsg {
-   font-size: 1.15em;
+   font-size: 1.5rem;
    width: max-content;
-   max-width: 60ch;
    background-color: $color-white;
    border-radius: 1rem;
    margin-bottom: 0.5rem;
@@ -12,16 +11,18 @@
    position: relative;
 
    &__content {
-      padding: 0.65rem 1.2rem;
+      max-width: 40ch;
+      font-size: 1em;
+      line-height: 1.5em;
+      padding: 0.5em 1em;
       padding-bottom: 0;
-      font-size: 1.11em;
       font-weight: 400;
    }
    &__time {
       width: max-content;
       align-self: flex-end;
       color: $color-gray-dark;
-      font-size: 0.9em;
+      font-size: 0.83em;
       margin: 5px 1.5rem 5px 0;
    }
    &__sender-name {
@@ -39,16 +40,24 @@
       & .textmsg__time {
          margin: 3px 1.5rem 3px 1.5rem;
       }
+      &.d-theme {
+         color: $color-gray-light;
+         background: $bg-darker;
+      }
    }
    &--outgoing {
       margin-left: auto;
-      background: $color-primary !important;
+      background: $color-primary-darker !important;
       color: $color-white;
       border-bottom-right-radius: 0.2rem !important;
 
       & .textmsg__time {
-         color: rgba($color-white, 0.9);
+         color: rgba($color-white, 0.7);
          margin-left: 1.5rem;
+      }
+      &.d-theme {
+         color: $color-gray-light;
+         background: $color-primary-darkest !important;
       }
    }
    &--not-sent {

@@ -30,5 +30,11 @@
          bottom: 0;
          border-radius: 0;
       }
+      &.d-theme {
+         background: black;
+         // box-shadow: 0 0 3px 0.5rem rgba($color-primary, 0.5),
+         //    0 0 5px 3rem rgba($color-primary, 0.1);
+         border: 3px solid $color-primary-darkest;
+      }
    }
 }

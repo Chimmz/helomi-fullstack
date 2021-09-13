@@ -10,6 +10,10 @@ import {
 import { ADD_VIDEOCALL_MSG } from '../../redux/videocall/videocall.action.types';
 
 import { socketContext } from '../../contexts/SocketProvider';
+import { themeContext } from '../../contexts/ThemeProvider';
+import { videoCallContext } from '../../contexts/VideocallProvider';
+import { VideoCallProvider } from '../../contexts/VideocallProvider';
+
 import AddToCallPrompt from './AddToCallPrompt';
 import ChatsAndAttendees from './chats-and-attendees/ChatsAndAttendees';
 import CallSection from './call-section/Call-section';
@@ -18,22 +22,23 @@ import './VideoCall.scss';
 
 function VideoCall({ chatId, dispatch, ...otherProps }) {
    const { isOnVideoCall, isAddingToCall, isFullscreen } = otherProps;
-   const { socket } = useContext(socketContext);
+   const { appTheme } = useContext(themeContext);
+   const darkTheme = appTheme === 'dark';
 
-   useEffect(() => {}, []);
    return (
-      <>
+      <VideoCallProvider>
          <div
             className={`videocall-modal ${
                isOnVideoCall && 'videocall-modal--zoomed-into-view'
-            } ${isFullscreen && 'videocall-modal--fullscreen'}`}
-         >
+            } ${isFullscreen && 'videocall-modal--fullscreen'} ${
+               darkTheme && 'd-theme'
+            }`}>
             <ChatsAndAttendees />
             <CallSection chatId={chatId} />
-            {isAddingToCall && <AddToCallPrompt />}
+            {/* {isAddingToCall && <AddToCallPrompt />} */}
          </div>
          <Overlay showIf={isOnVideoCall} />
-      </>
+      </VideoCallProvider>
    );
 }
 const mapStateToProps = createStructuredSelector({

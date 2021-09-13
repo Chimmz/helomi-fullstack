@@ -10,14 +10,17 @@
          bottom: 0;
          display: flex;
          flex-direction: column;
-         border: none;
-         border-left: 2px solid $soft-blue;
-         border-top: 2px solid $soft-blue;
-         border-bottom: 2px solid $soft-blue;
+         border: 2px solid $soft-blue;
+         border-right: none;
          border-radius: 1.5rem;
          padding: 2em 0;
          font-size: 1.75rem;
          color: $color-gray-dark;
+
+         &.d-theme {
+            border: 2px solid $bg-darker;
+            border-right: none; // A must
+         }
 
          & > * {
             position: relative;

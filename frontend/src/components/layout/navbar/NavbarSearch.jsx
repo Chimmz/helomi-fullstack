@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -7,6 +7,9 @@ import {
    selectUser,
    selectCurrentUser
 } from '../../../redux/user/user.selectors';
+
+import { themeContext } from '../../../contexts/ThemeProvider';
+
 import { API } from '../../../utils';
 import Overlay from '../../UI/Overlay';
 
@@ -16,7 +19,9 @@ function NavbarSearch({ user, currentUser, dispatch }) {
    const authToken = user.token;
    const [searchQuery, setSearchQuery] = useState('');
    const [searchResults, setSearchResults] = useState([]);
-   const [isShowingSuggestions, setIsShowingSuggestions] = useState(false);
+   const [suggestionsShown, setSuggestionsShown] = useState(false);
+   const { appTheme } = useContext(themeContext);
+   const darkTheme = appTheme === 'dark';
 
    const searchPeople = async function (query) {
       try {
@@ -24,8 +29,10 @@ function NavbarSearch({ user, currentUser, dispatch }) {
          console.log(response.users);
          setSearchResults(response.users);
 
-         if (response.users.length) setIsShowingSuggestions(true);
-      } catch (err) {}
+         if (response.users.length) setSuggestionsShown(true);
+      } catch (err) {
+         alert('Sorry omething went wrong. Check your internet connection');
+      }
    };
 
    const handleChange = ev => {
@@ -35,39 +42,48 @@ function NavbarSearch({ user, currentUser, dispatch }) {
       if (!value) setSearchResults([]);
       else searchPeople(value);
    };
+   const handleFocus = ev => {
+      if (!searchResults) return;
+      searchResults.length && setSuggestionsShown(true);
+   };
 
    const handleClickAddBtn = userId => {
       dispatch(addUserAsFriend(authToken, userId));
-      setIsShowingSuggestions(false);
+      setSuggestionsShown(false);
    };
 
    return (
-      <div className="navbar__search">
+      <div className='navbar__search'>
          <input
-            type="text"
-            className={`navbar__search-input navbar__search-input--${
-               isShowingSuggestions && 'is-showing-suggestions'
-            }`}
-            placeholder="Search people"
+            type='text'
+            className={`navbar__search__input navbar__search__input--${
+               suggestionsShown && 'suggestions-shown'
+            } ${darkTheme && 'd-theme'}`}
+            placeholder='Search people'
             value={searchQuery}
             onChange={handleChange}
-            onFocus={() =>
-               searchResults.length && setIsShowingSuggestions(true)
-            }
+            onFocus={handleFocus}
          />
-         {isShowingSuggestions && (
-            <div className="navbar__search-suggestions">
+         {suggestionsShown && (
+            <div
+               className={`navbar__search__suggestions ${
+                  darkTheme && 'd-theme'
+               }`}>
                {searchResults.map(user => (
-                  <div className="navbar__search-suggestion" key={user._id}>
+                  <div
+                     className={`navbar__search__suggestion ${
+                        darkTheme && 'd-theme'
+                     }`}
+                     key={user._id}>
                      <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT9ho0lI0YvJexoiXfCuKSVGaDDq5LanKzAA&usqp=CAU"
-                        alt=""
-                        className="navbar__search-suggestion__photo pic pic--xsm"
+                        src={`/img/users/${user.photo}`}
+                        alt=''
+                        className='navbar__search__suggestion__photo pic pic--sm'
                      />
-                     <div className="navbar__search-suggestion__user-info">
-                        <span className="navbar__search-suggestion__username">
+                     <div className='navbar__search__suggestion__user-info'>
+                        <span className='navbar__search__suggestion__username'>
                            {user.username}{' '}
-                           <span className="navbar__search-suggestion__email">
+                           <span className='navbar__search__suggestion__email'>
                               {user.email}
                            </span>
                         </span>
@@ -76,9 +92,8 @@ function NavbarSearch({ user, currentUser, dispatch }) {
                         </span> */}
                      </div>
                      <button
-                        className="btn btn-md btn-primary navbar__search-suggestion-addfriend"
-                        onClick={() => handleClickAddBtn(user._id)}
-                     >
+                        className='btn btn-md btn-primary'
+                        onClick={() => handleClickAddBtn(user._id)}>
                         Add friend
                      </button>
                   </div>
@@ -86,10 +101,10 @@ function NavbarSearch({ user, currentUser, dispatch }) {
             </div>
          )}
          <Overlay
-            showIf={isShowingSuggestions}
+            showIf={suggestionsShown}
             transparent
             onClick={() => {
-               setIsShowingSuggestions(false);
+               setSuggestionsShown(false);
             }}
          />
       </div>

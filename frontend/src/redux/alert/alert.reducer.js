@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 const alertReducer = (state = INITIAL_STATE, { type, payload }) => {
    switch (type) {
       case ADD_ALERT:
-         return { alerts: [...state.alerts, payload.alert] };
+         return { alerts: [payload.alert, ...state.alerts] };
 
       case REMOVE_ALERT:
          return {

@@ -4,7 +4,7 @@
 .navbar {
    &__loggedin-user {
       display: flex;
-      flex-direction: column;
+      gap: 7px;
       align-items: center;
       padding: 3px 1.5rem;
       border-radius: 5px;
@@ -13,14 +13,22 @@
          cursor: pointer;
          background: $color-gray-lighter;
       }
-   }
 
-   &__photo {
-      margin-bottom: 1px;
+      &.d-theme {
+         // color: $color-gray-light !important;
+
+         &:hover {
+            background: $bg-dark;
+         }
+         & .navbar__username {
+            color: $color-gray-light !important;
+         }
+      }
    }
 
    &__username {
       font-size: 1.7rem;
+      width: max-content;
       color: $color-gray-dark;
    }
 
@@ -31,20 +39,25 @@
          position: absolute;
          top: 0%;
          right: 0;
-         padding: 3rem;
-         min-width: 20rem;
+         padding: 3rem 4rem;
          display: flex;
          flex-direction: column;
          align-items: center;
          background: $color-white;
-         box-shadow: 0 2px 2.5rem 7px rgba($color-black, 0.15);
-         border-bottom-left-radius: 1rem;
-         border-bottom-right-radius: 1rem;
-         border: 1px solid $color-gray-light;
+         border-radius: 0 0 1rem 1rem;
+         box-shadow: 0 5px 1rem rgba($color-black, 0.2),
+            0 1rem 3rem rgba($color-black, 0.2);
          visibility: hidden;
          opacity: 0;
-         transition: top 0.3s;
+         transition: all 0.3s;
          z-index: 20;
+
+         &.d-theme {
+            // background: $color-gray-dark;
+            background: $color-black;
+            box-shadow: 0 3px 1rem rgba($color-primary, 0.8),
+               0 2px 5rem rgba($color-primary, 0.5);
+         }
 
          & .btn {
             transition: all 0.3s !important;
@@ -57,35 +70,60 @@
          }
 
          &__picture {
+            margin-bottom: 2rem;
             position: relative;
-         }
-         &__photo {
-            margin-bottom: 5px;
-            position: relative;
-            margin-bottom: 1.5rem;
 
-            &:hover + .changephoto {
-               top: 50%;
-               opacity: 1;
+            &::after {
+               content: '';
+               position: absolute;
+               inset: 0;
+               background: rgba(#000, 0.5);
+               border-radius: 50%;
+               opacity: 0;
+               transition: all 0.2s;
+               z-index: 2;
             }
-         }
-         & .changephoto {
-            position: absolute;
-            top: 0%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            font-size: 1.2em;
-            color: $color-white;
-            cursor: pointer;
-            text-shadow: 0 2px 2px rgba($color-black, 0.9);
-            opacity: 0;
-            transition: top 0.3s;
 
             &:hover {
-               top: 50%;
-               opacity: 1;
-               color: $color-primary-lighter;
+               & [class*='form-upload'] {
+                  top: 50%;
+                  opacity: 1;
+               }
+               &::after {
+                  opacity: 1;
+               }
+            }
+
+            &__photo {
+               display: block;
+               @include circle(100%);
+               object-fit: cover;
+            }
+
+            &__form-upload {
+               position: absolute;
+               top: 0;
+               left: 50%;
+               transform: translateX(-50%) translateY(-50%);
+               width: max-content;
+               opacity: 0;
+               z-index: 3;
+               transition: top 0.3s, opacity 0.3s;
+
+               & input[type='file'] {
+                  display: none;
+               }
+
+               & label {
+                  color: $color-white;
+                  font-size: 1.25rem;
+                  cursor: pointer;
+                  transition: color 0.15s;
+
+                  &:hover {
+                     color: $color-primary-lighter;
+                  }
+               }
             }
          }
 
@@ -101,7 +139,7 @@
          &__username {
             font-size: 2.5rem;
             width: max-content;
-            color: $color-primary;
+            font-weight: bold;
          }
 
          &__email {

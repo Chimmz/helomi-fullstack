@@ -56,14 +56,10 @@ function PeerToPeerCall(props) {
          this.connection.onicecandidate = this.handleIceCandidate;
          this.connection.ontrack = this.handleTrackEvent;
          this.connection.onremovetrack = this.handleRemoveTrack;
-         this.connection.oniceconnectionstatechange =
-            this.handleIceConnectionStateChange;
-         this.connection.onconnectionstatechange =
-            this.handleConnectionStateChange;
-         this.connection.onicegatheringstatechange =
-            this.handleIceGatheringStateChange;
-         this.connection.onsignalingstatechange =
-            this.handleSignalingStateChange;
+         this.connection.oniceconnectionstatechange = this.handleIceConnectionStateChange;
+         this.connection.onconnectionstatechange = this.handleConnectionStateChange;
+         this.connection.onicegatheringstatechange = this.handleIceGatheringStateChange;
+         this.connection.onsignalingstatechange = this.handleSignalingStateChange;
       }
 
       connectStreamToVideo = () => {
@@ -274,14 +270,19 @@ function PeerToPeerCall(props) {
    }, []);
    return (
       <AllParticpantsInCall>
-         <div className="videocall__participant videocall__participant--peer">
+         {!props.callConnected && (
+            <div className='videocall__call__is-ringing u-text-center u-full-width'>
+               <i className='fas fa-phone-volume callnotify__icon'></i>{' '}
+               Calling...
+            </div>
+         )}
+         <div className='videocall__participant videocall__participant--peer'>
             {remoteStream && (
                <video
-                  src=""
+                  src=''
                   autoPlay
-                  className="videocall__participant__video"
-                  ref={remoteVideoRef}
-               ></video>
+                  className='videocall__participant__video'
+                  ref={remoteVideoRef}></video>
             )}
          </div>
 
@@ -290,16 +291,14 @@ function PeerToPeerCall(props) {
                props.callConnected
                   ? 'videocall__participant--user-send-to-bottom-right'
                   : 'videocall__participant--user-fullwidth'
-            }`}
-         >
+            }`}>
             {localStream && (
                <video
-                  src=""
+                  src=''
                   autoPlay
                   muted
-                  className="videocall__participant__video"
-                  ref={localVideoRef}
-               ></video>
+                  className='videocall__participant__video'
+                  ref={localVideoRef}></video>
             )}
          </div>
       </AllParticpantsInCall>

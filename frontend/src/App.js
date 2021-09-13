@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -9,57 +9,62 @@ import {
    selectCaller,
    selectIsOnVideoCall
 } from './redux/videocall/videocall.selectors';
-import { LOAD_USER } from './redux/user/user.actions.type';
+import { loadUser } from './redux/user/user.actions.creators';
 import store from './redux/store';
 
 import { SocketProvider } from './contexts/SocketProvider';
+import ThemeProvider from './contexts/ThemeProvider';
 
 import Navbar from './components/layout/navbar/Navbar';
-import ChattingSection from './components/layout/Chatting-section';
-import Sidenav from './components/layout/Sidenav';
+import ChattingSection from './components/layout/chat-section/Chatting-section';
+import Sidenav from './components/layout/sidenav/Sidenav';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
-import Alerts from './components/Alerts';
+import Alerts from './components/alerts/Alerts';
 import VideoCall from './components/videocall/VideoCall';
 
 import './App.scss';
 
-// store.dispatch({ type: LOAD_USER });
-function ReplaceLater() {
+function HelomiDefaultImg() {
    return (
-      <div className="default-img">
-         <img src={process.env.PUBLIC_URL + '/img/helomi-default.png'} />;
+      <div className='default-img'>
+         <img src={process.env.PUBLIC_URL + '/img/helomi-bg.JPG'} />
       </div>
    );
 }
 
-function App({ alerts, user, isOnVideoCall, caller, callingWho }) {
+function App({ alerts, user, isOnVideoCall, dispatch }) {
+   useEffect(() => {
+      dispatch(loadUser());
+   }, []);
    return (
-      <SocketProvider>
-         <Alerts alerts={alerts} />
-         <Navbar />
-         <Route exact path="/login" component={Login} />
-         <Route exact path="/signup" component={Signup} />
-         <Route
-            path="/"
-            render={() =>
-               user.isLoggedIn ? <Sidenav /> : <Redirect to="/login" />
-            }
-         />
-         <Route exact path="/" component={ReplaceLater} />
-         <Route
-            exact
-            path="/chats/:id"
-            render={routeProps =>
-               user.isLoggedIn ? (
-                  <ChattingSection {...routeProps} />
-               ) : (
-                  <Redirect to="/login" />
-               )
-            }
-         />
-         {isOnVideoCall && <VideoCall />}
-      </SocketProvider>
+      <ThemeProvider>
+         <SocketProvider>
+            <Alerts alerts={alerts} />
+            <Navbar />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signup' component={Signup} />
+            <Route
+               path='/'
+               render={() =>
+                  user.isLoggedIn ? <Sidenav /> : <Redirect to='/login' />
+               }
+            />
+            <Route exact path='/' component={HelomiDefaultImg} />
+            <Route
+               exact
+               path='/chats/:id'
+               render={routeProps =>
+                  user.isLoggedIn ? (
+                     <ChattingSection {...routeProps} />
+                  ) : (
+                     <Redirect to='/login' />
+                  )
+               }
+            />
+            {isOnVideoCall && <VideoCall />}
+         </SocketProvider>
+      </ThemeProvider>
    );
 }
 

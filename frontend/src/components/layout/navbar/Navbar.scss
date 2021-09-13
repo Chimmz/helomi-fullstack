@@ -2,18 +2,24 @@
 @import '../../../sass/mixins.scss';
 
 .navbar {
-   height: 10vh;
-   grid-column: 1 / -1;
-   grid-row: 1;
+   grid-column: app-start / app-end;
+   grid-row: navbar-start / navbar-end;
    background: $color-white;
    display: flex;
    justify-content: space-between;
    align-items: center;
-   gap: 3rem;
+   gap: 5rem;
    padding: 0 5rem;
 
+   &.d-theme {
+      background: $bg-darkest;
+      background-color: $color-black;
+   }
+
    &__logo {
-      align-self: center;
+      font-size: 3rem;
+      color: $color-primary-darker;
+      font-family: Capriola;
    }
 
    &__links {

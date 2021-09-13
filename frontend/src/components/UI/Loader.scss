@@ -14,11 +14,11 @@
       border-top: 2px solid $color-primary;
       border-right: 2px solid $color-primary;
       margin-bottom: 1.5rem;
+      aspect-ratio: 1;
       animation: rotate forwards infinite 5s;
 
       &--lg {
          width: 5rem;
-         height: 5rem;
       }
       &--md {
       }
@@ -33,6 +33,13 @@
 
       &--lg {
          font-size: 1.7rem;
+      }
+   }
+
+   &.d-theme {
+      color: $color-white !important;
+      &__msg {
+         color: $color-white;
       }
    }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './Dropdown.scss';
 
 function Dropdown(props) {
    const {
@@ -9,7 +10,7 @@ function Dropdown(props) {
    } = props;
    return (
       isVisble && (
-         <ul className={className + ' remove-bullets'} {...restProps}>
+         <ul className={className + ' dropdown remove-bullets'} {...restProps}>
             {listItems}
          </ul>
       )

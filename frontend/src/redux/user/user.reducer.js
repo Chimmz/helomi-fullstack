@@ -1,9 +1,18 @@
-// prettier-ignore
-import { SET_USER, LOAD_USER, AUTH_ERROR, RESET_USER, LOGOUT_USER, USER_LOADED } from './user.actions.type';
+import {
+   SET_USER,
+   LOAD_USER,
+   AUTH_ERROR,
+   RESET_USER,
+   LOGOUT_USER,
+   USER_LOADED,
+   CHANGE_PROFILE_PHOTO
+} from './user.actions.type';
+import * as userUtils from './user.utils';
 
 const INITIAL_STATE = {
    currentUser: null,
    token: '',
+   twilioAccessToken: '',
    isLoggedIn: false,
    isLoading: true
 };
@@ -12,22 +21,28 @@ const userReducer = (state = INITIAL_STATE, action) => {
    const { type, payload } = action;
    switch (type) {
       case LOAD_USER:
-         const tokenInStorage = localStorage.getItem('HELOMI_USER_TOKEN') || '';
-         // prettier-ignore
          return {
-            ...state,
-            currentUser: JSON.parse(localStorage.getItem('HELOMI_USER')) || null,
-            token: tokenInStorage,
-            isLoggedIn: tokenInStorage ? true : false
+            ...state
          };
 
       case SET_USER:
+         userUtils.saveUserInStorage(payload.user);
+         userUtils.saveTokenInStorage(payload.token);
          return {
             ...state,
             currentUser: payload.user,
             token: payload.token,
+            twilioAccessToken: payload.twilioAccessToken,
             isLoggedIn: true,
             isLoading: false
+         };
+      case CHANGE_PROFILE_PHOTO:
+         return {
+            ...state,
+            currentUser: {
+               ...state.currentUser,
+               photo: payload.fileName
+            }
          };
 
       case AUTH_ERROR:

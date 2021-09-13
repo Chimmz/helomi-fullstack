@@ -7,6 +7,10 @@
    // background: none;
    transition: all 0.2s;
 
+   &--curved {
+      border-radius: 999px;
+   }
+
    &:hover,
    &:active,
    &:focus {
@@ -15,7 +19,7 @@
    }
 
    &-primary {
-      background: $color-primary;
+      background: $color-primary-darker;
       color: $color-white;
 
       &:hover {
@@ -34,10 +38,18 @@
    &-green {
       background: $color-green;
       color: $color-white;
+
+      &:hover {
+         background: rgba($color-green, 0.9);
+      }
    }
    &-red {
       background: $color-red;
       color: $color-white;
+
+      &:hover {
+         background: rgba($color-red, 0.9);
+      }
    }
 
    &-text-white {
@@ -48,5 +60,13 @@
       font-size: 1.3rem;
       padding: 0.6em 1em;
       border-radius: 999px;
+   }
+}
+
+.d-theme .btn-primary {
+   background: $color-primary-darkest;
+
+   &:hover {
+      background: $color-primary-darker;
    }
 }

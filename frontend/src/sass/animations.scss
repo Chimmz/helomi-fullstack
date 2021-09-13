@@ -36,15 +36,15 @@
 
 @keyframes alert-with-many-colors {
    0% {
+      color: $color-primary-darker;
+   }
+   25% {
       color: $color-primary;
    }
-   20% {
+   50% {
       color: $color-primary-lighter;
    }
-   50% {
-      color: $color-primary-lightest;
-   }
-   100% {
+   90% {
       color: $color-green;
    }
 }

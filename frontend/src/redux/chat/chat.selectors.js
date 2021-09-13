@@ -24,8 +24,8 @@ export const selectCallerInChat = createSelector(
    (chats, call) => chats.find(chat => chat._id === call.caller)
 );
 
-export const selectChatName = chatId =>
+export const selectCurrentChat = chatId =>
    createSelector([selectChats], chats => {
       const chat = chats.find(chat => chat._id === chatId);
-      return chat.username;
+      return chat;
    });

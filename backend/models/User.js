@@ -6,8 +6,7 @@ const userSchema = new mongoose.Schema(
    {
       username: {
          type: String,
-         required: [true, 'Please enter a username'],
-         unique: true
+         required: [true, 'Please enter a username']
       },
       email: {
          type: String,
@@ -22,7 +21,7 @@ const userSchema = new mongoose.Schema(
          minlength: 6,
          select: false
       },
-      photo: { type: String },
+      photo: { type: String, default: 'user-default.jpg' },
       friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
    },
    {
@@ -31,10 +30,6 @@ const userSchema = new mongoose.Schema(
       }
    }
 );
-
-// userSchema.virtual('unreadMsgs').get(function() {
-
-// })
 
 userSchema.pre('save', async function (next) {
    if (this.isModified('password'))

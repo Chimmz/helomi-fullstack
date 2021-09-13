@@ -2,14 +2,15 @@
 @import '../../sass/mixins.scss';
 
 .auth {
-   width: 100vw;
-   height: 90vh;
-   background-color: $color-primary;
-   padding: 4rem 0;
+   grid-column: app-start / app-end;
+   grid-row: navbar-end / -1;
+   display: grid;
+   align-content: center; // Centralizes vertically
+   gap: 3rem;
+   background-color: $color-primary-darker;
    z-index: 5;
 
    &__heading {
-      font-family: 'Poppins', sans-serif;
       color: $color-primary-lightest;
       margin-bottom: 4rem;
       font-size: 3rem;
@@ -27,29 +28,26 @@
          color: $color-primary-darkest;
          transition: all 0.8s;
       }
-
-      &:not(:last-child) {
-         margin-bottom: 3rem;
-      }
    }
    &__forminput {
       width: 40vw;
       padding: 1.5rem 3rem;
       border: none;
       border-radius: 99rem;
-      background: #4bc8fd;
-      color: $color-primary-darkest;
+      background: rgba($color-white, 0.1);
+      // color: $color-primary-darkest;
+      color: $color-white;
       font-size: 1.5rem;
       font-weight: 500;
       transition: all 0.6s;
       text-align: inherit;
 
       &::-webkit-input-placeholder {
-         color: $color-primary-darkest;
+         color: rgba($color-white, 0.5);
       }
 
       &:focus {
-         background: $color-primary-lighter;
+         background: $color-primary-light;
 
          & + .auth__formgroup__icon {
             color: $color-black;
@@ -66,23 +64,59 @@
    &__submit {
       display: block;
       width: 40vw;
-      font-size: 1.5rem !important;
-      padding: 1.5rem 3rem !important;
-      border-radius: 99rem !important;
+      font-size: 1.5rem;
+      padding: 1.5rem 3rem;
+      border-radius: 99rem;
       transform: translateX(1.5rem);
       transition: all 0.5s !important;
-      background: $color-primary-darkest;
-      color: rgba($color-white, 0.9);
+      background: rgba($color-black, 0.75);
+      color: $color-primary-light;
 
       &:hover {
-         background: darken($color-primary-darkest, 5%);
+         background: $color-black;
       }
    }
-   .go-to-sign-up {
+   &__switch-auth-page {
       font-size: 1.2rem;
 
       & a {
          color: $color-primary-lightest;
+      }
+   }
+
+   &.d-theme {
+      background: $bg-darkest;
+      & .auth {
+         &__heading {
+            color: $color-gray-light;
+         }
+         &__forminput {
+            background: $bg-darker;
+            color: $color-gray-light;
+
+            &:focus {
+               background: $bg-dark;
+
+               & + .auth__formgroup__icon {
+                  color: $color-primary-light;
+               }
+            }
+         }
+         &__submit {
+            background: $color-primary-darkest;
+            color: $color-white;
+
+            &:hover {
+               background: $color-primary-darker;
+            }
+         }
+         &__switch-auth-page {
+            color: $color-gray-dark;
+
+            & a {
+               color: $color-primary;
+            }
+         }
       }
    }
 }

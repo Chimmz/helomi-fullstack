@@ -19,7 +19,7 @@ const DB_STR = process.env.DATABASE_URI.replace(
    '<password>',
    process.env.DATABASE_PASSWORD
 );
-// mongodb://localhost:27017/Helomi
+
 mongoose
    .connect(DB_STR, {
       useNewUrlParser: true,
@@ -70,6 +70,11 @@ io.on('connect', socket => {
                (await PrivateMsg.updateOne({ _id: msg._id }, { isRead: true }))
          )
       );
+   });
+
+   socket.on('online-status-out', (from, chatId, onlineStatus) => {
+      console.log(from, chatId, onlineStatus);
+      io.to(chatId).emit('online-status-in', from, onlineStatus);
    });
 
    // For video call

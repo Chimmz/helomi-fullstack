@@ -16,6 +16,7 @@ const chatReducer = (state = initState, action) => {
             ...state,
             chats: payload.chats.map(chat => ({
                ...chat,
+               isOnline: false,
                isTyping: false,
                isLoadingMsgs: true
             }))

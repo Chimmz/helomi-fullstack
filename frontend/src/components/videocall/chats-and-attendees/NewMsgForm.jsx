@@ -9,8 +9,11 @@ import { ADD_VIDEOCALL_MSG } from '../../../redux/videocall/videocall.action.typ
 import { socketContext } from '../../../contexts/SocketProvider';
 import '../../Icon.scss';
 import './NewMsgForm.scss';
+import { themeContext } from '../../../contexts/ThemeProvider';
 
 function NewMsgForm({ currentUser, videoChatRoom, dispatch }) {
+   const { appTheme } = useContext(themeContext);
+   const darkTheme = appTheme === 'dark';
    const { socket } = useContext(socketContext);
    const [newTextMsg, setNewTextMsg] = useState('');
 
@@ -18,11 +21,10 @@ function NewMsgForm({ currentUser, videoChatRoom, dispatch }) {
 
    const sendNewMsg = function (ev) {
       ev?.preventDefault();
-      const { _id, username } = currentUser;
 
       const msg = {
          text: newTextMsg,
-         sender: { _id, username },
+         sender: currentUser,
          room: videoChatRoom
       };
       dispatch({ type: ADD_VIDEOCALL_MSG, payload: { msg } });
@@ -32,19 +34,20 @@ function NewMsgForm({ currentUser, videoChatRoom, dispatch }) {
    };
 
    return (
-      <form className="newmsg" onSubmit={sendNewMsg}>
+      <form
+         className={`newmsg ${darkTheme && 'd-theme'}`}
+         onSubmit={sendNewMsg}>
          <input
-            type="text"
+            type='text'
             value={newTextMsg}
-            className="input"
+            className='newmsg__input'
             onChange={handleChange}
-            placeholder="Type a new message here"
+            placeholder='Type a new message here'
          />
          <span
-            className="send icon icon--sm icon--bg-blue"
-            onClick={sendNewMsg}
-         >
-            <i className="fas fa-paper-plane"></i>
+            className='newmsg__send icon icon--sm icon--bg-blue'
+            onClick={sendNewMsg}>
+            <i className='fas fa-paper-plane'></i>
          </span>
       </form>
    );

@@ -24,6 +24,10 @@ socket.on('user-is-typing', ({ typist: chatId, isTyping }) => {
    store.dispatch(setSomeoneIsTyping({ chatId, isTyping }));
 });
 
+socket.on('online-status-in', (chatId, onlineStatus) => {
+   alert(`${chatId} is ${onlineStatus}`);
+});
+
 function socketEmitPrivateMsgOut({ from, sendTo: receiver, text, sentAt }) {
    socket.emit('private-msg-out', { from, sendTo: receiver, text, sentAt });
    store.dispatch(

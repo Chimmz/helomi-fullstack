@@ -15,17 +15,16 @@ function VideocallMsg({ msg, currentUser }) {
       <div
          className={`videocall-msg textmsg--${
             sentByMe ? 'outgoing' : 'incoming'
-         }`}
-      >
-         {/* <img
-            src="img/faces3.jpg"
-            alt=""
-            className="videocall-msg__sender-photo pic pic--xsm"
-         /> */}
-         <div className="videocall-msg__sender-name">
+         }`}>
+         <img
+            src={`/img/users/${sender.photo}`}
+            alt=''
+            className='videocall-msg__sender-photo pic pic--xsm'
+         />
+         <div className='videocall-msg__sender-name'>
             {sentByMe ? 'You' : sender.username}
          </div>
-         <p className="videocall-msg__content">{text}</p>
+         <p className='videocall-msg__content'>{text}</p>
       </div>
    );
 }
