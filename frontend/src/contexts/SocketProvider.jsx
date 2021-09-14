@@ -3,10 +3,7 @@ import React, { createContext } from 'react';
 import store from '../redux/store';
 import { addNewMsg } from '../redux/msg/msg.actions.creators';
 import { setSomeoneIsTyping } from '../redux/chat/chat.action.creators';
-import {
-   ADD_VIDEOCALL_MSG,
-   SET_RTC_CANDIDATE
-} from '../redux/videocall/videocall.action.types';
+import { ADD_VIDEOCALL_MSG } from '../redux/videocall/videocall.action.types';
 import { ring } from '../redux/videocall/videocall.action.creators';
 import io from 'socket.io-client';
 

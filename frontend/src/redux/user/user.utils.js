@@ -23,5 +23,3 @@ export function getTokenInStorage() {
       return null;
    }
 }
-
-const catchLocalStorageError = fn => {};

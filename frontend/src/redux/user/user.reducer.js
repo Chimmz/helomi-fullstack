@@ -4,7 +4,6 @@ import {
    AUTH_ERROR,
    RESET_USER,
    LOGOUT_USER,
-   USER_LOADED,
    CHANGE_PROFILE_PHOTO
 } from './user.actions.type';
 import * as userUtils from './user.utils';

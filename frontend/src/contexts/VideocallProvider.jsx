@@ -1,8 +1,4 @@
-import React, { useState, useContext, createContext } from 'react';
-
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectVideoChatRoomId } from '../redux/videocall/videocall.selectors';
+import React, { useState, createContext } from 'react';
 
 export const videoCallContext = createContext();
 

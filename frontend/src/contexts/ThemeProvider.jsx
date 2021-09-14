@@ -1,15 +1,13 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { createContext } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectAppTheme } from '../redux/appsettings/appsettings.selectors';
 import { TOGGLE_APP_THEME } from '../redux/appsettings/appsettings.actions';
 
-import { useToggle } from '../hooks/useToggle';
-
 export const themeContext = createContext();
 
 function ThemeProvider(props) {
-   const { appTheme, toggleTheme, ...restProps } = props;
+   const { appTheme, toggleTheme } = props;
    console.log(appTheme, toggleTheme);
 
    return (

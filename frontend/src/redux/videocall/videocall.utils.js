@@ -1,5 +1,3 @@
-import store from '../store';
-
 export const getVideoChatRoomId = callerId => 'videochat' + callerId;
 
 export class PeerConnection {
