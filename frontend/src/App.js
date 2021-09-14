@@ -16,6 +16,7 @@ import { SocketProvider } from './contexts/SocketProvider';
 import ThemeProvider from './contexts/ThemeProvider';
 
 import Navbar from './components/layout/navbar/Navbar';
+import LandingPage from './components/pages/landing-page/Landing-page';
 import ChattingSection from './components/layout/chat-section/Chatting-section';
 import Sidenav from './components/layout/sidenav/Sidenav';
 import Signup from './components/pages/Signup';
@@ -42,18 +43,19 @@ function App({ alerts, user, isOnVideoCall, dispatch }) {
          <SocketProvider>
             <Alerts alerts={alerts} />
             <Navbar />
+            <Route exact path='/' component={LandingPage} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route
-               path='/'
+               path='/dashboard'
                render={() =>
                   user.isLoggedIn ? <Sidenav /> : <Redirect to='/login' />
                }
             />
-            <Route exact path='/' component={HelomiDefaultImg} />
+            <Route exact path='/dashboard' component={HelomiDefaultImg} />
             <Route
                exact
-               path='/chats/:id'
+               path='/dashboard/chats/:id'
                render={routeProps =>
                   user.isLoggedIn ? (
                      <ChattingSection {...routeProps} />

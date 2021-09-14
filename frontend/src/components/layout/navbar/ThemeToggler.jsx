@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { themeContext } from '../../../contexts/ThemeProvider';
-import { toggleAppTheme } from '../../../redux/appsettings/appsettings.creators';
 import './ThemeToggler.scss';
 
 function ThemeToggler() {
@@ -13,7 +12,7 @@ function ThemeToggler() {
          onClick={toggleTheme}
          data-status={`${darkTheme ? 'Dark' : 'Light'}`}
       >
-         <span className="navbar__theme-toggler__switch"></span>
+         <span className='navbar__theme-toggler__switch'></span>
       </div>
    );
 }

@@ -20,7 +20,6 @@
          border: none;
          border: 1px solid rgb(219, 216, 216);
          background: $color-white;
-         // z-index: 31;
 
          &.d-theme {
             border: none;
@@ -47,7 +46,6 @@
          border-bottom-left-radius: 2rem;
          border-bottom-right-radius: 2rem;
          border-top: 1px solid rgb(219, 216, 216);
-         // padding-top: 0.7rem;
          box-shadow: 0 7px 1.5rem rgba(0, 0, 0, 0.27);
          overflow: hidden;
          max-height: 75vh;
@@ -105,7 +103,7 @@
          }
 
          &__username {
-            font-size: 1.4em;
+            font-size: 1.5em;
             font-weight: 600;
          }
          &__email {

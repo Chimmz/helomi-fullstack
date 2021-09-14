@@ -35,6 +35,15 @@
          color: $color-primary-darkest;
       }
    }
+   &-black {
+      background: rgba(#000, 0.85);
+      color: $color-primary-lighter;
+
+      &:hover {
+         background: $color-black;
+         color: $color-white;
+      }
+   }
    &-green {
       background: $color-green;
       color: $color-white;
@@ -56,10 +65,17 @@
       color: $color-white;
    }
 
+   &--rounded {
+      border-radius: 9999px;
+   }
+
    &-md {
       font-size: 1.3rem;
       padding: 0.6em 1em;
       border-radius: 999px;
+   }
+   &-lg {
+      font-size: 1.9rem;
    }
 }
 

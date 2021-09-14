@@ -9,8 +9,9 @@ import { selectAllAlerts } from '../../redux/alert/alert.selectors';
 import { authenticate } from '../../redux/user/user.actions.creators';
 
 import { themeContext } from '../../contexts/ThemeProvider';
-import * as utils from '../../utils';
-import * as formUtils from '../../utils-forms';
+import * as otherUtils from '../../utils/others';
+
+import * as formUtils from '../../utils/forms';
 import TextInput from '../formUI/TextInput';
 import LoadingSpinner from '../UI/Loader';
 import './Login-Signup.scss';
@@ -27,7 +28,7 @@ function Login({ user, alerts, dispatch }) {
    };
    const handleSubmit = ev => {
       ev.preventDefault();
-      const emptyFields = utils.getEmptyFields(loginData);
+      const emptyFields = otherUtils.getEmptyFields(loginData);
 
       if (emptyFields.length)
          return formUtils.flashAlertsForEmptyFields(emptyFields, dispatch);
@@ -35,14 +36,15 @@ function Login({ user, alerts, dispatch }) {
       dispatch(authenticate('login', loginData));
    };
    return user.isLoggedIn ? (
-      <Redirect to='/' />
+      <Redirect to='/dashboard' />
    ) : (
       <>
          <Alerts alerts={alerts} />
          <form
             action=''
             className={`auth u-text-center ${darkTheme && 'd-theme'}`}
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+         >
             <h1 className='heading-primary auth__heading'>Log in</h1>
             <div className='auth__formgroup'>
                <TextInput

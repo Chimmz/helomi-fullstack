@@ -12,13 +12,12 @@
    padding: 0 5rem;
 
    &.d-theme {
-      background: $bg-darkest;
       background-color: $color-black;
    }
 
    &__logo {
       font-size: 3rem;
-      color: $color-primary-darker;
+      color: $color-primary;
       font-family: Capriola;
    }
 

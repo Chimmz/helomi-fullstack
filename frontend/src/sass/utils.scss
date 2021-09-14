@@ -15,8 +15,8 @@
       height: 7rem !important;
    }
    &--sm {
-      width: 4rem !important;
-      height: 4rem !important;
+      width: 5rem !important;
+      height: 5rem !important;
    }
    &--xsm {
       width: 2rem !important;
@@ -26,8 +26,18 @@
 .remove-bullets {
    list-style: none !important;
 }
-.u-mg-bottom-md {
-   margin-bottom: 1.5rem;
+
+.u-mgb-sm {
+   margin-bottom: 1rem !important;
+}
+.u-mgb-sm {
+   margin-bottom: 1.5rem !important;
+}
+.u-mgb-md {
+   margin-bottom: 2.5rem !important;
+}
+.u-mgb-lg {
+   margin-bottom: 4rem !important;
 }
 .u-text-center {
    text-align: center !important;

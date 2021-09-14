@@ -49,10 +49,3 @@
       @include absolute-center;
    }
 }
-
-.vcall {
-   position: absolute;
-   inset: 0;
-   background: black;
-   z-index: 777;
-}

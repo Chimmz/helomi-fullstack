@@ -1,5 +1,5 @@
 import * as actionTypes from './msg.action.types';
-import * as utils from '../../utils';
+import * as utils from '../../utils/api';
 import * as actionCreators from '../chat/chat.action.creators';
 
 export const addFetchedChatMsgs = (chatId, msgs) => ({

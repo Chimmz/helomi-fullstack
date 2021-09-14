@@ -25,11 +25,12 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
 
    return (
       <NavLink
-         to={`/chats/${chat._id}`}
+         to={`/dashboard/chats/${chat._id}`}
          className={`chat chat--has-unread-messages ${
             darkTheme ? 'd-theme' : ''
          }`}
-         activeClassName='chat--active'>
+         activeClassName='chat--active'
+      >
          <img
             src={`/img/users/${chat.photo}`}
             alt=''
@@ -43,7 +44,8 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
                <span
                   className={`chat__lastmessage chat__lastmessage--${
                      showLastMsgAsUnread && 'unread'
-                  }`}>
+                  }`}
+               >
                   {lastChatMsg.text}
                </span>
             )}

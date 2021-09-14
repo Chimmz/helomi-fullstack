@@ -1,4 +1,4 @@
-import { API } from '../../utils';
+import { API } from '../../utils/api';
 import { v4 as uuidv4 } from 'uuid';
 import {
    SET_CHATS,
@@ -58,7 +58,7 @@ export const addUserAsFriend = (authToken, userId) => async dispatch => {
             newAlert.text =
                response.status === 'fail'
                   ? response.message
-                  : "Friend couldn't be added. Please check your internet connection";
+                  : "Couldn't add. Something went wrong";
             break;
       }
 

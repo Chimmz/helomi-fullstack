@@ -10,7 +10,7 @@ import {
 
 import { themeContext } from '../../../contexts/ThemeProvider';
 
-import { API } from '../../../utils';
+import { API } from '../../../utils/api';
 import Overlay from '../../UI/Overlay';
 
 import './NavbarSearch.scss';
@@ -68,13 +68,15 @@ function NavbarSearch({ user, currentUser, dispatch }) {
             <div
                className={`navbar__search__suggestions ${
                   darkTheme && 'd-theme'
-               }`}>
+               }`}
+            >
                {searchResults.map(user => (
                   <div
                      className={`navbar__search__suggestion ${
                         darkTheme && 'd-theme'
                      }`}
-                     key={user._id}>
+                     key={user._id}
+                  >
                      <img
                         src={`/img/users/${user.photo}`}
                         alt=''
@@ -93,7 +95,8 @@ function NavbarSearch({ user, currentUser, dispatch }) {
                      </div>
                      <button
                         className='btn btn-md btn-primary'
-                        onClick={() => handleClickAddBtn(user._id)}>
+                        onClick={() => handleClickAddBtn(user._id)}
+                     >
                         Add friend
                      </button>
                   </div>

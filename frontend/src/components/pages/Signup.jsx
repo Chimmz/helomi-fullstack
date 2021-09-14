@@ -6,8 +6,8 @@ import { createStructuredSelector } from 'reselect';
 import { selectUser } from '../../redux/user/user.selectors';
 import { authenticate } from '../../redux/user/user.actions.creators';
 import { themeContext } from '../../contexts/ThemeProvider';
-import * as utils from '../../utils';
-import * as formUtils from '../../utils-forms';
+import * as otherUtils from '../../utils/others';
+import * as formUtils from '../../utils/forms';
 import TextInput from '../formUI/TextInput';
 import './Login-Signup.scss';
 
@@ -27,7 +27,7 @@ function Signup({ user, dispatch }) {
 
    const handleSubmit = ev => {
       ev.preventDefault();
-      const emptyFields = utils.getEmptyFields(signupData);
+      const emptyFields = otherUtils.getEmptyFields(signupData);
 
       if (emptyFields.length)
          return formUtils.flashAlertsForEmptyFields(emptyFields, dispatch);
@@ -35,11 +35,12 @@ function Signup({ user, dispatch }) {
    };
 
    return user.isLoggedIn ? (
-      <Redirect to='/' />
+      <Redirect to='/dashboard' />
    ) : (
       <form
          className={`auth u-text-center ${darkTheme && 'd-theme'}`}
-         onSubmit={handleSubmit}>
+         onSubmit={handleSubmit}
+      >
          <h1 className='heading-primary auth__heading'>
             Create your new account
          </h1>

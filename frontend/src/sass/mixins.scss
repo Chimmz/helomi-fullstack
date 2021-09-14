@@ -27,3 +27,30 @@
    height: $radius;
    border-radius: 50%;
 }
+
+@mixin respond($breakpoint) {
+   @if $breakpoint == phone {
+      @media (max-width: 37.5em) {
+         // 600px
+         @content;
+      }
+   }
+   @if $breakpoint == tab-portrait {
+      @media (max-width: 56.25em) {
+         // 900px
+         @content;
+      }
+   }
+   @if $breakpoint == tab-landscape {
+      @media (max-width: 75em) {
+         // 1200px
+         @content;
+      }
+   }
+   @if $breakpoint == lg-desktop {
+      @media (min-width: 112.5em) {
+         // 1800px
+         @content;
+      }
+   }
+}

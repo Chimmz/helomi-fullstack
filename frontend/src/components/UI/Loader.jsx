@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { themeContext } from '../../contexts/ThemeProvider';
+import { toFirstLetterUpper } from '../../utils/others';
 
-import { toFirstLetterUpper } from '../../utils';
 import './Loader.scss';
 
 function LoadingSpinner({ size, msg, showIf: conditionToShow }) {

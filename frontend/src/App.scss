@@ -12,18 +12,29 @@
 }
 html {
    font-size: 62.5%;
+
+   @include respond(tab-landscape) {
+      font-size: 56.25%; // 9px
+   }
+
+   @include respond(tab-portrait) {
+      // Also applies to phone
+      font-size: 50%;
+   }
+
+   @include respond(lg-desktop) {
+      font-size: 75%;
+   }
 }
 body {
    min-height: 100vh;
    font-size: 1rem;
    font-family: 'DM Sans', sans-serif;
-   // background-color: $color-gray-light;
 }
 
 #root {
    width: 100%;
    min-height: 100vh;
-   max-height: 100vh;
    display: grid;
    grid-template-columns: [app-start sidenav-start] 29% [sidenav-end chatpage-start] 1fr [chatpage-end app-end];
    grid-template-rows: [navbar-start] 11vh [navbar-end] 89vh;
@@ -43,6 +54,20 @@ body {
    &-secondary {
       font-size: 2rem;
       font-weight: 400;
+   }
+}
+
+.parag {
+   font-size: 1.7rem;
+   color: $color-gray-dark;
+   line-height: 2.7rem;
+}
+.h {
+   &-1 {
+   }
+   &-4 {
+      font-size: 2.5rem;
+      color: $color-gray-darkest;
    }
 }
 

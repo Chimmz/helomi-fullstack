@@ -13,7 +13,7 @@ import { setChats } from '../chat/chat.action.creators';
 import { RESET_CHATS } from '../chat/chat.action.types';
 import { RESET_MSGS } from '../msg/msg.action.types';
 import { AlertConstructor } from '../alert/alert.utils';
-import * as utils from '../../utils';
+import * as utils from '../../utils/api';
 import * as userUtils from './user.utils';
 
 export const setUser = (user = null, token = '', twilioAccessToken) => {

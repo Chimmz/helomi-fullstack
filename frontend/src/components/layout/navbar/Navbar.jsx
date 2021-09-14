@@ -52,7 +52,7 @@ function Navbar({ user }) {
    ];
    return (
       <nav className={`navbar ${darkTheme && 'd-theme'}`}>
-         <Link to='/' className='navbar__logo'>
+         <Link to='/dashboard' className='navbar__logo'>
             helomi
          </Link>
 

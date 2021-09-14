@@ -6,7 +6,6 @@ import {
    selectUser,
    selectCurrentUser
 } from '../../../redux/user/user.selectors';
-import { LOGOUT_USER } from '../../../redux/user/user.actions.type';
 import { selectTotalChatCount } from '../../../redux/chat/chat.selectors';
 import {
    changeProfilePhoto,
@@ -15,7 +14,7 @@ import {
 
 import { useToggle } from '../../../hooks/useToggle';
 import { themeContext } from '../../../contexts/ThemeProvider';
-import { API } from '../../../utils';
+import { API } from '../../../utils/api';
 import './Myprofile.scss';
 
 const Myprofile = function (props) {
@@ -44,7 +43,8 @@ const Myprofile = function (props) {
       <div className='navbar__myprofile'>
          <div
             className={`navbar__loggedin-user ${darkTheme && 'd-theme'}`}
-            onClick={toggleShowFullProfile}>
+            onClick={toggleShowFullProfile}
+         >
             <img
                src={`/img/users/${currentUser.photo}`}
                alt=''
@@ -55,7 +55,8 @@ const Myprofile = function (props) {
          <div
             className={`navbar__myprofile__dropdown ${darkTheme && 'd-theme'} ${
                showFullProfile && 'navbar__myprofile__dropdown--slide-into-view'
-            }`}>
+            }`}
+         >
             <picture className='navbar__myprofile__dropdown__picture'>
                <img
                   src={`/img/users/${currentUser.photo}`}
@@ -90,7 +91,8 @@ const Myprofile = function (props) {
             </div>
             <button
                className='btn btn-md btn-primary logout'
-               onClick={logOutUser}>
+               onClick={logOutUser}
+            >
                Log out
             </button>
          </div>

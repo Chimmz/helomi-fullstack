@@ -1,5 +1,5 @@
-import { flashAlert } from './redux/alert/alert.action.creators';
 import { v4 as uuidv4 } from 'uuid';
+import { flashAlert } from '../redux/alert/alert.action.creators';
 
 export const flashAlertsForEmptyFields = function (fieldsArr, dispatch) {
    fieldsArr
