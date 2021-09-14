@@ -4,7 +4,8 @@
    "description": "The backend of my chat application",
    "main": "server.js",
    "scripts": {
-      "server": "nodemon server.js"
+      "server": "nodemon server.js",
+      "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
    },
    "author": "Chimarokem Divine Orji",
    "license": "ISC",
