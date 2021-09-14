@@ -30,10 +30,11 @@
    }
 
    &::before {
-      content: attr(data-status);
+      content: 'Light';
       right: calc(100% + 1rem);
    }
    &::after {
+      content: 'Dark';
       position: absolute;
       left: calc(100% + 1rem);
    }
@@ -46,7 +47,7 @@
          transform: translateX(calc(-100% - 2px)) scale(1.35);
       }
       &::after {
-         content: attr(data-status);
+         // content: attr(data-status);
          color: $color-gray-dark;
       }
    }

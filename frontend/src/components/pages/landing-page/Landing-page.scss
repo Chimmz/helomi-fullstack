@@ -16,7 +16,7 @@
       padding: 5vw 5vw;
       background: $color-primary-darker;
 
-      @media (max-width: 40.625em) {
+      @include respond(tab-portrait) {
          flex-direction: column-reverse;
          padding: 10rem 3rem;
       }
@@ -27,7 +27,7 @@
          color: $color-white;
          font-family: 'DM Sans', sans-serif;
 
-         @media (max-width: 40.625em) {
+         @include respond(tab-portrait) {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -36,9 +36,10 @@
          }
       }
       &__heading {
-         // max-width: 15ch;
-         font-size: clamp(5rem, 7rem, 5vw);
-         font-weight: normal;
+      }
+      & .parag {
+         color: $color-primary-lightest;
+         max-width: 50ch;
       }
       &__picture {
          flex: 1;
@@ -104,8 +105,8 @@
 .footer {
    display: flex;
    align-items: center;
-   justify-content: space-between;
-   gap: 3rem;
+   justify-content: center;
+   gap: 5rem;
    flex-wrap: wrap;
    font-size: 1.4rem;
    background: $color-black;

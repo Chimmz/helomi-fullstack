@@ -19,9 +19,13 @@ const LandingPage = ({ user }) => {
       <div className='home'>
          <header className='home__header'>
             <div className='home__header__textbox'>
-               <h1 className='h-1 home__header__heading u-mgb-lg'>
+               <h1 className='h-1 home__header__heading u-mgb-sm'>
                   Enjoy the moments of communication.
                </h1>
+               <p className='parag u-mgb-lg'>
+                  Helomi is a desktop web-based chat application for making
+                  memorable communication experiences.
+               </p>
                <Link to='/signup' className='btn btn-black btn-lg btn--rounded'>
                   Get started
                </Link>
