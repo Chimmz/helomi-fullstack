@@ -8,11 +8,11 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   gap: 3rem;
+   // gap: 3rem;
    padding: 0 5rem;
 
    &.d-theme {
-      background-color: $color-black;
+      background-color: $bg-dark;
    }
 
    &__logo {

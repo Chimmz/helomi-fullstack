@@ -53,11 +53,12 @@ function SidenavSearch({ chats, history }) {
                   searchResults.length ? (
                      searchResults.map(chat => (
                         <Link
-                           to={`/chats/${chat._id}`}
+                           to={`/dashboard/chats/${chat._id}`}
                            key={chat.id}
                            className={`allchats__search__results__result ${
                               darkTheme && 'd-theme'
-                           }`}>
+                           }`}
+                        >
                            {chat.username}
                         </Link>
                      ))
@@ -65,7 +66,8 @@ function SidenavSearch({ chats, history }) {
                      <span
                         className={`allchats__search__results__result ${
                            darkTheme && 'd-theme'
-                        }`}>
+                        }`}
+                     >
                         No results
                      </span>
                   )

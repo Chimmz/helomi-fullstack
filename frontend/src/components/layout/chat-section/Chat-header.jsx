@@ -37,9 +37,10 @@ function ChatHeader({ user, currentChat, currentUser, dispatch }) {
             <div
                className={`chatting-section__header__userphoto chatting-section__header__userphoto--${
                   chatPhotoZoomedIn ? 'zoomed-in' : 'zoomed-out'
-               }`}>
+               }`}
+            >
                <img
-                  src={`/img/users/${currentChat.photo}`}
+                  src={`/users/${currentChat.photo}`}
                   alt=''
                   className='user-img pic pic--sm'
                   onClick={() => setChatPhotoZoomedIn(true)}
@@ -52,7 +53,8 @@ function ChatHeader({ user, currentChat, currentUser, dispatch }) {
          <div
             className={`chatting-section__header__nav ${
                darkTheme && 'd-theme'
-            }`}>
+            }`}
+         >
             {/* <i
                className="fas fa-phone-alt with-label with-label-at-bottom"
                data-label="Start audio call"
@@ -62,7 +64,8 @@ function ChatHeader({ user, currentChat, currentUser, dispatch }) {
                data-label='Start video call'
                onClick={() =>
                   dispatch(startVideoCall(currentUser._id, currentChatId))
-               }></i>
+               }
+            ></i>
             {/* </Link> */}
             {/* <div className='chatting-section__header__nav__options'>
                <i

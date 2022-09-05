@@ -23,8 +23,12 @@
 
          &.d-theme {
             border: none;
-            background: rgba($color-white, 0.18);
-            color: $color-gray-light;
+            background: rgba($color-white, 0.1);
+            color: $color-gray-lighter;
+
+            &::-webkit-input-placeholder {
+               color: rgba(#fff, 0.5);
+            }
          }
 
          &:focus {

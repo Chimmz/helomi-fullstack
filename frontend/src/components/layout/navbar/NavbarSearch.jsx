@@ -78,7 +78,7 @@ function NavbarSearch({ user, currentUser, dispatch }) {
                      key={user._id}
                   >
                      <img
-                        src={`/img/users/${user.photo}`}
+                        src={`/users/${user.photo}`}
                         alt=''
                         className='navbar__search__suggestion__photo pic pic--sm'
                      />

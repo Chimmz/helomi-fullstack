@@ -18,7 +18,7 @@ const sharp = require('sharp');
 // });
 const deleteCurrentPhoto = fileName => {
    if (fileName.includes('user-default')) return;
-   fs.unlinkSync(`./img/users/${fileName}`).catch(err => console.log(err));
+   fs.unlinkSync(`/uploads/users/${fileName}`).catch(err => console.log(err));
 };
 const multerStorage = multer.memoryStorage();
 
@@ -43,7 +43,7 @@ exports.resizeUserPhoto = (req, res, next) => {
       .resize(500, 500)
       .toFormat('jpeg')
       .jpeg({ quality: 90 })
-      .toFile(`public/img/users/${req.file.filename}`);
+      .toFile(`uploads/users/${req.file.filename}`);
 
    next();
 };

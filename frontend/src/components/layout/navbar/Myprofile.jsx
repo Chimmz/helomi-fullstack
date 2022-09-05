@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -46,7 +46,7 @@ const Myprofile = function (props) {
             onClick={toggleShowFullProfile}
          >
             <img
-               src={`/img/users/${currentUser.photo}`}
+               src={`/users/${currentUser.photo}`}
                alt=''
                className='navbar__photo pic pic--sm'
             />
@@ -59,7 +59,7 @@ const Myprofile = function (props) {
          >
             <picture className='navbar__myprofile__dropdown__picture'>
                <img
-                  src={`/img/users/${currentUser.photo}`}
+                  src={`/users/${currentUser.photo}`}
                   alt=''
                   className='navbar__myprofile__dropdown__picture__photo'
                />

@@ -32,7 +32,7 @@ function Chat({ chat, allReduxMsgs, currentUser }) {
          activeClassName='chat--active'
       >
          <img
-            src={`/img/users/${chat.photo}`}
+            src={`/users/${chat.photo}`}
             alt=''
             className='chat__photo pic pic--sm'
          />

@@ -14,6 +14,7 @@
 
    &.d-theme {
       background-color: $bg-darkest;
+      border-bottom: 1px solid #303030;
    }
 
    &::after {

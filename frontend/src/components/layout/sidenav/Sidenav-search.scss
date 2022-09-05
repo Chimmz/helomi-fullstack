@@ -6,7 +6,7 @@
    @include flex-center;
 
    &.d-theme {
-      // background: $bg-darker;
+      // background: rgba(#000, 0.6) !important;
       // background-color: $color-black;
    }
 }
@@ -55,7 +55,7 @@
             }
          }
          &.d-theme {
-            background: $bg-darker;
+            background: rgba($color-black, 0.35) !important;
             color: $color-gray-light;
             border-radius: 999px;
 

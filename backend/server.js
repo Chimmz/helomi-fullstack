@@ -11,7 +11,6 @@ const io = require('socket.io')(server, {
       methods: ['GET', 'POST']
    }
 });
-
 const port = process.env.PORT || 5000;
 dotenv.config({ path: './config.env' });
 
